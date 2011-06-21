@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <title>RedTelephone</title>
+        <link rel="stylesheet" href="~/Content/style.css" type="text/css" media="screen" />
+    </head>
+
+    <body>
+        <header>
+            <h1>RedTelephone</h1>
+        </header>
+
+        <nav>
+            <div id="centering-hack">
+                <ul>
+                    <li>
+                        <a>Tickets</a>
+                    </li>
+                    <li>
+                        <a>Reporting</a>
+                    </li>
+                    <li>
+                        <a>Users</a>
+                    </li>
+                    <li>
+                        <a>Groups</a>
+                    </li>
+                    <li>
+                        <a>Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <section>
+            <p>
+                <use content="view"/>
+            </p>
+        </section>
+    </body>
+    
+</html>

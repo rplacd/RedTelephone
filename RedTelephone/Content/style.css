@@ -1,0 +1,58 @@
+html {
+    background-color: white;
+    margin-top: 0px;
+}
+body {
+    background-color: #f1c5c3;
+    width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: sans-serif;
+    padding-bottom: 5px;
+}
+header h1, header h2, section h1, section h2 {
+    color: white;
+    text-align: center;
+    padding: 5px;
+}
+h1 {
+    background-color: #800600;
+}
+h2 {
+    background-color: #bf3730;
+    font-size: 14px;
+}
+nav {
+    background-color: #800600;
+	color: white;
+	font-weight: bold;
+}
+	nav #centering-hack {
+		margin-left: auto;
+		margin-right: auto;
+	}
+    nav ul {  
+		padding: 0;
+        list-style: none;
+		text-align: center;
+    }  
+	nav ul li { 
+		display: inline-block;
+		padding: 5px;
+	}
+footer {
+	text-align: center;
+	background-color: #800600;
+	color: white;
+}
+footer p {
+	padding: 5px;
+}
+	
+	
+.largelist {
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+    font-size: 24px;
+}
