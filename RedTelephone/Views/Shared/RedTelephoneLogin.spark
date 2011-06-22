@@ -1,0 +1,37 @@
+﻿<div>
+    <header>
+        <h1>Please login.</h1>
+    </header>
+
+    <if condition="ViewData['Message'] != ''">
+        <h2>${ViewData["Message"]}</h2>
+    </if>
+
+    <form action="/auth/login" method="post">
+        <section>
+            <p>You haven't logged in at all, or the page you're accessing requires permissions you don't have. Please re-authenticate.</p>
+            <div class="form">
+                <div class="form-row">
+                    <p class="form-cell">Username</p>
+                    <input class="form-cell" type="text" name="username"/>
+                </div>
+                <div class="form-row">
+                    <p class="form-cell">Password</p>
+                    <input class="form-cell" type="password" name="password"/>
+                </div>
+                <input type="hidden" name="destination" value="${ViewData['Destination']}"/>
+                <input type="hidden" name="referer" value="${ViewData['Referer']}"/>
+            </div>
+        </section>
+
+        <nav>
+            <div id="centering-hack">
+                <ul>
+                    <a href="\">Go back.</a>
+                    <input type="submit" value="Login." />
+                </ul>
+            </div>
+        </nav>
+    </form>
+
+</div>

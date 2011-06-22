@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="RedTelephone" Class="ModelsDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=NICK-C\SQLEXPRESS;Initial Catalog=RedTelephone;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="RedTelephoneConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.T_CDFUSR" Member="Users">
+    <Type Name="User">
+      <Column Name="E_USRUIDC" Member="userName" Type="System.String" DbType="VarChar(8) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="E_USRUPWE" Member="hashCombo" Type="System.String" DbType="VarChar(64) NOT NULL" CanBeNull="false" />
+      <Column Name="E_USRUNFE" Member="firstName" Type="System.String" DbType="VarChar(64) NOT NULL" CanBeNull="false" />
+      <Column Name="E_USRUNLE" Member="lastName" Type="System.String" DbType="VarChar(64) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+</Database>

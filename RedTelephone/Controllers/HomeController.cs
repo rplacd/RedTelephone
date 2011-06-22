@@ -11,7 +11,9 @@ namespace RedTelephone.Controllers
     {
         public ActionResult Index()
         {
-            logger.Debug("yay");
+            logger.Debug("HomeController.Index - accessed");
+            if (!userAuthed_p())
+                return LoginRequired();
             return View();
         }
     }

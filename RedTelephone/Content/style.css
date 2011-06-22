@@ -10,10 +10,11 @@ body {
     font-family: sans-serif;
     padding-bottom: 5px;
 }
-header h1, header h2, section h1, section h2 {
+h1, h2 {
     color: white;
     text-align: center;
-    padding: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 h1 {
     background-color: #800600;
@@ -22,8 +23,7 @@ h2 {
     background-color: #bf3730;
     font-size: 14px;
 }
-section 
-{
+section {
     padding-left: 10px;
     padding-right: 10px;
 }
@@ -60,4 +60,18 @@ footer p {
     text-align: center;
     font-weight: bold;
     font-size: 24px;
+}
+
+.form {
+	margin-left: auto;
+    margin-right: auto;
+	display: table;
+}
+.form-row {
+	display: table-row;
+}
+.form-cell {
+	display: table-cell;
+	padding-left: 10px;
+	padding-right: 10px;
 }
