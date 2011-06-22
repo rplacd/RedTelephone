@@ -22,6 +22,11 @@ h2 {
     background-color: #bf3730;
     font-size: 14px;
 }
+section 
+{
+    padding-left: 10px;
+    padding-right: 10px;
+}
 nav {
     background-color: #800600;
 	color: white;
