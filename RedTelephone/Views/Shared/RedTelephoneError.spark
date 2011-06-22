@@ -1,0 +1,23 @@
+﻿<div>
+    <header>
+        <h1>There's been a problem!</h1>
+    </header>
+
+    <section>
+        <p><em>${ViewData["Message"]}</em></p>
+        <p>If you've messed up, it's easy to go back and retry - if you know you've done everything right and this is a <em>programming</em> issue, good luck.</p>
+    </section>
+
+    <nav>
+        <div id="centering-hack">
+            <ul>
+                <li>
+                    <a href="${ViewData['Referer']}">Go back.</a>
+                </li>
+                <li>
+                    <a href="/">Exit up top.</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>

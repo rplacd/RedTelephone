@@ -6,10 +6,6 @@
     </head>
 
     <body>
-        <header>
-            <h1>RedTelephone</h1>
-        </header>
-
         <nav>
             <div id="centering-hack">
                 <ul>
@@ -32,11 +28,7 @@
             </div>
         </nav>
 
-        <section>
-            <p>
-                <use content="view"/>
-            </p>
-        </section>
+    <use content="view"/>
     </body>
     
 </html>

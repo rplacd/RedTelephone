@@ -83,6 +83,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Site.css" />
     <Content Include="Global.asax" />
     <Content Include="Content\style.css" />
     <Content Include="Web.config" />
@@ -104,11 +105,15 @@
     <Content Include="Scripts\MicrosoftMvcAjax.debug.js" />
     <Content Include="Scripts\MicrosoftMvcValidation.js" />
     <Content Include="Scripts\MicrosoftMvcValidation.debug.js" />
+    <None Include="Views\Shared\RedTelephoneError.spark">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Views\Home\Index.spark">
       <SubType>Designer</SubType>
     </None>
     <Content Include="Views\Shared\Error.aspx" />
     <None Include="Views\Layouts\Application.spark" />
+    <Content Include="Views\Shared\Site.Master" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

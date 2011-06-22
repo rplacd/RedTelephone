@@ -8,8 +8,10 @@ using log4net.Config;
 
 namespace RedTelephone.Controllers
 {
-
     // This class adds some common functionality used by all RedTelephone controllers.
+    // ...especially some context-free ViewActions that do common stuff.
+    // Inheriting isn't too essential here, but this is a coverall since I'm not sure if 
+    // I might have to inherit-and-override any methods. The cost is minimal anyway.
     public abstract class RedTelephoneController : Controller
     {
 
@@ -34,5 +36,17 @@ namespace RedTelephone.Controllers
                 }
             }
         }
+
+        //Catch-all error out method - displays an error screen and asks to either:
+        //go back to referer or go to the top-level.
+        protected ActionResult Error(String errorMessage)
+        {
+            logger.ErrorFormat("RedTelephoneController.Error accessed with message {0}", errorMessage);
+            ViewData["Message"] = errorMessage;
+            ViewData["Referer"] = Request.ServerVariables["http_referer"];
+            return View("RedTelephoneError");
+        }
+
+        //Authorization methods - 
     }
 }

@@ -1,1 +1,9 @@
-﻿<p>Yes, we have no bananas.</p>
+﻿<div>
+    <header>
+        <h1>RedTelephone</h1>
+    </header>
+
+    <section>
+        <p>Yes, we have no bananas.</p>
+    </section>
+</div>

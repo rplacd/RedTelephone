@@ -11,7 +11,6 @@ namespace RedTelephone.Controllers
     {
         public ActionResult Index()
         {
-            ViewData["Message"] = "Welcome to ASP.NET MVC!";
             logger.Debug("yay");
             return View();
         }
