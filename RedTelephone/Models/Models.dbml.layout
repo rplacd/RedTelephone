@@ -2,11 +2,30 @@
 <ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="Models">
   <DataContextMoniker Name="/ModelsDataContext" />
   <nestedChildShapes>
-    <classShape Id="aabbf60d-fa06-4e56-b856-cf92cae6b2a8" absoluteBounds="2.625, 1.875, 2, 1.5785953776041666">
+    <classShape Id="aabbf60d-fa06-4e56-b856-cf92cae6b2a8" absoluteBounds="1.375, 1.25, 2, 1.5785953776041666">
       <DataClassMoniker Name="/ModelsDataContext/User" />
       <nestedChildShapes>
-        <elementListCompartment Id="ba63e28f-623c-4d14-b708-d2d11e498cbb" absoluteBounds="2.6399999999999997, 2.335, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="ba63e28f-623c-4d14-b708-d2d11e498cbb" absoluteBounds="1.3899999999999997, 1.71, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
+    <classShape Id="dcded9ac-27cd-45e6-8a5d-a025eece535b" absoluteBounds="5, 1.25, 2, 1.3862939453125">
+      <DataClassMoniker Name="/ModelsDataContext/Permission" />
+      <nestedChildShapes>
+        <elementListCompartment Id="72c57121-7da8-49e1-8659-6aca97894e1d" absoluteBounds="5.015, 1.71, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="8646ffe7-edaa-4357-8d67-1a5c80bde4ef" absoluteBounds="3.375, 3.5, 2, 1.1939925130208333">
+      <DataClassMoniker Name="/ModelsDataContext/UserPermissionPair" />
+      <nestedChildShapes>
+        <elementListCompartment Id="6d47812d-f7e5-4c83-8a05-784fe16c60a4" absoluteBounds="3.3899999999999997, 3.96, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(2.3749995 : 2.82859537760417); (2.3749995 : 4.09699625651042); (3.375 : 4.09699625651042)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/ModelsDataContext/User/User_T_CDFUPM" />
+      <nodes>
+        <classShapeMoniker Id="aabbf60d-fa06-4e56-b856-cf92cae6b2a8" />
+        <classShapeMoniker Id="8646ffe7-edaa-4357-8d67-1a5c80bde4ef" />
+      </nodes>
+    </associationConnector>
   </nestedChildShapes>
 </ordesignerObjectsDiagram>

@@ -33,6 +33,9 @@ namespace RedTelephone.Models
     partial void InsertUser(User instance);
     partial void UpdateUser(User instance);
     partial void DeleteUser(User instance);
+    partial void InsertPermission(Permission instance);
+    partial void UpdatePermission(Permission instance);
+    partial void DeletePermission(Permission instance);
     #endregion
 		
 		public ModelsDataContext() : 
@@ -70,6 +73,22 @@ namespace RedTelephone.Models
 			get
 			{
 				return this.GetTable<User>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Permission> Permissions
+		{
+			get
+			{
+				return this.GetTable<Permission>();
+			}
+		}
+		
+		public System.Data.Linq.Table<UserPermissionPair> UserPermissionPairs
+		{
+			get
+			{
+				return this.GetTable<UserPermissionPair>();
 			}
 		}
 	}
@@ -204,6 +223,161 @@ namespace RedTelephone.Models
 			if ((this.PropertyChanged != null))
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.T_CRFPNM")]
+	public partial class Permission : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _permission;
+		
+		private string _description;
+		
+		private short _sortIndex;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnpermissionChanging(string value);
+    partial void OnpermissionChanged();
+    partial void OndescriptionChanging(string value);
+    partial void OndescriptionChanged();
+    partial void OnsortIndexChanging(short value);
+    partial void OnsortIndexChanged();
+    #endregion
+		
+		public Permission()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_PNMCODC", Storage="_permission", DbType="Char(2) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string permission
+		{
+			get
+			{
+				return this._permission;
+			}
+			set
+			{
+				if ((this._permission != value))
+				{
+					this.OnpermissionChanging(value);
+					this.SendPropertyChanging();
+					this._permission = value;
+					this.SendPropertyChanged("permission");
+					this.OnpermissionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_PNMDSCE", Storage="_description", DbType="VarChar(32) NOT NULL", CanBeNull=false)]
+		public string description
+		{
+			get
+			{
+				return this._description;
+			}
+			set
+			{
+				if ((this._description != value))
+				{
+					this.OndescriptionChanging(value);
+					this.SendPropertyChanging();
+					this._description = value;
+					this.SendPropertyChanged("description");
+					this.OndescriptionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_PNMSEQC", Storage="_sortIndex", DbType="SmallInt NOT NULL")]
+		public short sortIndex
+		{
+			get
+			{
+				return this._sortIndex;
+			}
+			set
+			{
+				if ((this._sortIndex != value))
+				{
+					this.OnsortIndexChanging(value);
+					this.SendPropertyChanging();
+					this._sortIndex = value;
+					this.SendPropertyChanged("sortIndex");
+					this.OnsortIndexChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.T_CDFUPM")]
+	public partial class UserPermissionPair
+	{
+		
+		private string _permission;
+		
+		private string _userName;
+		
+		public UserPermissionPair()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_UPMPNMC", Storage="_permission", DbType="Char(2) NOT NULL", CanBeNull=false)]
+		public string permission
+		{
+			get
+			{
+				return this._permission;
+			}
+			set
+			{
+				if ((this._permission != value))
+				{
+					this._permission = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_USRUIDC", Storage="_userName", DbType="VarChar(8) NOT NULL", CanBeNull=false)]
+		public string userName
+		{
+			get
+			{
+				return this._userName;
+			}
+			set
+			{
+				if ((this._userName != value))
+				{
+					this._userName = value;
+				}
 			}
 		}
 	}

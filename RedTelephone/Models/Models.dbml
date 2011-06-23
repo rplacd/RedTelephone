@@ -6,6 +6,21 @@
       <Column Name="E_USRUPWE" Member="hashCombo" Type="System.String" DbType="VarChar(64) NOT NULL" CanBeNull="false" />
       <Column Name="E_USRUNFE" Member="firstName" Type="System.String" DbType="VarChar(64) NOT NULL" CanBeNull="false" />
       <Column Name="E_USRUNLE" Member="lastName" Type="System.String" DbType="VarChar(64) NOT NULL" CanBeNull="false" />
+      <Association Name="User_T_CDFUPM" Member="UserPermissionPairs" ThisKey="userName" OtherKey="userName" Type="UserPermissionPair" />
+    </Type>
+  </Table>
+  <Table Name="dbo.T_CRFPNM" Member="Permissions">
+    <Type Name="Permission">
+      <Column Name="E_PNMCODC" Member="permission" Type="System.String" DbType="Char(2) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="E_PNMDSCE" Member="description" Type="System.String" DbType="VarChar(32) NOT NULL" CanBeNull="false" />
+      <Column Name="E_PNMSEQC" Member="sortIndex" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.T_CDFUPM" Member="UserPermissionPairs">
+    <Type Name="UserPermissionPair">
+      <Column Name="E_UPMPNMC" Member="permission" Type="System.String" DbType="Char(2) NOT NULL" CanBeNull="false" />
+      <Column Name="E_USRUIDC" Member="userName" Type="System.String" DbType="VarChar(8) NOT NULL" CanBeNull="false" />
+      <Association Name="User_T_CDFUPM" Member="User" ThisKey="userName" OtherKey="userName" Type="User" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

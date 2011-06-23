@@ -96,7 +96,15 @@ namespace RedTelephone.Controllers
             return true;
         }
 
-        private bool userAuthed_p()
+        private bool userHasPerms_p(String username, String[] perms)
+        {
+            return (new ModelsDataContext().UserPermissionPairs)
+                                .Where(up => up.userName == username)
+                                .Where(up => perms.Contains(up.permission)).Count()
+                   == perms.Count();
+        }
+
+        private bool userAuthed_p(String[] perms)
         {
             logger.Debug("RedTelephoneController.userAuthed_p called.");
             HttpCookie cookie = Request.Cookies["Authentication"];
@@ -111,7 +119,7 @@ namespace RedTelephone.Controllers
                 return false;
             }
             //does the username and hashcombo exist + match?
-            return hashComboExists_p(cookie["username"], cookie["hashcombo"]);
+            return hashComboExists_p(cookie["username"], cookie["hashcombo"]) && userHasPerms_p(cookie["username"], perms);
         }
 
         protected ActionResult LoginRequired()
@@ -131,10 +139,10 @@ namespace RedTelephone.Controllers
             return View("RedTelephoneLogin");
         }
         // The combinator you need.
-        protected ActionResult authenticatedAction(Func<ActionResult> action)
+        protected ActionResult authenticatedAction(String[] perms, Func<ActionResult> action)
             //provides a combinator that checks whether the user is authenticated, then runs the innter action.
         {
-            if (!userAuthed_p())
+            if (!userAuthed_p(perms))
                 return LoginRequired();
             else
                 return action();
