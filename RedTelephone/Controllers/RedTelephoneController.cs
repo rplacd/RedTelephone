@@ -12,9 +12,12 @@ using RedTelephone.Models;
 namespace RedTelephone.Controllers
 {
     // This class adds some common functionality used by all RedTelephone controllers.
-    // ...especially some context-free ViewActions that do common stuff.
+    // ...especially some context-free ViewActions that do common stuff, and some Action combinators.
+
     // Inheriting isn't too essential here, but this is a coverall since I'm not sure if 
     // I might have to inherit-and-override any methods. The cost is minimal anyway.
+
+    // But whatever you do - only make the combinator public if possible.
     public abstract class RedTelephoneController : Controller
     {
 
@@ -54,7 +57,7 @@ namespace RedTelephone.Controllers
         //and a means to throw up a login screen.
         //Login screen will discreetly pass to the AuthController, which will then decide whether to shove a cookie in that
         //positively identifies the user, and decides whether to continue living happily or throw up the same screen with an error message.
-        
+
         protected String hashCombo(String username, String password)
             //produces a string of length 64 that contains what ostensibly is the hash of the username and password combo used.
         {
@@ -92,8 +95,8 @@ namespace RedTelephone.Controllers
             logger.DebugFormat("RedTelephoneController.hashComboExists_p is letting the user {0} in.", username);
             return true;
         }
-        
-        protected bool userAuthed_p()
+
+        private bool userAuthed_p()
         {
             logger.Debug("RedTelephoneController.userAuthed_p called.");
             HttpCookie cookie = Request.Cookies["Authentication"];
@@ -126,6 +129,23 @@ namespace RedTelephone.Controllers
             ViewData["Referer"] = referer;
             ViewData["Message"] = message;
             return View("RedTelephoneLogin");
+        }
+        // The combinator you need.
+        protected ActionResult authenticatedAction(Func<ActionResult> action)
+            //provides a combinator that checks whether the user is authenticated, then runs the innter action.
+        {
+            if (!userAuthed_p())
+                return LoginRequired();
+            else
+                return action();
+        }
+
+        //A combinator for controllers that only need to side-effect - SQL updates, cookie jiggery - and then
+        //goes straight back to referer.
+        protected ActionResult sideEffectingAction(Action action)
+        {
+            action();
+            return Redirect(Request.ServerVariables["http_referer"]);
         }
     }
 }

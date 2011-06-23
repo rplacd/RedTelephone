@@ -11,10 +11,10 @@ namespace RedTelephone.Controllers
     {
         public ActionResult Index()
         {
-            logger.Debug("HomeController.Index - accessed");
-            if (!userAuthed_p())
-                return LoginRequired();
-            return View();
+            return authenticatedAction(()=>{
+                logger.Debug("HomeController.Index - accessed");
+                return View();
+            });
         }
     }
 }

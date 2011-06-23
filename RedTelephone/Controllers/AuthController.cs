@@ -32,5 +32,12 @@ namespace RedTelephone.Controllers
             }
         }
 
+        public ActionResult Logout()
+        {
+            return sideEffectingAction(()=>{
+                Response.SetCookie(new HttpCookie("Authentication"));
+            });
+        }
+
     }
 }
