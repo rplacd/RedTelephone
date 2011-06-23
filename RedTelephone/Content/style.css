@@ -4,13 +4,13 @@ html {
 }
 body {
     background-color: #f1c5c3;
-    width: 600px;
+    width: 800px;
     margin-left: auto;
     margin-right: auto;
     font-family: sans-serif;
     padding-bottom: 5px;
 }
-h1, h2 {
+h1, h2{
     color: white;
     text-align: center;
     padding-top: 5px;
@@ -23,6 +23,25 @@ h2 {
     background-color: #bf3730;
     font-size: 14px;
 }
+table {
+	margin-left: auto;
+    margin-right: auto;
+	border-spacing: 0;
+}
+th {
+	color: white;
+	background-color: #bf3730;
+	padding-top: 5px;
+    padding-bottom: 5px;
+	text-align: left;
+	min-width: 100px;
+}
+th, td {
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+
 section {
     padding-left: 10px;
     padding-right: 10px;

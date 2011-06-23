@@ -1,0 +1,40 @@
+﻿<div>
+    <header>
+        <h1>Add a new user</h1>
+    </header>
+    <form action="/users/newuser" method="post">
+        <section>
+            <div class="form">
+                <div class="form-row">
+                    <p class="form-cell">Username</p>
+                    <input class="form-cell" type="text" name="username" />
+                </div>
+                <div class="form-row">
+                    <p class="form-cell">Password</p>
+                    <input class="form-cell" type="password" name="password" />
+                </div>
+                <div class="form-row">
+                    <p class="form-cell">First name</p>
+                    <input class="form-cell" type="text" name="firstname" />
+                </div>
+                <div class="form-row">
+                    <p class="form-cell">Last name</p>
+                    <input class="form-cell" type="text" name="lastname" />
+                </div>
+            </div>
+        </section>
+
+        <nav>
+            <div id="centering-hack">
+                <ul>
+                    <li>
+                        <a href="/users">Cancel</a>
+                    </li>
+                    <li>
+                        <input type="submit" value="Save and add" />
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </form>
+</div>

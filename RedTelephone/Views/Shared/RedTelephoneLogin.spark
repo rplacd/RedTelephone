@@ -28,7 +28,7 @@
             <div id="centering-hack">
                 <ul>
                     <a href="\">Go back.</a>
-                    <input type="submit" value="Login." />
+                    <input type="submit" value="Login" />
                 </ul>
             </div>
         </nav>

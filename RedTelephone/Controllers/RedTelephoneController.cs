@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -154,6 +155,79 @@ namespace RedTelephone.Controllers
         {
             action();
             return Redirect(Request.ServerVariables["http_referer"]);
+        }
+
+        //A combinator that dispatches for GET and POST actions - this is when we don't want form variables
+        //to be passed in as parameters (which will happen, especially when displaying collections.)
+        protected ActionResult formAction(Func<ActionResult> getAction, Func<ActionResult> postAction)
+        {
+            if (Request.HttpMethod == "GET") {
+                logger.Debug("RedTelephoneController.formAction dispatching GET request");
+                return getAction();
+            } else if (Request.HttpMethod == "POST") {
+                logger.Debug("RedTelephoneController.formAction dispatching POST request");
+                return postAction();
+            } else {
+                logger.ErrorFormat("RedTelephoneController.formAction doesn't know how to dispatch HTTP method {0}", Request.HttpMethod);
+                return Error("The programming doesn't know how to deal with the HTTP request you've just made.");
+            }
+        }
+
+        //Takes raw form variables in the format subkey?key (? delimits), and returns the map (key -> (subkey -> x))
+        //This allows us to display collections together.
+        //Why subkey_key? Because subkeys are determined by the programmer and won't have extra delimiters - WON'T THEY?
+        protected Dictionary<String, Dictionary<String, String>> extractRowParams(NameValueCollection formVars)
+        {
+            Dictionary<String, Dictionary<String, String>> ret = new Dictionary<String, Dictionary<String, String>>();
+            foreach (String key in formVars.AllKeys) {
+                if (key.Contains('?')) {
+                    String[] subkey_key = key.Split(new Char[] { '?' }, 2, StringSplitOptions.None);
+
+                    if (!ret.ContainsKey(subkey_key[1])) {
+                        ret[subkey_key[1]] = new Dictionary<String, String>();
+                    }
+                    ret[subkey_key[1]].Add(subkey_key[0], formVars[key]);
+                }
+            }
+            return ret;
+        }
+
+        //Quick thing that acts like an assert for validating - on failure, logs an error, tosses an exception up...
+        //To the accompanying error filter, who'll intervene and dump the error.
+        //Set the logPrefix, call Validate or one of its special cases.
+        protected override void OnException(ExceptionContext ctx)
+        //perhaps we can catch LINQ<->SQL errors here as well...
+        {
+            if (ctx.Exception.GetType().Name == "ValidateFailException") {
+                ctx.ExceptionHandled = true;
+                ctx.Result = Error(ctx.Exception.Message);
+            }
+            return;
+        }
+        private class ValidateFailException : Exception {
+            public ValidateFailException(String msg):
+                base(msg)
+            {}
+        }
+        protected String validationLogPrefix = "derp"; //because we're usually validating multiple vars simultaneously.
+        protected void Validate(Object subject, Func<Object, bool> pred, String msg)
+            //the message has a single assumed format argument.
+        {
+            if (!pred(subject)) {
+                String formatted = String.Format(msg, subject);
+                logger.Warn(validationLogPrefix + " - " + formatted);
+                throw new ValidateFailException("You've misentered something into a form." + " " + formatted);
+            }
+        }
+        //Some quick utility specialized functions with formulaic log sentences.
+        protected void ValidateStrLen(String subject, int maxlen, String stringNamePlural)
+        {
+            Validate(subject, s => s.ToString().Length <= maxlen,
+                stringNamePlural + " can't be larger than " + maxlen.ToString() + " chars - {0}");
+        }
+        protected void ValidateAssertion(bool asn, String msg, params Object[] args)
+        {
+            Validate(asn, x => (bool)x, String.Format(msg, args));
         }
     }
 }

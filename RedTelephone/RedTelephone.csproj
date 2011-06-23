@@ -81,6 +81,7 @@
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RedTelephoneController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -135,6 +136,15 @@
     <Content Include="Views\Shared\Error.aspx" />
     <None Include="Views\Layouts\Application.spark" />
     <Content Include="Views\Shared\Site.Master" />
+    <None Include="Views\Users\PasswordReset.spark">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Views\Users\NewUser.spark">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Views\Users\Index.spark">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
@@ -144,6 +154,7 @@
       <DependentUpon>Models.dbml</DependentUpon>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

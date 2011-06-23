@@ -16,10 +16,7 @@
                         <a>Reporting</a>
                     </li>
                     <li>
-                        <a>Users</a>
-                    </li>
-                    <li>
-                        <a>Groups</a>
+                        <a href="/users">Users</a>
                     </li>
                     <li>
                         <a href="/auth/logout">Logout</a>

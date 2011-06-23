@@ -1,0 +1,47 @@
+﻿<div>
+    <header>
+        <h1>Manage users</h1>
+    </header>
+    <form action="/users" method="post">
+        <section>
+            <table>
+                <tr>
+                    <th>Username</th>
+                    <th>First name</th>
+                    <th>Last name</th>
+                </tr>
+                <viewdata Users="IEnumerable[[User]]"/>
+                <for each="var user in Users">
+                    <tr>
+                        <td>${user.userName}</td>
+                        <td>
+                            <input type="text" name="firstname?${user.userName}" value="${user.firstName}"/>
+                        </td>
+                        <td>
+                            <input type="text" name="lastname?${user.userName}" value="${user.lastName}" />
+                        </td>
+                        <td>
+                            <a href="/users/passwordreset/${user.userName}">Reset password</a>
+                        </td>
+                        <td>
+                            <a href="/users/permissions/${user.userName}">Set permissions</a>
+                        </td>
+                    </tr>
+                </for>
+            </table>
+        </section>
+
+        <nav>
+            <div id="centering-hack">
+                <ul>
+                    <li>
+                        <a href="/users/newuser">Add a new user</a>
+                    </li>
+                    <li>
+                        <input type="submit" value="Save changes" />
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </form>
+</div>

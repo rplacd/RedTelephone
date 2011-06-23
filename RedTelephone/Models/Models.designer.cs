@@ -19,6 +19,7 @@ namespace RedTelephone.Models
 	using System.Linq;
 	using System.Linq.Expressions;
 	using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
 	using System;
 	
 	
@@ -165,7 +166,7 @@ namespace RedTelephone.Models
 				}
 			}
 		}
-		
+
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_USRUNFE", Storage="_firstName", DbType="VarChar(64) NOT NULL", CanBeNull=false)]
 		public string firstName
 		{
