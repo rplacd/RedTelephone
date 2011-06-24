@@ -1,0 +1,15 @@
+﻿<div>
+    <header>
+        <h1>Manage reference data</h1>
+    </header>
+
+    <section>
+        <table class="largelist">
+            <tr>
+                <td>
+                    <a href="/referencedata/permissions">User permissions</a>
+                </td>
+            </tr>
+        </table>
+    </section>
+</div>

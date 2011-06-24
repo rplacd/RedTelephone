@@ -22,6 +22,12 @@ namespace RedTelephone
                 "{controller}/{action}/{operand}", // URL with parameters
                 new { controller = "Home", action = "Index", operand = UrlParameter.Optional } // Parameter defaults
             );
+
+            routes.MapRoute(
+                "ReferenceData",
+                "referencedata/{controller}/{action}/{operand}",
+                new { action = "Index", operand = UrlParameter.Optional }
+            );
         }
 
         protected void Application_Start()
