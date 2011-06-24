@@ -84,28 +84,113 @@ namespace RedTelephone.Controllers
 
         public ActionResult PasswordReset(String operand)
         {
-            logger.Debug("UsersController.PasswordReset accessed.");
-            ViewData["Username"] = operand;
-            return View();
+            return authenticatedAction(new String[] { "UU" }, () => {
+                logger.Debug("UsersController.PasswordReset accessed.");
+                ViewData["Username"] = operand;
+                return View();
+            });
         }
         [HttpPost]
         public ActionResult PasswordReset(String operand, String password, String verifyPassword)
         {
-            logger.Debug("UsersController.PasswordReset updated.");
+            return authenticatedAction(new String[] { "UU" }, () => {
+                logger.Debug("UsersController.PasswordReset updated.");
 
-            //VALIDATION START
-            validationLogPrefix = "UsersController.PasswordReset";
-            ValidateAssertion(operand == password, "Password and verification do not match.");
-            //END
+                //VALIDATION START
+                validationLogPrefix = "UsersController.PasswordReset";
+                ValidateAssertion(operand == password, "Password and verification do not match.");
+                //END
 
+                var db = new ModelsDataContext();
+                var usersModel = db.Users;
+                User user = usersModel.FirstOrDefault(u => u.userName == operand);
+
+                user.hashCombo = hashCombo(user.userName, password);
+                db.SubmitChanges();
+
+                return Redirect("/users");
+            });
+        }
+
+        public ActionResult Permissions(String operand)
+        {
             var db = new ModelsDataContext();
-            var usersModel = db.Users;
-            User user = usersModel.FirstOrDefault(u => u.userName == operand);
+            var permsModel = db.UserPermissionPairs;
+            var allPermsModel = db.Permissions;
 
-            user.hashCombo = hashCombo(user.userName, password);
-            db.SubmitChanges();
+            return authenticatedAction(new String[] { "UU" }, ()=> formAction(() => {
+                IEnumerable<String> raw_selectedPerms = permsModel
+                    .Where(upp => upp.userName == operand)
+                    .Select(upp => upp.permission);
+                IEnumerable<String> raw_restPerms = allPermsModel
+                    .Where(p => !(raw_selectedPerms.Contains(p.permission)))
+                    .Select(p => p.permission);
 
-            return Redirect("/users");
+                //(permission, description).
+                List<Tuple<String, String>> selectedPerms_desc = new List<Tuple<String, String>>();
+                foreach (String perm in raw_selectedPerms) {
+                    selectedPerms_desc.Add(new Tuple<String, String>(
+                        perm,
+                        allPermsModel.FirstOrDefault(p => p.permission == perm).description
+                    ));
+                }
+
+                List<Tuple<String, String>> restPerms_desc = new List<Tuple<String, String>>();
+                foreach (String perm in raw_restPerms) {
+                    restPerms_desc.Add(new Tuple<String, String>(
+                        perm,
+                        allPermsModel.FirstOrDefault(p => p.permission == perm).description
+                    ));
+                }
+
+                ViewData["Username"] = operand;
+                ViewData["SelectedPerms"] = selectedPerms_desc;
+                ViewData["RestPerms"] = restPerms_desc;
+
+                return View();
+            },
+            () => {
+                //get the names for each permission.
+                String raw_perm_descs = Request.Form["selectedperms"];
+                List<String> perms;
+
+                if (raw_perm_descs == null) {
+                    perms = new List<String>();
+                } else {
+                    //split the raw_perm_descs up.
+                    perms = new List<String>();
+                    var encoded_perms = raw_perm_descs.Split(new Char[]{','});
+                    var decoded_perms = new List<String>();
+
+                    //urldecode them.
+                    foreach (String encoded_perm in encoded_perms) {
+                        decoded_perms.Add(HttpUtility.UrlDecode(encoded_perm));
+                    }
+
+                    //fetch their ID names.
+                    foreach (String decoded_desc in decoded_perms) {
+                        perms.Add(allPermsModel.FirstOrDefault(p => p.description == decoded_desc).permission);
+                    }
+                }
+
+                //remove all the existing permissions for the user in question...
+                IEnumerable<UserPermissionPair> permsForUser = permsModel.Where(upp => upp.userName == operand);
+                foreach(UserPermissionPair permPair in permsForUser) {
+                    permsModel.DeleteOnSubmit(permPair);
+                }
+                
+                //...and readd the ones we need.
+                permsModel.InsertAllOnSubmit(perms.Select((String p) => {
+                    var foo = new UserPermissionPair();
+                    foo.userName = operand;
+                    foo.permission = p;
+                    return foo;
+                }));
+
+                db.SubmitChanges();
+
+                return Redirect("/users");
+            }));
         }
     }
 }

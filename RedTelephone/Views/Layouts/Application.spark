@@ -3,6 +3,7 @@
     <head>
         <title>RedTelephone</title>
         <link rel="stylesheet" href="~/Content/style.css" type="text/css" media="screen" />
+		<script src="/Scripts/jquery-1.4.1.js"></script>
     </head>
 
     <body>

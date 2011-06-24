@@ -18,8 +18,8 @@
   </Table>
   <Table Name="dbo.T_CDFUPM" Member="UserPermissionPairs">
     <Type Name="UserPermissionPair">
-      <Column Name="E_UPMPNMC" Member="permission" Type="System.String" DbType="Char(2) NOT NULL" CanBeNull="false" />
-      <Column Name="E_USRUIDC" Member="userName" Type="System.String" DbType="VarChar(8) NOT NULL" CanBeNull="false" />
+      <Column Name="E_UPMPNMC" Member="permission" Type="System.String" DbType="Char(2) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="E_USRUIDC" Member="userName" Type="System.String" DbType="VarChar(8) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Association Name="User_T_CDFUPM" Member="User" ThisKey="userName" OtherKey="userName" Type="User" IsForeignKey="true" />
     </Type>
   </Table>

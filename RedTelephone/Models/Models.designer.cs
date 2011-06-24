@@ -19,7 +19,6 @@ namespace RedTelephone.Models
 	using System.Linq;
 	using System.Linq.Expressions;
 	using System.ComponentModel;
-    using System.ComponentModel.DataAnnotations;
 	using System;
 	
 	
@@ -37,6 +36,9 @@ namespace RedTelephone.Models
     partial void InsertPermission(Permission instance);
     partial void UpdatePermission(Permission instance);
     partial void DeletePermission(Permission instance);
+    partial void InsertUserPermissionPair(UserPermissionPair instance);
+    partial void UpdateUserPermissionPair(UserPermissionPair instance);
+    partial void DeleteUserPermissionPair(UserPermissionPair instance);
     #endregion
 		
 		public ModelsDataContext() : 
@@ -108,6 +110,8 @@ namespace RedTelephone.Models
 		
 		private string _lastName;
 		
+		private EntitySet<UserPermissionPair> _UserPermissionPairs;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -124,6 +128,7 @@ namespace RedTelephone.Models
 		
 		public User()
 		{
+			this._UserPermissionPairs = new EntitySet<UserPermissionPair>(new Action<UserPermissionPair>(this.attach_UserPermissionPairs), new Action<UserPermissionPair>(this.detach_UserPermissionPairs));
 			OnCreated();
 		}
 		
@@ -166,7 +171,7 @@ namespace RedTelephone.Models
 				}
 			}
 		}
-
+		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_USRUNFE", Storage="_firstName", DbType="VarChar(64) NOT NULL", CanBeNull=false)]
 		public string firstName
 		{
@@ -207,6 +212,19 @@ namespace RedTelephone.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_T_CDFUPM", Storage="_UserPermissionPairs", ThisKey="userName", OtherKey="userName")]
+		public EntitySet<UserPermissionPair> UserPermissionPairs
+		{
+			get
+			{
+				return this._UserPermissionPairs;
+			}
+			set
+			{
+				this._UserPermissionPairs.Assign(value);
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -225,6 +243,18 @@ namespace RedTelephone.Models
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+		
+		private void attach_UserPermissionPairs(UserPermissionPair entity)
+		{
+			this.SendPropertyChanging();
+			entity.User = this;
+		}
+		
+		private void detach_UserPermissionPairs(UserPermissionPair entity)
+		{
+			this.SendPropertyChanging();
+			entity.User = null;
 		}
 	}
 	
@@ -339,18 +369,34 @@ namespace RedTelephone.Models
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.T_CDFUPM")]
-	public partial class UserPermissionPair
+	public partial class UserPermissionPair : INotifyPropertyChanging, INotifyPropertyChanged
 	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private string _permission;
 		
 		private string _userName;
 		
+		private EntityRef<User> _User;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnpermissionChanging(string value);
+    partial void OnpermissionChanged();
+    partial void OnuserNameChanging(string value);
+    partial void OnuserNameChanged();
+    #endregion
+		
 		public UserPermissionPair()
 		{
+			this._User = default(EntityRef<User>);
+			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_UPMPNMC", Storage="_permission", DbType="Char(2) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_UPMPNMC", Storage="_permission", DbType="Char(2) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
 		public string permission
 		{
 			get
@@ -361,12 +407,16 @@ namespace RedTelephone.Models
 			{
 				if ((this._permission != value))
 				{
+					this.OnpermissionChanging(value);
+					this.SendPropertyChanging();
 					this._permission = value;
+					this.SendPropertyChanged("permission");
+					this.OnpermissionChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_USRUIDC", Storage="_userName", DbType="VarChar(8) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_USRUIDC", Storage="_userName", DbType="VarChar(8) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
 		public string userName
 		{
 			get
@@ -377,8 +427,66 @@ namespace RedTelephone.Models
 			{
 				if ((this._userName != value))
 				{
+					this.OnuserNameChanging(value);
+					this.SendPropertyChanging();
 					this._userName = value;
+					this.SendPropertyChanged("userName");
+					this.OnuserNameChanged();
 				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_T_CDFUPM", Storage="_User", ThisKey="userName", OtherKey="userName", IsForeignKey=true)]
+		public User User
+		{
+			get
+			{
+				return this._User.Entity;
+			}
+			set
+			{
+				User previousValue = this._User.Entity;
+				if (((previousValue != value) 
+							|| (this._User.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._User.Entity = null;
+						previousValue.UserPermissionPairs.Remove(this);
+					}
+					this._User.Entity = value;
+					if ((value != null))
+					{
+						value.UserPermissionPairs.Add(this);
+						this._userName = value.userName;
+					}
+					else
+					{
+						this._userName = default(string);
+					}
+					this.SendPropertyChanged("User");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}

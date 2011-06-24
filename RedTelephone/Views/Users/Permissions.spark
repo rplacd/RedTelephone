@@ -1,0 +1,90 @@
+﻿<div>
+    <viewdata SelectedPerms="IEnumerable[[Tuple[[String, String]]]]" RestPerms="IEnumerable[[Tuple[[String, String]]]]" />
+    <script type="text/javascript">
+        function swapSelected(jSelectSrc, jSelectTgt) {
+        var selectSrc = jSelectSrc.get()[0];
+        var selectTgt = jSelectTgt.get()[0];
+
+        //confusing, but so is .add() - apparently it removes from the old element, messing everything up.
+        //so we can't do any adding or removing in the actual iteration loop...
+        //we also have to remove before we add so there is no dependency left.
+        //strange but true.
+        var addElems = new Array();
+        var removeIdxs = new Array();
+
+            for(var i = 0; i < selectSrc.options.length; i++) {
+				if(selectSrc.options[i].selected) {
+					addElems.push(selectSrc.options[i]);
+					removeIdxs.push(i);
+				}
+			}
+			
+			for(var i = 0; i < removeIdxs.length; i++) {
+				selectSrc.remove(removeIdxs[i]);
+				selectTgt.add(addElems[i]);
+			}
+		}
+        
+        //selects all elements in the selected perms field so all the selected terms are sent.
+        //input element abuse ahoy!
+        function hackSelectAll(elem) {
+            elem.children().each( function(i, e){
+                e.setAttribute("selected", "selected");
+            });
+            var foo = 0;
+        }
+    </script>
+    <header>
+        <h1>Set permissions</h1>
+    </header>
+    <form action="/users/permissions/${ViewData['Username']}" method="post">
+        <section>
+            <h2>You are working with ${ViewData["Username"]}</h2>
+            <table>
+                <tr>
+                    <th>Selected permissions</th>
+                    <th style="min-width: 0"></th>
+                    <th style="min-width: 0"></th>
+                    <th>Other permissions</th>
+                </tr>
+                <tr>
+                    <td>
+                        <select class="form-cell" name="selectedperms" multiple="yes" id="selectedperms">
+                            <for each="var p in SelectedPerms">
+                                <option>${p.Item2}</option>
+                            </for>
+                        </select>
+                    </td>
+
+                    <td>
+                        <input type="button" value="&lt;" style="text-align: center" onclick="swapSelected($('#allperms'), $('#selectedperms'))" />
+                    </td>
+                    <td>
+                        <input type="button" value="&gt;" style="text-align: center" onclick="swapSelected($('#selectedperms'), $('#allperms'))" />
+                    </td>
+
+                    <td>
+                        <select class="form-cell" name="restperms" multiple="yes" id="allperms">
+                            <for each="var p in RestPerms">
+                                <option>${p.Item2}</option>
+                            </for>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+        </section>
+
+        <nav>
+            <div id="centering-hack">
+                <ul>
+                    <li>
+                        <a href="/users">Cancel</a>
+                    </li>
+                    <li>
+                        <input type="submit" value="Save" onclick="$('#selectedperms *').attr('selected','selected');" />
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </form>
+</div>
