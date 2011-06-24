@@ -119,6 +119,8 @@ namespace RedTelephone.Controllers
             var allPermsModel = db.Permissions;
 
             return authenticatedAction(new String[] { "UU" }, ()=> formAction(() => {
+                logger.DebugFormat("UsersController.Permissions accessed for {0}", operand);
+
                 IEnumerable<String> raw_selectedPerms = permsModel
                     .Where(upp => upp.userName == operand)
                     .Select(upp => upp.permission);
@@ -150,6 +152,7 @@ namespace RedTelephone.Controllers
                 return View();
             },
             () => {
+                logger.DebugFormat("UsersController.Permissions updated for {0}", operand);
                 //get the names for each permission.
                 String raw_perm_descs = Request.Form["selectedperms"];
                 List<String> perms;
