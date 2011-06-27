@@ -22,7 +22,10 @@ namespace RedTelephone.Controllers
                 () => formAction(
                     () => {
                         logger.Debug("UsersController.Index accessed.");
-                        ViewData["Users"] = usersModel.ToList();
+                        if (showHidden_p())
+                            ViewData["Users"] = usersModel.ToList();
+                        else
+                            ViewData["Users"] = usersModel.Where(u => u.active_p == "A").ToList();
                         return View();
                     },
                     () => sideEffectingAction(() => {
@@ -64,6 +67,7 @@ namespace RedTelephone.Controllers
                         newUser.hashCombo = hashCombo(Request.Form["username"], Request.Form["password"]);
                         newUser.firstName = Request.Form["firstname"];
                         newUser.lastName = Request.Form["lastname"];
+                        newUser.active_p = "A";
 
                         //VALIDATION HAPPENS HERE
                         validationLogPrefix = "UsersController.NewUser";
@@ -194,6 +198,16 @@ namespace RedTelephone.Controllers
 
                 return Redirect("/users");
             }));
+        }
+
+        public ActionResult Disable(string operand)
+        {
+            return disable_row<User>(new String[] { "UU" }, (new ModelsDataContext()).Users, u => u.userName == operand);
+        }
+
+        public ActionResult Enable(string operand)
+        {
+            return enable_row<User>(new String[] { "UU" }, (new ModelsDataContext()).Users, u => u.userName == operand);
         }
     }
 }

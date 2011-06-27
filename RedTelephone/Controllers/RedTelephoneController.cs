@@ -154,7 +154,10 @@ namespace RedTelephone.Controllers
         protected ActionResult sideEffectingAction(Action action)
         {
             action();
-            return Redirect(Request.ServerVariables["http_referer"]);
+            if (Request.ServerVariables["http_referer"] == null)
+                return Redirect("/");
+            else
+                return Redirect(Request.ServerVariables["http_referer"]);
         }
 
         //A combinator that dispatches for GET and POST actions - this is when we don't want form variables
@@ -228,6 +231,36 @@ namespace RedTelephone.Controllers
         protected void ValidateAssertion(bool asn, String msg, params Object[] args)
         {
             Validate(asn, x => (bool)x, String.Format(msg, args));
+        }
+
+        //some shared behavior for CRUD controllers - check whether we're showing hidden items, for ex.
+        //also some "dynamic" accessors on models - inc/dec sorting idxes, show/hide (and is shown/hidden), etc.
+        //and that "ting".
+        protected bool showHidden_p()
+            //show hidden rows?
+        {
+            return Request.Cookies["ShowHidden"] != null && Request.Cookies["ShowHidden"].Value == "yes";
+        }
+        protected void setRowActive<Model>(System.Data.Linq.Table<Model> table, Func<Model, bool> pred, String active_p) where Model : class
+        {
+            Model target = table.FirstOrDefault(pred);
+                if (target != null) {
+                    dynamic dyn_target = target;
+                    dyn_target.active_p = active_p;
+                    table.Context.SubmitChanges();
+                }
+        }
+        protected ActionResult disable_row<Model>(String[] perms, System.Data.Linq.Table<Model> table, Func<Model, bool> pred) where Model : class
+        {
+            return authenticatedAction(perms, () => sideEffectingAction(() => {
+                setRowActive<Model>(table, pred, "N");
+            }));
+        }
+        protected ActionResult enable_row<Model>(String[] perms, System.Data.Linq.Table<Model> table, Func<Model, bool> pred) where Model : class
+        {
+            return authenticatedAction(perms, () => sideEffectingAction(() => {
+                setRowActive<Model>(table, pred, "A");
+            }));
         }
     }
 }

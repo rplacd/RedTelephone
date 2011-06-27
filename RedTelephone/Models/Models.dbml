@@ -6,6 +6,7 @@
       <Column Name="E_USRUPWE" Member="hashCombo" Type="System.String" DbType="VarChar(64) NOT NULL" CanBeNull="false" />
       <Column Name="E_USRUNFE" Member="firstName" Type="System.String" DbType="VarChar(64) NOT NULL" CanBeNull="false" />
       <Column Name="E_USRUNLE" Member="lastName" Type="System.String" DbType="VarChar(64) NOT NULL" CanBeNull="false" />
+      <Column Name="E_USRIACT" Member="active_p" Type="System.String" DbType="char(1)" CanBeNull="false" />
       <Association Name="User_T_CDFUPM" Member="UserPermissionPairs" ThisKey="userName" OtherKey="userName" Type="UserPermissionPair" />
     </Type>
   </Table>
@@ -21,6 +22,13 @@
       <Column Name="E_UPMPNMC" Member="permission" Type="System.String" DbType="Char(2) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="E_USRUIDC" Member="userName" Type="System.String" DbType="VarChar(8) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Association Name="User_T_CDFUPM" Member="User" ThisKey="userName" OtherKey="userName" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.T_CRFPRI" Member="Priorities">
+    <Type Name="Priority">
+      <Column Name="E_PRICODC" Member="code" Type="System.Char" DbType="Char(1) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="E_PRIDSCE" Member="description" Type="System.String" DbType="VarChar(32) NOT NULL" CanBeNull="false" />
+      <Column Name="E_PRISEQC" Member="sortIndex" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
     </Type>
   </Table>
 </Database>

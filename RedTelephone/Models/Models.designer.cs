@@ -39,6 +39,9 @@ namespace RedTelephone.Models
     partial void InsertUserPermissionPair(UserPermissionPair instance);
     partial void UpdateUserPermissionPair(UserPermissionPair instance);
     partial void DeleteUserPermissionPair(UserPermissionPair instance);
+    partial void InsertPriority(Priority instance);
+    partial void UpdatePriority(Priority instance);
+    partial void DeletePriority(Priority instance);
     #endregion
 		
 		public ModelsDataContext() : 
@@ -94,6 +97,14 @@ namespace RedTelephone.Models
 				return this.GetTable<UserPermissionPair>();
 			}
 		}
+		
+		public System.Data.Linq.Table<Priority> Priorities
+		{
+			get
+			{
+				return this.GetTable<Priority>();
+			}
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.T_CDFUSR")]
@@ -110,6 +121,8 @@ namespace RedTelephone.Models
 		
 		private string _lastName;
 		
+		private string _active_p;
+		
 		private EntitySet<UserPermissionPair> _UserPermissionPairs;
 		
     #region Extensibility Method Definitions
@@ -124,6 +137,8 @@ namespace RedTelephone.Models
     partial void OnfirstNameChanged();
     partial void OnlastNameChanging(string value);
     partial void OnlastNameChanged();
+    partial void Onactive_pChanging(string value);
+    partial void Onactive_pChanged();
     #endregion
 		
 		public User()
@@ -208,6 +223,26 @@ namespace RedTelephone.Models
 					this._lastName = value;
 					this.SendPropertyChanged("lastName");
 					this.OnlastNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_USRIACT", Storage="_active_p", DbType="char(1)", CanBeNull=false)]
+		public string active_p
+		{
+			get
+			{
+				return this._active_p;
+			}
+			set
+			{
+				if ((this._active_p != value))
+				{
+					this.Onactive_pChanging(value);
+					this.SendPropertyChanging();
+					this._active_p = value;
+					this.SendPropertyChanged("active_p");
+					this.Onactive_pChanged();
 				}
 			}
 		}
@@ -466,6 +501,116 @@ namespace RedTelephone.Models
 						this._userName = default(string);
 					}
 					this.SendPropertyChanged("User");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.T_CRFPRI")]
+	public partial class Priority : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private char _code;
+		
+		private string _description;
+		
+		private short _sortIndex;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OncodeChanging(char value);
+    partial void OncodeChanged();
+    partial void OndescriptionChanging(string value);
+    partial void OndescriptionChanged();
+    partial void OnsortIndexChanging(short value);
+    partial void OnsortIndexChanged();
+    #endregion
+		
+		public Priority()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_PRICODC", Storage="_code", DbType="Char(1) NOT NULL", IsPrimaryKey=true)]
+		public char code
+		{
+			get
+			{
+				return this._code;
+			}
+			set
+			{
+				if ((this._code != value))
+				{
+					this.OncodeChanging(value);
+					this.SendPropertyChanging();
+					this._code = value;
+					this.SendPropertyChanged("code");
+					this.OncodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_PRIDSCE", Storage="_description", DbType="VarChar(32) NOT NULL", CanBeNull=false)]
+		public string description
+		{
+			get
+			{
+				return this._description;
+			}
+			set
+			{
+				if ((this._description != value))
+				{
+					this.OndescriptionChanging(value);
+					this.SendPropertyChanging();
+					this._description = value;
+					this.SendPropertyChanged("description");
+					this.OndescriptionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_PRISEQC", Storage="_sortIndex", DbType="SmallInt NOT NULL")]
+		public short sortIndex
+		{
+			get
+			{
+				return this._sortIndex;
+			}
+			set
+			{
+				if ((this._sortIndex != value))
+				{
+					this.OnsortIndexChanging(value);
+					this.SendPropertyChanging();
+					this._sortIndex = value;
+					this.SendPropertyChanged("sortIndex");
+					this.OnsortIndexChanged();
 				}
 			}
 		}

@@ -30,6 +30,5 @@ namespace RedTelephone.Controllers
                 Response.SetCookie(new HttpCookie("Authentication"));
             });
         }
-
     }
 }

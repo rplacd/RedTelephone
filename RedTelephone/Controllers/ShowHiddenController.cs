@@ -11,6 +11,7 @@ namespace RedTelephone.Controllers
         public ActionResult Yes()
         {
             return sideEffectingAction(() => {
+                logger.Debug("ShowHiddenController showing hidden data rows");
                 var foo = new HttpCookie("ShowHidden", "yes");
                 Response.SetCookie(foo);
             });
@@ -19,6 +20,7 @@ namespace RedTelephone.Controllers
         public ActionResult No()
         {
             return sideEffectingAction(() => {
+                logger.Debug("ShowHiddenController hiding hidden data rows");
                 var foo = new HttpCookie("ShowHidden", "no") { Expires = DateTime.Now.AddYears(-1) };
                 Response.SetCookie(foo);
             });
