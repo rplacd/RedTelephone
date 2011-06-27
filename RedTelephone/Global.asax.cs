@@ -18,15 +18,15 @@ namespace RedTelephone
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
-                "Default", // Route name
-                "{controller}/{action}/{operand}", // URL with parameters
-                new { controller = "Home", action = "Index", operand = UrlParameter.Optional } // Parameter defaults
+                "ReferenceData",
+                "referencedata/{controller}/{action}/{operand}",
+                new { controller = "ReferenceData", action = "Index", operand = UrlParameter.Optional }
             );
 
             routes.MapRoute(
-                "ReferenceData",
-                "referencedata/{controller}/{action}/{operand}",
-                new { action = "Index", operand = UrlParameter.Optional }
+                "Default", // Route name
+                "{controller}/{action}/{operand}", // URL with parameters
+                new { controller = "Home", action = "Index", operand = UrlParameter.Optional } // Parameter defaults
             );
         }
 

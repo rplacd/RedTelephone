@@ -1,0 +1,54 @@
+﻿<div>
+    <header>
+        <h1>Manage priority codes</h1>
+    </header>
+    <form action="/referencedata/priorities" method="post">
+        <section>
+            <table>
+                <tr>
+                    <th></th>
+                    <th>Mnemonic</th>
+                    <th>Description</th>
+                </tr>
+                <viewdata Priorities="IEnumerable[[Priority]]"/>
+                <for each="var priority in Priorities">
+                    <tr>
+                        <td>
+                            <if condition='priority.active_p == "A"'>
+                                <a href="/referencedata/priorities/disable/${priority.code}">Disable</a>
+                            </if>
+                            <else>
+                                <a href="/referencedata/priorities/disable/${priority.code}">Enable</a>
+                            </else>
+                        </td>
+                        <td>
+                            ${priority.code} <input type="hidden" name="code?${priority.code}" value="${priority.code}" />
+                        </td>
+                        <td>
+                            <input type="text" name="description?${priority.code}" value="${priority.description}" />
+                        </td>
+                        <td>
+                            <a href="/referencedata/priorities/decsortindex/${priority.code}">&#9650;</a>
+                        </td>
+                        <td>
+                            <a href="/referencedata/priorities/incsortindex/${priority.code}">&#9660;</a>
+                        </td>
+                    </tr>
+                </for>
+            </table>
+        </section>
+
+        <nav>
+            <div id="centering-hack">
+                <ul>
+                    <li>
+                        <a href="/referencedata/priorities/create">Add a new priority</a>
+                    </li>
+                    <li>
+                        <input type="submit" value="Save changes" />
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </form>
+</div>
