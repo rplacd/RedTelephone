@@ -16,9 +16,20 @@
                     <li>
                         <a>Reporting</a>
                     </li>
+					<li>
+                        <a href="/referencedata">Reference Data</a>
+                    </li>
                     <li>
                         <a href="/users">Users</a>
                     </li>
+					<li>
+						<if condition="((System.Web.Mvc.Controller)ViewContext.Controller).Request.Cookies['ShowHidden'] == null">
+							<a href="/showhidden/yes">Show hidden data</a>
+						</if>
+						<else>
+							<a href="/showhidden/no">Hide hidden data</a>
+						</else>
+					</li>
                     <li>
                         <a href="/auth/logout">Logout</a>
                     </li>

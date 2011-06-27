@@ -80,8 +80,10 @@
   <ItemGroup>
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PermissionsController.cs" />
     <Compile Include="Controllers\RedTelephoneController.cs" />
     <Compile Include="Controllers\ReferenceDataController.cs" />
+    <Compile Include="Controllers\ShowHiddenController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -123,6 +125,9 @@
     <None Include="Models\Models.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>Models.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Views\Permissions\Index.spark">
       <SubType>Designer</SubType>
     </None>
     <None Include="Views\ReferenceData\Index.spark">
