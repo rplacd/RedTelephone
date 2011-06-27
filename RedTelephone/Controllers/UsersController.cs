@@ -49,17 +49,18 @@ namespace RedTelephone.Controllers
                 
         }
 
+        //REFACTOR: just make this "Create"
         public ActionResult NewUser()
         {
             return authenticatedAction(new String[] { "UU" },
                 () => formAction(
-                    () => { 
-                        logger.Debug("ActionResult.NewUser accessed.");
+                    () => {
+                        logger.Debug("UsersController.NewUser accessed.");
                         return View(); 
                     },
                     //REFACTOR: move this out into [httpPost] land, possibly let MVC routing map fields to parameters.
                     () => {
-                        logger.Debug("ActionResult.NewUser updated.");
+                        logger.Debug("UsersController.NewUser updated.");
                         ViewData["Referer"] = Request.ServerVariables["http_referer"];
 
                         User newUser = new User();
@@ -202,12 +203,14 @@ namespace RedTelephone.Controllers
 
         public ActionResult Disable(string operand)
         {
-            return disable_row<User>(new String[] { "UU" }, (new ModelsDataContext()).Users, u => u.userName == operand);
+            logger.Debug("UsersController.Disable accessed.");
+            return disableRowAction<User>(new String[] { "UU" }, (new ModelsDataContext()).Users, u => u.userName == operand);
         }
 
         public ActionResult Enable(string operand)
         {
-            return enable_row<User>(new String[] { "UU" }, (new ModelsDataContext()).Users, u => u.userName == operand);
+            logger.Debug("UsersController.Enable accessed.");
+            return enableRowAction<User>(new String[] { "UU" }, (new ModelsDataContext()).Users, u => u.userName == operand);
         }
     }
 }

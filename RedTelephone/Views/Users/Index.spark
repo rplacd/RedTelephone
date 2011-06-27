@@ -6,6 +6,7 @@
         <section>
             <table>
                 <tr>
+                    <th></th>
                     <th>Username</th>
                     <th>First name</th>
                     <th>Last name</th>
@@ -13,6 +14,14 @@
                 <viewdata Users="IEnumerable[[User]]"/>
                 <for each="var user in Users">
                     <tr>
+                        <td>
+                            <if condition='user.active_p == "A"'>
+                                <a href="/users/disable/${user.userName}">Disable</a>
+                            </if>
+                            <else>
+                                <a href="/users/enable/${user.userName}">Enable</a>
+                            </else>
+                        </td>
                         <td>${user.userName}</td>
                         <td>
                             <input type="text" name="firstname?${user.userName}" value="${user.firstName}"/>

@@ -247,7 +247,7 @@ namespace RedTelephone.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_T_CDFUPM", Storage="_UserPermissionPairs", ThisKey="userName", OtherKey="userName")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_UserPermissionPair", Storage="_UserPermissionPairs", ThisKey="userName", OtherKey="userName")]
 		public EntitySet<UserPermissionPair> UserPermissionPairs
 		{
 			get
@@ -471,7 +471,7 @@ namespace RedTelephone.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_T_CDFUPM", Storage="_User", ThisKey="userName", OtherKey="userName", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_UserPermissionPair", Storage="_User", ThisKey="userName", OtherKey="userName", IsForeignKey=true)]
 		public User User
 		{
 			get
@@ -532,22 +532,26 @@ namespace RedTelephone.Models
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private char _code;
+		private string _code;
 		
 		private string _description;
 		
 		private short _sortIndex;
 		
+		private string _active_p;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
-    partial void OncodeChanging(char value);
+    partial void OncodeChanging(string value);
     partial void OncodeChanged();
     partial void OndescriptionChanging(string value);
     partial void OndescriptionChanged();
     partial void OnsortIndexChanging(short value);
     partial void OnsortIndexChanged();
+    partial void Onactive_pChanging(string value);
+    partial void Onactive_pChanged();
     #endregion
 		
 		public Priority()
@@ -555,8 +559,8 @@ namespace RedTelephone.Models
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_PRICODC", Storage="_code", DbType="Char(1) NOT NULL", IsPrimaryKey=true)]
-		public char code
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_PRICODC", Storage="_code", DbType="Char(1) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string code
 		{
 			get
 			{
@@ -611,6 +615,26 @@ namespace RedTelephone.Models
 					this._sortIndex = value;
 					this.SendPropertyChanged("sortIndex");
 					this.OnsortIndexChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_PRIIACT", Storage="_active_p", DbType="char(1)", CanBeNull=false)]
+		public string active_p
+		{
+			get
+			{
+				return this._active_p;
+			}
+			set
+			{
+				if ((this._active_p != value))
+				{
+					this.Onactive_pChanging(value);
+					this.SendPropertyChanging();
+					this._active_p = value;
+					this.SendPropertyChanged("active_p");
+					this.Onactive_pChanged();
 				}
 			}
 		}
