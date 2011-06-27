@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
+using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
 using System.Text;
@@ -19,7 +20,7 @@ namespace RedTelephone.Controllers
     // I might have to inherit-and-override any methods. The cost is minimal anyway.
 
     // But whatever you do - only make the combinator public if possible.
-    public abstract class RedTelephoneController : Controller
+    public abstract partial class RedTelephoneController : Controller
     {
 
         //The log4net logger.
@@ -250,17 +251,19 @@ namespace RedTelephone.Controllers
                     table.Context.SubmitChanges();
                 }
         }
-        protected ActionResult disable_row<Model>(String[] perms, System.Data.Linq.Table<Model> table, Func<Model, bool> pred) where Model : class
+        protected ActionResult disableRowAction<Model>(String[] perms, System.Data.Linq.Table<Model> table, Func<Model, bool> pred) where Model : class
         {
             return authenticatedAction(perms, () => sideEffectingAction(() => {
                 setRowActive<Model>(table, pred, "N");
             }));
         }
-        protected ActionResult enable_row<Model>(String[] perms, System.Data.Linq.Table<Model> table, Func<Model, bool> pred) where Model : class
+        protected ActionResult enableRowAction<Model>(String[] perms, System.Data.Linq.Table<Model> table, Func<Model, bool> pred) where Model : class
         {
             return authenticatedAction(perms, () => sideEffectingAction(() => {
                 setRowActive<Model>(table, pred, "A");
             }));
         }
     }
+
+
 }

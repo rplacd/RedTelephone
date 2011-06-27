@@ -23,7 +23,7 @@
                         <a href="/users">Users</a>
                     </li>
 					<li>
-						<if condition="((System.Web.Mvc.Controller)ViewContext.Controller).Request.Cookies['ShowHidden'] == null">
+						<if condition='((System.Web.Mvc.Controller)ViewContext.Controller).Request.Cookies["ShowHidden"] == null || ((System.Web.Mvc.Controller)ViewContext.Controller).Request.Cookies["ShowHidden"].Value == "no"'>
 							<a href="/showhidden/yes">Show hidden data</a>
 						</if>
 						<else>
