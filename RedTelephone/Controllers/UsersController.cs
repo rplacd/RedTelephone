@@ -196,6 +196,7 @@ namespace RedTelephone.Controllers
                 }));
 
                 db.SubmitChanges();
+                updateTableTimestamp("T_CRFPNM");
 
                 return Redirect("/users");
             }));

@@ -234,6 +234,22 @@ namespace RedTelephone.Controllers
             Validate(asn, x => (bool)x, String.Format(msg, args));
         }
 
+        //refresh the timestamp for a particular table.
+        protected void updateTableTimestamp(String tableName)
+        {
+            var ctx = new ModelsDataContext();
+            ReferenceTable table = ctx.ReferenceTables.FirstOrDefault(rf => rf.name == tableName);
+            if (table != null) {
+                String newTimeStamp = new String((DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0)).TotalSeconds.ToString().Take(14).ToArray());
+                table.lastUpdate = newTimeStamp;
+                ctx.SubmitChanges();
+                logger.DebugFormat("RedTelephoneController.updateTableTimestamp - updating timestamp for {0} to {1}", tableName, newTimeStamp);
+            } else {
+                logger.ErrorFormat("RedTelephoneController.updateTableTimestamp - couldn't find the table {0} to update for", tableName);
+            }
+
+        }
+
         //some shared behavior for CRUD controllers - check whether we're showing hidden items, for ex.
         //also some "dynamic" accessors on models - inc/dec sorting idxes, show/hide (and is shown/hidden), etc.
         //and that "ting".

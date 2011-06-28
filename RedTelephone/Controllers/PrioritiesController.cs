@@ -37,6 +37,7 @@ namespace RedTelephone.Controllers
 
                                 possiblepriority.description = priority.Value["description"];
                                 db.SubmitChanges();
+                                updateTableTimestamp("T_CRFPRI");
                             }
                         }
                     }
@@ -69,6 +70,7 @@ namespace RedTelephone.Controllers
 
                 db.Priorities.InsertOnSubmit(newPriority);
                 db.SubmitChanges();
+                updateTableTimestamp("T_CRFPRI");
 
                 return Redirect("/referencedata/priorities");
             });
@@ -78,12 +80,14 @@ namespace RedTelephone.Controllers
         public ActionResult Disable(string operand)
         {
             logger.Debug("PrioritiesController.Disable accessed");
+            updateTableTimestamp("T_CRFPRI");
             return disableRowAction<Priority>(new String[] { "UR" }, (new ModelsDataContext()).Priorities, u => u.code == operand);
         }
 
         public ActionResult Enable(string operand)
         {
             logger.Debug("PrioritiesController.Enable accessed");
+            updateTableTimestamp("T_CRFPRI");
             return enableRowAction<Priority>(new String[] { "UR" }, (new ModelsDataContext()).Priorities, u => u.code == operand);
         }
 
@@ -91,11 +95,13 @@ namespace RedTelephone.Controllers
         public ActionResult IncSortIndex(string operand)
         {
             logger.Debug("PrioritiesController.IncSortIndex accessed");
+            updateTableTimestamp("T_CRFPRI");
             return incSortIndexAction<Priority>(new String[] { "UR" }, db.Priorities, p => p.code == operand);
         }
         public ActionResult DecSortIndex(string operand)
         {
             logger.Debug("PrioritiesControllert.DecSortIndex accessed");
+            updateTableTimestamp("T_CRFPRI");
             return decSortIndexAction<Priority>(new String[] { "UR" }, db.Priorities, p => p.code == operand);
         }
     }

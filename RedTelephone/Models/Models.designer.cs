@@ -42,6 +42,9 @@ namespace RedTelephone.Models
     partial void InsertPriority(Priority instance);
     partial void UpdatePriority(Priority instance);
     partial void DeletePriority(Priority instance);
+    partial void InsertReferenceTable(ReferenceTable instance);
+    partial void UpdateReferenceTable(ReferenceTable instance);
+    partial void DeleteReferenceTable(ReferenceTable instance);
     #endregion
 		
 		public ModelsDataContext() : 
@@ -103,6 +106,14 @@ namespace RedTelephone.Models
 			get
 			{
 				return this.GetTable<Priority>();
+			}
+		}
+		
+		public System.Data.Linq.Table<ReferenceTable> ReferenceTables
+		{
+			get
+			{
+				return this.GetTable<ReferenceTable>();
 			}
 		}
 	}
@@ -635,6 +646,92 @@ namespace RedTelephone.Models
 					this._active_p = value;
 					this.SendPropertyChanged("active_p");
 					this.Onactive_pChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.T_CRFTOT")]
+	public partial class ReferenceTable : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _name;
+		
+		private string _lastUpdate;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnnameChanging(string value);
+    partial void OnnameChanged();
+    partial void OnlastUpdateChanging(string value);
+    partial void OnlastUpdateChanged();
+    #endregion
+		
+		public ReferenceTable()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_TOTTNMC", Storage="_name", DbType="Char(10) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string name
+		{
+			get
+			{
+				return this._name;
+			}
+			set
+			{
+				if ((this._name != value))
+				{
+					this.OnnameChanging(value);
+					this.SendPropertyChanging();
+					this._name = value;
+					this.SendPropertyChanged("name");
+					this.OnnameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_RORMDTC", Storage="_lastUpdate", DbType="Char(14) NOT NULL", CanBeNull=false)]
+		public string lastUpdate
+		{
+			get
+			{
+				return this._lastUpdate;
+			}
+			set
+			{
+				if ((this._lastUpdate != value))
+				{
+					this.OnlastUpdateChanging(value);
+					this.SendPropertyChanging();
+					this._lastUpdate = value;
+					this.SendPropertyChanged("lastUpdate");
+					this.OnlastUpdateChanged();
 				}
 			}
 		}

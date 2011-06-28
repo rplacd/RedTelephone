@@ -32,4 +32,10 @@
       <Column Name="E_PRIIACT" Member="active_p" Type="System.String" DbType="char(1)" CanBeNull="false" />
     </Type>
   </Table>
+  <Table Name="dbo.T_CRFTOT" Member="ReferenceTables">
+    <Type Name="ReferenceTable">
+      <Column Name="E_TOTTNMC" Member="name" Type="System.String" DbType="Char(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="E_RORMDTC" Member="lastUpdate" Type="System.String" DbType="Char(14) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
 </Database>
