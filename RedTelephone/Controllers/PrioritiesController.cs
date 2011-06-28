@@ -7,6 +7,7 @@ using RedTelephone.Models;
 
 namespace RedTelephone.Controllers
 {
+    [ValidateInput(false)]
     public class PrioritiesController : RedTelephoneController
     {
         ModelsDataContext db = new ModelsDataContext();
