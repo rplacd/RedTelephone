@@ -261,11 +261,14 @@ namespace RedTelephone.Controllers
         protected void setRowActive<Model>(System.Data.Linq.Table<Model> table, Func<Model, bool> pred, String active_p) where Model : class
         {
             Model target = table.FirstOrDefault(pred);
-                if (target != null) {
-                    dynamic dyn_target = target;
-                    dyn_target.active_p = active_p;
-                    table.Context.SubmitChanges();
-                }
+            if (target != null) {
+                dynamic dyn_target = target;
+                dyn_target.active_p = active_p;
+                table.Context.SubmitChanges();
+                logger.DebugFormat("RedTelephoneController.SetRowActive setting {0} {1} to {2}", table.ToString(), pred.ToString(), active_p.ToString());
+            } else {
+                logger.ErrorFormat("RedTelephoneController.SetRowActive couldn't set {0} {1} to {2}", table.ToString(), pred.ToString(), active_p.ToString());
+            }
         }
         protected ActionResult disableRowAction<Model>(String[] perms, System.Data.Linq.Table<Model> table, Func<Model, bool> pred) where Model : class
         {

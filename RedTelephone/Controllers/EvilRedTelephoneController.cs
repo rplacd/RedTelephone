@@ -67,6 +67,11 @@ namespace RedTelephone.Controllers {
                 toSwap.sortIndex = eligibleSwap.sortIndex;
                 eligibleSwap.sortIndex = intermediate;
                 table.Context.SubmitChanges();
+                logger.DebugFormat("RedTelephoneController.swapSortIndices swapping {0} {1} with {2}, with a relationship of {3}",
+                    table.ToString(), toSwap.ToString(), eligibleSwap.ToString(), tgtrel.ToString());
+            } else {
+                logger.ErrorFormat("RedTelephoneController.swapSortIndices failed to swap {0} {1} with {2}, with a relationship of {3}",
+                    table.ToString(), toSwap.ToString(), eligibleSwap.ToString(), tgtrel.ToString());
             }
         }
         protected ActionResult incSortIndexAction<Model>(String[] perms, System.Data.Linq.Table<Model> table, Func<Model, bool> pred) where Model : class
