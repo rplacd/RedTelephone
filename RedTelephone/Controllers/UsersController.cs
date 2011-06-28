@@ -22,10 +22,7 @@ namespace RedTelephone.Controllers
                 () => formAction(
                     () => {
                         logger.Debug("UsersController.Index accessed.");
-                        if (showHidden_p())
-                            ViewData["Users"] = usersModel.ToList();
-                        else
-                            ViewData["Users"] = usersModel.Where(u => u.active_p == "A").ToList();
+                        ViewData["Users"] = usersModel.ToList();
                         return View();
                     },
                     () => sideEffectingAction(() => {

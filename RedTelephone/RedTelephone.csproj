@@ -78,14 +78,27 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\AuthController.cs" />
-    <Compile Include="Controllers\EvilRedTelephoneController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\PrioritiesController.cs" />
-    <Compile Include="Controllers\RedTelephoneController.cs" />
-    <Compile Include="Controllers\ReferenceDataController.cs" />
-    <Compile Include="Controllers\ShowHiddenController.cs" />
-    <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="Controllers\AuthController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\EvilRedTelephoneController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\HomeController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\PrioritiesController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\RedTelephoneController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\ReferenceDataController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\UsersController.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

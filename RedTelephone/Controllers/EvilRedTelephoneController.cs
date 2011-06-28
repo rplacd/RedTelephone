@@ -58,12 +58,7 @@ namespace RedTelephone.Controllers {
                 else
                     eligibleSwaps = ((object)table).Where(p => p.sortIndex < toSwap.sortIndex).OrderByDescending(p => p.sortIndex);
 
-                if (showHidden_p()) {
-                    eligibleSwap = eligibleSwaps.FirstOrDefault();
-                }
-                else {
-                    eligibleSwap = eligibleSwaps.Where(p => p.active_p == "A").FirstOrDefault();
-                }
+                eligibleSwap = eligibleSwaps.FirstOrDefault();
             }
             return eligibleSwap;
         }

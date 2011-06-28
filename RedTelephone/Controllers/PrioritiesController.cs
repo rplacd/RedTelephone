@@ -19,10 +19,7 @@ namespace RedTelephone.Controllers
             return authenticatedAction(new String[] { "UR" }, () => formAction(
                     () => {
                         logger.Debug("PrioritiesController.Index accessed.");
-                        if (showHidden_p())
-                            ViewData["Priorities"] = db.Priorities.OrderBy(p => p.sortIndex).ToList();
-                        else
-                            ViewData["Priorities"] = db.Priorities.Where(p => p.active_p == "A").OrderBy(p => p.sortIndex).ToList() ;
+                        ViewData["Priorities"] = db.Priorities.OrderBy(p => p.sortIndex).ToList();
                         return View();
                     },
                     ()=> sideEffectingAction(() => {

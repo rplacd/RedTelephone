@@ -256,11 +256,6 @@ namespace RedTelephone.Controllers
         //some shared behavior for CRUD controllers - check whether we're showing hidden items, for ex.
         //also some "dynamic" accessors on models - inc/dec sorting idxes, show/hide (and is shown/hidden), etc.
         //and that "ting".
-        protected bool showHidden_p()
-            //show hidden rows?
-        {
-            return Request.Cookies["ShowHidden"] != null && Request.Cookies["ShowHidden"].Value == "yes";
-        }
         protected void setRowActive<Model>(System.Data.Linq.Table<Model> table, Func<Model, bool> pred, String active_p) where Model : class
         {
             Model target = table.FirstOrDefault(pred);
