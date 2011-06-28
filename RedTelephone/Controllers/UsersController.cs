@@ -43,6 +43,9 @@ namespace RedTelephone.Controllers
                                 possibleUser.firstName = user.Value["firstname"];
                                 possibleUser.lastName = user.Value["lastname"];
                                 db.SubmitChanges();
+                                logger.DebugFormat("UsersController.Index updating {0}", possibleUser.ToString());
+                            } else {
+                                logger.ErrorFormat("UsersController.Index couldn't update for {0}", user.Key);
                             }
                         }
                     })));
@@ -60,7 +63,6 @@ namespace RedTelephone.Controllers
                     },
                     //REFACTOR: move this out into [httpPost] land, possibly let MVC routing map fields to parameters.
                     () => {
-                        logger.Debug("UsersController.NewUser updated.");
                         ViewData["Referer"] = Request.ServerVariables["http_referer"];
 
                         User newUser = new User();
@@ -82,6 +84,9 @@ namespace RedTelephone.Controllers
                         usersModel.InsertOnSubmit(newUser);
                         db.SubmitChanges();
 
+
+                        logger.DebugFormat("UsersController.NewUser creating the new user {0}", newUser.ToString());
+
                         return Redirect("/users");
                     }
             ));
@@ -99,7 +104,6 @@ namespace RedTelephone.Controllers
         public ActionResult PasswordReset(String operand, String password, String verifyPassword)
         {
             return authenticatedAction(new String[] { "UU" }, () => {
-                logger.Debug("UsersController.PasswordReset updated.");
 
                 //VALIDATION START
                 validationLogPrefix = "UsersController.PasswordReset";
@@ -112,6 +116,8 @@ namespace RedTelephone.Controllers
 
                 user.hashCombo = hashCombo(user.userName, password);
                 db.SubmitChanges();
+
+                logger.DebugFormat("UsersController.PasswordReset resetting for {0} to {1}", operand, user.hashCombo);
 
                 return Redirect("/users");
             });
@@ -157,7 +163,6 @@ namespace RedTelephone.Controllers
                 return View();
             },
             () => {
-                logger.DebugFormat("UsersController.Permissions updated for {0}", operand);
                 //get the names for each permission.
                 String raw_perm_descs = Request.Form["selectedperms"];
                 List<String> perms;
@@ -196,6 +201,8 @@ namespace RedTelephone.Controllers
                 }));
 
                 db.SubmitChanges();
+
+                logger.DebugFormat("UsersController.Permissions updated for {0} with new perms {1}", operand, perms.ToString());
                 updateTableTimestamp("T_CRFPNM");
 
                 return Redirect("/users");
@@ -204,13 +211,13 @@ namespace RedTelephone.Controllers
 
         public ActionResult Disable(string operand)
         {
-            logger.Debug("UsersController.Disable accessed.");
+            logger.DebugFormat("UsersController.Disable accessed for {0}", operand);
             return disableRowAction<User>(new String[] { "UU" }, (new ModelsDataContext()).Users, u => u.userName == operand);
         }
 
         public ActionResult Enable(string operand)
         {
-            logger.Debug("UsersController.Enable accessed.");
+            logger.DebugFormat("UsersController.Enable accessed for {0}", operand);
             return enableRowAction<User>(new String[] { "UU" }, (new ModelsDataContext()).Users, u => u.userName == operand);
         }
     }

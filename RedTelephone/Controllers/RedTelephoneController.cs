@@ -205,6 +205,9 @@ namespace RedTelephone.Controllers
             if (ctx.Exception.GetType().Name == "ValidateFailException") {
                 ctx.ExceptionHandled = true;
                 ctx.Result = Error(ctx.Exception.Message);
+            } else {
+                logger.Error("RedTelephoneController.OnException - unhandled exception!", ctx.Exception);
+                ctx.ExceptionHandled = false;
             }
             return;
         }

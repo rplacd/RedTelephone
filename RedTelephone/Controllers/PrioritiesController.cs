@@ -38,6 +38,10 @@ namespace RedTelephone.Controllers
                                 possiblepriority.description = priority.Value["description"];
                                 db.SubmitChanges();
                                 updateTableTimestamp("T_CRFPRI");
+
+                                logger.DebugFormat("PrioritiesController.Index updating {0}", possiblepriority.ToString());
+                            } else {
+                                logger.ErrorFormat("PrioritiesController.Index couldn't update {0}", possiblepriority.ToString());
                             }
                         }
                     }
@@ -54,7 +58,6 @@ namespace RedTelephone.Controllers
         public ActionResult Create(FormCollection collection)
         {
             return authenticatedAction(new String[] { "UR" }, () => {
-                logger.Debug("PrioritiesController.Create updated.");
 
                 Priority newPriority = new Priority();
                 newPriority.code = collection["mnemonic"];
@@ -71,6 +74,9 @@ namespace RedTelephone.Controllers
                 db.Priorities.InsertOnSubmit(newPriority);
                 db.SubmitChanges();
                 updateTableTimestamp("T_CRFPRI");
+
+
+                logger.DebugFormat("PrioritiesController.Create adding {0}", newPriority.ToString());
 
                 return Redirect("/referencedata/priorities");
             });
@@ -100,7 +106,7 @@ namespace RedTelephone.Controllers
         }
         public ActionResult DecSortIndex(string operand)
         {
-            logger.Debug("PrioritiesControllert.DecSortIndex accessed");
+            logger.Debug("PrioritiesController.DecSortIndex accessed");
             updateTableTimestamp("T_CRFPRI");
             return decSortIndexAction<Priority>(new String[] { "UR" }, db.Priorities, p => p.code == operand);
         }
