@@ -18,7 +18,7 @@
                                 <a href="/referencedata/priorities/disable/${priority.code}">Disable</a>
                             </if>
                             <else>
-                                <a href="/referencedata/priorities/disable/${priority.code}">Enable</a>
+                                <a href="/referencedata/priorities/enable/${priority.code}">Enable</a>
                             </else>
                         </td>
                         <td>
