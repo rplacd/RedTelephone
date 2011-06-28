@@ -128,6 +128,9 @@
       <LastGenOutput>Models.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </None>
+    <None Include="Views\Priorities\NewRow.spark">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Views\Priorities\Create.spark">
       <SubType>Designer</SubType>
     </None>

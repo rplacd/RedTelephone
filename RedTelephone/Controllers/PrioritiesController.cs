@@ -30,21 +30,29 @@ namespace RedTelephone.Controllers
                         var formVars = extractRowParams(Request.Form);
                         foreach (KeyValuePair<String, Dictionary<String, String>> priority in formVars) {
                             Priority possiblepriority = db.Priorities.FirstOrDefault(p => p.code == priority.Value["code"]);
+
+                            //VALIDATION HAPPENS HERE
+                            validationLogPrefix = "PrioritiesController.Index";
+                            ValidateStrLen(priority.Value["description"], 32, "Priority descriptions");
+                            //AND THEN ENDS.
+
+                            //does it exist - or do we have to add it in?
                             if (possiblepriority != null) {
-                                //VALIDATION HAPPENS HERE
-                                validationLogPrefix = "PrioritiesController.Index";
-                                ValidateStrLen(priority.Value["description"], 32, "Priority descriptions");
-                                //AND THEN ENDS.
-
                                 possiblepriority.description = priority.Value["description"];
-                                db.SubmitChanges();
-                                updateTableTimestamp("T_CRFPRI");
-
                                 logger.DebugFormat("PrioritiesController.Index updating {0}", possiblepriority.ToString());
+                                db.SubmitChanges();
                             } else {
-                                logger.ErrorFormat("PrioritiesController.Index couldn't update {0}", possiblepriority.ToString());
+                                possiblepriority = new Priority();
+                                possiblepriority.code = priority.Value["code"];
+                                possiblepriority.description = priority.Value["description"];
+                                possiblepriority.active_p = "A";
+                                db.Priorities.InsertOnSubmit(possiblepriority);
+                                logger.ErrorFormat("PrioritiesController.Index adding {0} with description {1}", priority.Key, priority.Value["description"]);
+                                db.SubmitChanges();
                             }
                         }
+
+                        updateTableTimestamp("T_CRFPRI");
                     }
            )));
         }
@@ -110,6 +118,12 @@ namespace RedTelephone.Controllers
             logger.Debug("PrioritiesController.DecSortIndex accessed");
             updateTableTimestamp("T_CRFPRI");
             return decSortIndexAction<Priority>(new String[] { "UR" }, db.Priorities, p => p.code == operand);
+        }
+
+        public ActionResult NewRow()
+        {
+            ViewData["id"] = getFreshIdVal<String, Priority>(db.Priorities, Str1Gen, p => p.code);
+            return View();
         }
     }
 }

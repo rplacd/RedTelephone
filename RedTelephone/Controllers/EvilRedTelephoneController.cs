@@ -24,6 +24,14 @@ namespace RedTelephone.EvilLinq {
                     yield return item;
             }
         }
+        public static dynamic FirstOrDefault(this object src, Func<dynamic, dynamic> pred)
+        {
+            IEnumerable<dynamic> results = src.Where(pred);
+            if (results.Count() < 1)
+                return default(dynamic); //null, of course
+            else
+                return results.First();
+        }
         //can you keep track of all the types? I f**king can't - no thanks for forcing me to cast to (dynamic, dynamic -> dynamic).
         public static IEnumerable<dynamic> OrderByDescending(this object src, Func<dynamic, dynamic> accessor)
         {
@@ -37,6 +45,7 @@ namespace RedTelephone.EvilLinq {
 //Defines any generic methods dependent on LINQ.
 namespace RedTelephone.Controllers {
     public abstract partial class RedTelephoneController : Controller {
+        //generic methods for swapping sort IDs.
         protected enum TargetRelationship { GreaterThan, LesserThan };
         protected Model getSwap<Model>(System.Data.Linq.Table<Model> table, dynamic toSwap, TargetRelationship tgtrel) where Model : class
         {
@@ -96,5 +105,26 @@ namespace RedTelephone.Controllers {
             }
         }
 
+        //generic methods for getting fresh primary keys.
+        protected Func<String> Str1Gen = () => (Convert.ToChar((new Random()).Next(97, 122))).ToString();
+        protected T getFreshIdVal<T, Model>(System.Data.Linq.Table<Model> table, Func<T> generator, Func<Model, T> accessor) 
+            where T : class 
+            where Model : class
+        {
+            T id = generator();
+            while (((object)table).FirstOrDefault(obj => accessor(obj) == id) != null) {
+                id = generator();
+            }
+            return id;
+        }
+        protected ActionResult getFreshId<T, Model>(System.Data.Linq.Table<Model> table, Func<T> generator, Func<Model, T> accessor)
+            where T : class
+            where Model : class
+        {
+            ContentResult result = new ContentResult();
+            result.ContentType = "text/plain";
+            result.Content = getFreshIdVal<T, Model>(table, generator, accessor).ToString();
+            return result;
+        }
     }
 }

@@ -42,12 +42,13 @@ namespace RedTelephone.Controllers
 
                                 possibleUser.firstName = user.Value["firstname"];
                                 possibleUser.lastName = user.Value["lastname"];
-                                db.SubmitChanges();
                                 logger.DebugFormat("UsersController.Index updating {0}", possibleUser.ToString());
                             } else {
                                 logger.ErrorFormat("UsersController.Index couldn't update for {0}", user.Key);
                             }
                         }
+
+                        db.SubmitChanges();
                     })));
                 
         }
