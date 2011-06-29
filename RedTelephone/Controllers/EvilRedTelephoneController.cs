@@ -45,6 +45,34 @@ namespace RedTelephone.EvilLinq {
 //Defines any generic methods dependent on LINQ.
 namespace RedTelephone.Controllers {
     public abstract partial class RedTelephoneController : Controller {
+        //some shared behavior for CRUD controllers - check whether we're showing hidden items, for ex.
+        //also some "dynamic" accessors on models - inc/dec sorting idxes, show/hide (and is shown/hidden), etc.
+        //and that "ting".
+        protected void setRowActive<Model>(System.Data.Linq.Table<Model> table, Func<Model, bool> pred, String active_p) where Model : class
+        {
+            Model target = table.FirstOrDefault(pred);
+            if (target != null) {
+                dynamic dyn_target = target;
+                dyn_target.active_p = active_p;
+                table.Context.SubmitChanges();
+                logger.DebugFormat("RedTelephoneController.SetRowActive setting {0} {1} to {2}", table.ToString(), pred.ToString(), active_p.ToString());
+            } else {
+                logger.ErrorFormat("RedTelephoneController.SetRowActive couldn't set {0} {1} to {2}", table.ToString(), pred.ToString(), active_p.ToString());
+            }
+        }
+        protected ActionResult disableRowAction<Model>(String[] perms, System.Data.Linq.Table<Model> table, Func<Model, bool> pred) where Model : class
+        {
+            return authenticatedAction(perms, () => sideEffectingAction(() => {
+                setRowActive<Model>(table, pred, "N");
+            }));
+        }
+        protected ActionResult enableRowAction<Model>(String[] perms, System.Data.Linq.Table<Model> table, Func<Model, bool> pred) where Model : class
+        {
+            return authenticatedAction(perms, () => sideEffectingAction(() => {
+                setRowActive<Model>(table, pred, "A");
+            }));
+        }
+
         //generic methods for swapping sort IDs.
         protected enum TargetRelationship { GreaterThan, LesserThan };
         protected Model getSwap<Model>(System.Data.Linq.Table<Model> table, dynamic toSwap, TargetRelationship tgtrel) where Model : class
@@ -98,28 +126,30 @@ namespace RedTelephone.Controllers {
             } else {
                 return ((object)allModels).OrderByDescending(x => x.sortIndex).Select(x => x.sortIndex).FirstOrDefault();
             }
+        }      
+
+        //generic method for committing sort indexes to DB.
+        //assumes the "ordering" parameter and the sortIndex method.
+        protected void setSortIndexes<Model>(System.Data.Linq.Table<Model> table, Func<Model, String> identityAccessor) where Model : class
+        {
+            Dictionary<String, short> paramsDict = extractOrderingParam(Request.Form["ordering"]);
+            table.ToList().ForEach(x => {
+                dynamic dx = x;
+                dx.sortIndex = -1;
+            });
+            table.Context.SubmitChanges();
+            foreach (KeyValuePair<String, short> pair in paramsDict) {
+                Model curr = ((object)table).FirstOrDefault(x => identityAccessor(x) == pair.Key);
+                if (curr != null) {
+                    logger.DebugFormat("EvilRedTelephoneController.Index giving {0} sortindex {1}", pair.Key, pair.Value.ToString());
+                    dynamic dcurr = curr;
+                    dcurr.sortIndex = pair.Value;
+                } else {
+                    logger.ErrorFormat("EvilRedTelephoneController.Index couldn't give {0} sortindex {1}", pair.Key, pair.Value);
+                }
+            }
+            table.Context.SubmitChanges();
         }
 
-        //generic methods for getting fresh primary keys.
-        protected Func<String> Str1Gen = () => (Convert.ToChar((new Random()).Next(97, 122))).ToString();
-        protected T getFreshIdVal<T, Model>(System.Data.Linq.Table<Model> table, Func<T> generator, Func<Model, T> accessor) 
-            where T : class 
-            where Model : class
-        {
-            T id = generator();
-            while (((object)table).FirstOrDefault(obj => accessor(obj) == id) != null) {
-                id = generator();
-            }
-            return id;
-        }
-        protected ActionResult getFreshId<T, Model>(System.Data.Linq.Table<Model> table, Func<T> generator, Func<Model, T> accessor)
-            where T : class
-            where Model : class
-        {
-            ContentResult result = new ContentResult();
-            result.ContentType = "text/plain";
-            result.Content = getFreshIdVal<T, Model>(table, generator, accessor).ToString();
-            return result;
-        }
     }
 }

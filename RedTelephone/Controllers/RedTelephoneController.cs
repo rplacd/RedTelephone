@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Security.Cryptography;
 using log4net;
 using log4net.Config;
@@ -253,32 +254,56 @@ namespace RedTelephone.Controllers
 
         }
 
-        //some shared behavior for CRUD controllers - check whether we're showing hidden items, for ex.
-        //also some "dynamic" accessors on models - inc/dec sorting idxes, show/hide (and is shown/hidden), etc.
-        //and that "ting".
-        protected void setRowActive<Model>(System.Data.Linq.Table<Model> table, Func<Model, bool> pred, String active_p) where Model : class
+        //decode the #ordering parameter.
+        protected Dictionary<String, short> extractOrderingParam(String encoded)
         {
-            Model target = table.FirstOrDefault(pred);
-            if (target != null) {
-                dynamic dyn_target = target;
-                dyn_target.active_p = active_p;
-                table.Context.SubmitChanges();
-                logger.DebugFormat("RedTelephoneController.SetRowActive setting {0} {1} to {2}", table.ToString(), pred.ToString(), active_p.ToString());
-            } else {
-                logger.ErrorFormat("RedTelephoneController.SetRowActive couldn't set {0} {1} to {2}", table.ToString(), pred.ToString(), active_p.ToString());
+            if (encoded.Length < 1) {
+                return new Dictionary<String, short>();
             }
+
+            String[] split = encoded.Split(new String[] { "table[]=", "&" }, StringSplitOptions.RemoveEmptyEntries);
+            var ret = new Dictionary<String, short>();
+            var counter = 0;
+            foreach (String subparam in split) {
+                ret.Add(HttpUtility.UrlDecode(subparam), (short)counter);
+                counter++;
+            }
+
+            return ret;
         }
-        protected ActionResult disableRowAction<Model>(String[] perms, System.Data.Linq.Table<Model> table, Func<Model, bool> pred) where Model : class
+        protected String[] extractDnDSerializedParam(String encoded)
         {
-            return authenticatedAction(perms, () => sideEffectingAction(() => {
-                setRowActive<Model>(table, pred, "N");
-            }));
+            String[] split = encoded.Split(new String[] { "," }, StringSplitOptions.RemoveEmptyEntries);
+            return split.Select(s => HttpUtility.UrlDecode(s)).ToArray();
         }
-        protected ActionResult enableRowAction<Model>(String[] perms, System.Data.Linq.Table<Model> table, Func<Model, bool> pred) where Model : class
+
+        //generating fresh IDs.
+        private static String[] str1strs = new String[] { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" };
+        protected static Func<String[], String> Str1Gen = (e) => {
+            var intersect = str1strs.Except(e);
+            if (intersect.Count() == 0) {
+                return default(string);
+            } else {
+                return intersect.First();
+            }
+        };
+
+        protected T getFreshIdVal<T>(Func<String[], T> generator, String[] existing)
         {
-            return authenticatedAction(perms, () => sideEffectingAction(() => {
-                setRowActive<Model>(table, pred, "A");
-            }));
+            return generator(existing);
+        }
+
+        protected ActionResult newRowAction<T>(Func<String[], T> gen) where T : class
+        {
+            T frob = getFreshIdVal<T>(gen, extractDnDSerializedParam(Request.QueryString["table[]"]));
+            if (frob == default(T)) {
+                logger.Warn("RedTelephoneController.NewRow hasn't been able to find a fresh ID!");
+                return View("RedTelephoneNewRowError");
+            } else {
+                logger.DebugFormat("RedTelephoneController.NewRow generating a new row with ID {0}", frob.ToString());
+                ViewData["id"] = frob;
+                return View();
+            }
         }
     }
 

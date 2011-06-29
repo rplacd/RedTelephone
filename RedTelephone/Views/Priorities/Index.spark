@@ -1,64 +1,36 @@
 ﻿<div>
-    <script type="text/javascript">
-        function AddNewRow(table) {
-            table.children("tbody").append('<tr class="fresh"><td>Attempting to load a new row.</td></tr>');
-            table.children("tbody tr:last").load("./priorities/newrow",
-                function(responseText, status, XHR){
-                    if(status == "error")
-                        table.children("tbody tr:last").html("<tr><td>We've run out of unique identifiers!</td></tr>"); 
-                }
-            );
-        }
-        function CanSwapP(elem) {
-        //check to see if the jquery object we're trying to swap with doesn't have any THs - or is empty.
-            var first = elem.length != 0;
-            var second = elem.find("th").length == 0;
-            return first && second;
-        }
-        function MoveNewRowUp(elem) {
-            var row = elem.parent();
-            var prevRow = row.prev();
-            //don't go up any further if we've got TR elements or there's nothing above.
-            if(CanSwapP(prevRow)) {
-                prevRow.before(row);
-            }
-        }
-    </script>
-
     <header>
         <h1>Manage priority codes</h1>
     </header>
-    <form action="/referencedata/priorities" method="post">
+    <form id="form" action="/referencedata/priorities" method="post">
+        <input type="hidden" id="ordering" name="ordering" value="" />
         <section>
             <table id="table">
                 <tbody>
-                <tr>
-                    <th></th>
-                    <th>Mnemonic</th>
+                <tr class="nodrop nodrag">
+                    <th>Enabled?</th>
+                    <!--<th>Mnemonic</th>-->
                     <th>Description</th>
                 </tr>
                 <viewdata Priorities="IEnumerable[[Priority]]"/>
                 <for each="var priority in Priorities">
-                    <tr>
+                    <tr id="${priority.code}">
                         <td>
+                            <input type="hidden" name="code?${priority.code}" value="${priority.code}" />
                             <if condition='priority.active_p == "A"'>
-                                <a href="/referencedata/priorities/disable/${priority.code}">Disable</a>
+                                <input type="checkbox" name="active?${priority.code}" value="A" checked="" />
                             </if>
                             <else>
-                                <a href="/referencedata/priorities/enable/${priority.code}">Enable</a>
+                                <input type="checkbox" name="active?${priority.code}" value="N" />                               
                             </else>
                         </td>
+                        <!--
                         <td>
-                            ${priority.code} <input type="hidden" name="code?${priority.code}" value="${priority.code}" />
+                            ${priority.code}
                         </td>
+                        -->
                         <td>
-                            <input type="text" name="description?${priority.code}" value="${priority.description}" />
-                        </td>
-                        <td>
-                            <a href="/referencedata/priorities/decsortindex/${priority.code}">&#9650;</a>
-                        </td>
-                        <td>
-                            <a href="/referencedata/priorities/incsortindex/${priority.code}">&#9660;</a>
+                            <input type="text" name="description?${priority.code}" value="${priority.description}" class="required" maxlength="32" />
                         </td>
                     </tr>
                 </for>
@@ -70,10 +42,10 @@
             <div id="centering-hack">
                 <ul>
                     <li>
-                        <input type="button" onclick="AddNewRow($('#table'))" value="Add a new code"/>
+                        <input type="button" onclick="AddRow('priorities')" value="Add a new code"/>
                     </li>
                     <li>
-                        <input type="submit" value="Save changes" />
+                        <input class="submit" type="submit" onclick="StabilizeState()" value="Save changes" />
                     </li>
                 </ul>
             </div>

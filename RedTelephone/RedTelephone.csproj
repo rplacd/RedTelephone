@@ -117,7 +117,11 @@
     <Content Include="Content\Site.css" />
     <Content Include="Global.asax" />
     <Content Include="Content\style.css" />
-    <Content Include="Web.config" />
+    <Content Include="Scripts\CRUDtilities.js" />
+    <Content Include="Scripts\jquery.tablednd_0_5.js" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -144,13 +148,13 @@
     <None Include="Views\Priorities\NewRow.spark">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Views\Priorities\Create.spark">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Views\Priorities\Index.spark">
       <SubType>Designer</SubType>
     </None>
     <None Include="Views\ReferenceData\Index.spark">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Views\Shared\RedTelephoneNewRowError.spark">
       <SubType>Designer</SubType>
     </None>
     <None Include="Views\Shared\RedTelephoneLogin.spark">
