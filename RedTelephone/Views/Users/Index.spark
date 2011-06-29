@@ -2,7 +2,7 @@
     <header>
         <h1>Manage users</h1>
     </header>
-    <form action="/users" method="post">
+    <form action="/users" method="post" id="form">
         <section>
             <table>
                 <tr>
@@ -24,10 +24,10 @@
                         </td>
                         <td>${user.userName}</td>
                         <td>
-                            <input type="text" name="firstname?${user.userName}" value="${user.firstName}"/>
+                            <input type="text" name="firstname?${user.userName}" value="${user.firstName}" maxlength="64"/>
                         </td>
                         <td>
-                            <input type="text" name="lastname?${user.userName}" value="${user.lastName}" />
+                            <input type="text" name="lastname?${user.userName}" value="${user.lastName}" maxlength="64" />
                         </td>
                         <td>
                             <a href="/users/passwordreset/${user.userName}">Reset password</a>
@@ -47,7 +47,7 @@
                         <a href="/users/newuser">Add a new user</a>
                     </li>
                     <li>
-                        <input type="submit" value="Save changes" />
+                        <input class="submit" type="submit" value="Save changes" />
                     </li>
                 </ul>
             </div>

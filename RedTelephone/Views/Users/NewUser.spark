@@ -2,24 +2,24 @@
     <header>
         <h1>Add a new user</h1>
     </header>
-    <form action="/users/newuser" method="post">
+    <form action="/users/newuser" method="post" id="form">
         <section>
             <div class="form">
                 <div class="form-row">
                     <p class="form-cell">Username</p>
-                    <input class="form-cell" type="text" name="username" />
+                    <input class="form-cell required" type="text" name="username" minlength="1" maxlength="8"/>
                 </div>
                 <div class="form-row">
                     <p class="form-cell">Password</p>
-                    <input class="form-cell" type="password" name="password" />
+                    <input class="form-cell required" type="password" name="password" />
                 </div>
                 <div class="form-row">
                     <p class="form-cell">First name</p>
-                    <input class="form-cell" type="text" name="firstname" />
+                    <input class="form-cell" type="text" name="firstname" maxlength="64" />
                 </div>
                 <div class="form-row">
                     <p class="form-cell">Last name</p>
-                    <input class="form-cell" type="text" name="lastname" />
+                    <input class="form-cell" type="text" name="lastname" maxlength="64"/>
                 </div>
             </div>
         </section>
@@ -31,7 +31,7 @@
                         <a href="/users">Cancel</a>
                     </li>
                     <li>
-                        <input type="submit" value="Save and add" />
+                        <input class="submit" type="submit" value="Save and add" />
                     </li>
                 </ul>
             </div>
