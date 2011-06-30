@@ -45,6 +45,48 @@ namespace RedTelephone.Models
     partial void InsertReferenceTable(ReferenceTable instance);
     partial void UpdateReferenceTable(ReferenceTable instance);
     partial void DeleteReferenceTable(ReferenceTable instance);
+    partial void InsertTicketSource(TicketSource instance);
+    partial void UpdateTicketSource(TicketSource instance);
+    partial void DeleteTicketSource(TicketSource instance);
+    partial void InsertStatus(Status instance);
+    partial void UpdateStatus(Status instance);
+    partial void DeleteStatus(Status instance);
+    partial void InsertCause(Cause instance);
+    partial void UpdateCause(Cause instance);
+    partial void DeleteCause(Cause instance);
+    partial void InsertIssueSourceLvl1(IssueSourceLvl1 instance);
+    partial void UpdateIssueSourceLvl1(IssueSourceLvl1 instance);
+    partial void DeleteIssueSourceLvl1(IssueSourceLvl1 instance);
+    partial void InsertIssueSourceLvl2(IssueSourceLvl2 instance);
+    partial void UpdateIssueSourceLvl2(IssueSourceLvl2 instance);
+    partial void DeleteIssueSourceLvl2(IssueSourceLvl2 instance);
+    partial void InsertIssueSourceLvl3(IssueSourceLvl3 instance);
+    partial void UpdateIssueSourceLvl3(IssueSourceLvl3 instance);
+    partial void DeleteIssueSourceLvl3(IssueSourceLvl3 instance);
+    partial void InsertRequestedResponse(RequestedResponse instance);
+    partial void UpdateRequestedResponse(RequestedResponse instance);
+    partial void DeleteRequestedResponse(RequestedResponse instance);
+    partial void InsertActualResponse(ActualResponse instance);
+    partial void UpdateActualResponse(ActualResponse instance);
+    partial void DeleteActualResponse(ActualResponse instance);
+    partial void InsertContract(Contract instance);
+    partial void UpdateContract(Contract instance);
+    partial void DeleteContract(Contract instance);
+    partial void InsertCompany(Company instance);
+    partial void UpdateCompany(Company instance);
+    partial void DeleteCompany(Company instance);
+    partial void InsertOffice(Office instance);
+    partial void UpdateOffice(Office instance);
+    partial void DeleteOffice(Office instance);
+    partial void InsertEmployee(Employee instance);
+    partial void UpdateEmployee(Employee instance);
+    partial void DeleteEmployee(Employee instance);
+    partial void InsertTicket(Ticket instance);
+    partial void UpdateTicket(Ticket instance);
+    partial void DeleteTicket(Ticket instance);
+    partial void InsertTicketNote(TicketNote instance);
+    partial void UpdateTicketNote(TicketNote instance);
+    partial void DeleteTicketNote(TicketNote instance);
     #endregion
 		
 		public ModelsDataContext() : 
@@ -114,6 +156,118 @@ namespace RedTelephone.Models
 			get
 			{
 				return this.GetTable<ReferenceTable>();
+			}
+		}
+		
+		public System.Data.Linq.Table<TicketSource> TicketSources
+		{
+			get
+			{
+				return this.GetTable<TicketSource>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Status> Status
+		{
+			get
+			{
+				return this.GetTable<Status>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Cause> Causes
+		{
+			get
+			{
+				return this.GetTable<Cause>();
+			}
+		}
+		
+		public System.Data.Linq.Table<IssueSourceLvl1> IssueSourceLvl1s
+		{
+			get
+			{
+				return this.GetTable<IssueSourceLvl1>();
+			}
+		}
+		
+		public System.Data.Linq.Table<IssueSourceLvl2> IssueSourceLvl2s
+		{
+			get
+			{
+				return this.GetTable<IssueSourceLvl2>();
+			}
+		}
+		
+		public System.Data.Linq.Table<IssueSourceLvl3> IssueSourceLvl3s
+		{
+			get
+			{
+				return this.GetTable<IssueSourceLvl3>();
+			}
+		}
+		
+		public System.Data.Linq.Table<RequestedResponse> RequestedResponses
+		{
+			get
+			{
+				return this.GetTable<RequestedResponse>();
+			}
+		}
+		
+		public System.Data.Linq.Table<ActualResponse> ActualResponses
+		{
+			get
+			{
+				return this.GetTable<ActualResponse>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Contract> Contracts
+		{
+			get
+			{
+				return this.GetTable<Contract>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Company> Companies
+		{
+			get
+			{
+				return this.GetTable<Company>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Office> Offices
+		{
+			get
+			{
+				return this.GetTable<Office>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Employee> Employees
+		{
+			get
+			{
+				return this.GetTable<Employee>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Ticket> Tickets
+		{
+			get
+			{
+				return this.GetTable<Ticket>();
+			}
+		}
+		
+		public System.Data.Linq.Table<TicketNote> TicketNotes
+		{
+			get
+			{
+				return this.GetTable<TicketNote>();
 			}
 		}
 	}
@@ -732,6 +886,2722 @@ namespace RedTelephone.Models
 					this._lastUpdate = value;
 					this.SendPropertyChanged("lastUpdate");
 					this.OnlastUpdateChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.T_CRFSRT")]
+	public partial class TicketSource : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _code;
+		
+		private string _description;
+		
+		private short _sortIndex;
+		
+		private string _active_p;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OncodeChanging(string value);
+    partial void OncodeChanged();
+    partial void OndescriptionChanging(string value);
+    partial void OndescriptionChanged();
+    partial void OnsortIndexChanging(short value);
+    partial void OnsortIndexChanged();
+    partial void Onactive_pChanging(string value);
+    partial void Onactive_pChanged();
+    #endregion
+		
+		public TicketSource()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_SRTCODC", Storage="_code", DbType="Char(1) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string code
+		{
+			get
+			{
+				return this._code;
+			}
+			set
+			{
+				if ((this._code != value))
+				{
+					this.OncodeChanging(value);
+					this.SendPropertyChanging();
+					this._code = value;
+					this.SendPropertyChanged("code");
+					this.OncodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_SRTDSCE", Storage="_description", DbType="VarChar(32) NOT NULL", CanBeNull=false)]
+		public string description
+		{
+			get
+			{
+				return this._description;
+			}
+			set
+			{
+				if ((this._description != value))
+				{
+					this.OndescriptionChanging(value);
+					this.SendPropertyChanging();
+					this._description = value;
+					this.SendPropertyChanged("description");
+					this.OndescriptionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_SRTSEQC", Storage="_sortIndex", DbType="SmallInt NOT NULL")]
+		public short sortIndex
+		{
+			get
+			{
+				return this._sortIndex;
+			}
+			set
+			{
+				if ((this._sortIndex != value))
+				{
+					this.OnsortIndexChanging(value);
+					this.SendPropertyChanging();
+					this._sortIndex = value;
+					this.SendPropertyChanged("sortIndex");
+					this.OnsortIndexChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_SRTIACT", Storage="_active_p", DbType="Char(1)")]
+		public string active_p
+		{
+			get
+			{
+				return this._active_p;
+			}
+			set
+			{
+				if ((this._active_p != value))
+				{
+					this.Onactive_pChanging(value);
+					this.SendPropertyChanging();
+					this._active_p = value;
+					this.SendPropertyChanged("active_p");
+					this.Onactive_pChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.T_CRFSTS")]
+	public partial class Status : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _code;
+		
+		private string _description;
+		
+		private short _sortIndex;
+		
+		private string _active_p;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OncodeChanging(string value);
+    partial void OncodeChanged();
+    partial void OndescriptionChanging(string value);
+    partial void OndescriptionChanged();
+    partial void OnsortIndexChanging(short value);
+    partial void OnsortIndexChanged();
+    partial void Onactive_pChanging(string value);
+    partial void Onactive_pChanged();
+    #endregion
+		
+		public Status()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_STSCODC", Storage="_code", DbType="Char(1) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string code
+		{
+			get
+			{
+				return this._code;
+			}
+			set
+			{
+				if ((this._code != value))
+				{
+					this.OncodeChanging(value);
+					this.SendPropertyChanging();
+					this._code = value;
+					this.SendPropertyChanged("code");
+					this.OncodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_STSDSCE", Storage="_description", DbType="VarChar(32) NOT NULL", CanBeNull=false)]
+		public string description
+		{
+			get
+			{
+				return this._description;
+			}
+			set
+			{
+				if ((this._description != value))
+				{
+					this.OndescriptionChanging(value);
+					this.SendPropertyChanging();
+					this._description = value;
+					this.SendPropertyChanged("description");
+					this.OndescriptionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_STSSEQC", Storage="_sortIndex", DbType="SmallInt NOT NULL")]
+		public short sortIndex
+		{
+			get
+			{
+				return this._sortIndex;
+			}
+			set
+			{
+				if ((this._sortIndex != value))
+				{
+					this.OnsortIndexChanging(value);
+					this.SendPropertyChanging();
+					this._sortIndex = value;
+					this.SendPropertyChanged("sortIndex");
+					this.OnsortIndexChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_STSIACT", Storage="_active_p", DbType="Char(1) NOT NULL", CanBeNull=false)]
+		public string active_p
+		{
+			get
+			{
+				return this._active_p;
+			}
+			set
+			{
+				if ((this._active_p != value))
+				{
+					this.Onactive_pChanging(value);
+					this.SendPropertyChanging();
+					this._active_p = value;
+					this.SendPropertyChanged("active_p");
+					this.Onactive_pChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.T_CRFCAP")]
+	public partial class Cause : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _code;
+		
+		private string _description;
+		
+		private short _sortIndex;
+		
+		private string _active_p;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OncodeChanging(string value);
+    partial void OncodeChanged();
+    partial void OndescriptionChanging(string value);
+    partial void OndescriptionChanged();
+    partial void OnsortIndexChanging(short value);
+    partial void OnsortIndexChanged();
+    partial void Onactive_pChanging(string value);
+    partial void Onactive_pChanged();
+    #endregion
+		
+		public Cause()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_CAPCODC", Storage="_code", DbType="Char(1) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string code
+		{
+			get
+			{
+				return this._code;
+			}
+			set
+			{
+				if ((this._code != value))
+				{
+					this.OncodeChanging(value);
+					this.SendPropertyChanging();
+					this._code = value;
+					this.SendPropertyChanged("code");
+					this.OncodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_CAPDSCE", Storage="_description", DbType="VarChar(32) NOT NULL", CanBeNull=false)]
+		public string description
+		{
+			get
+			{
+				return this._description;
+			}
+			set
+			{
+				if ((this._description != value))
+				{
+					this.OndescriptionChanging(value);
+					this.SendPropertyChanging();
+					this._description = value;
+					this.SendPropertyChanged("description");
+					this.OndescriptionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_CAPSEQC", Storage="_sortIndex", DbType="SmallInt NOT NULL")]
+		public short sortIndex
+		{
+			get
+			{
+				return this._sortIndex;
+			}
+			set
+			{
+				if ((this._sortIndex != value))
+				{
+					this.OnsortIndexChanging(value);
+					this.SendPropertyChanging();
+					this._sortIndex = value;
+					this.SendPropertyChanged("sortIndex");
+					this.OnsortIndexChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_CAPIACT", Storage="_active_p", DbType="Char(1) NOT NULL", CanBeNull=false)]
+		public string active_p
+		{
+			get
+			{
+				return this._active_p;
+			}
+			set
+			{
+				if ((this._active_p != value))
+				{
+					this.Onactive_pChanging(value);
+					this.SendPropertyChanging();
+					this._active_p = value;
+					this.SendPropertyChanged("active_p");
+					this.Onactive_pChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.T_CRFSRP1")]
+	public partial class IssueSourceLvl1 : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _code;
+		
+		private string _description;
+		
+		private short _sortIndex;
+		
+		private string _active_p;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OncodeChanging(string value);
+    partial void OncodeChanged();
+    partial void OndescriptionChanging(string value);
+    partial void OndescriptionChanged();
+    partial void OnsortIndexChanging(short value);
+    partial void OnsortIndexChanged();
+    partial void Onactive_pChanging(string value);
+    partial void Onactive_pChanged();
+    #endregion
+		
+		public IssueSourceLvl1()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_SRP1CODC", Storage="_code", DbType="Char(1) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string code
+		{
+			get
+			{
+				return this._code;
+			}
+			set
+			{
+				if ((this._code != value))
+				{
+					this.OncodeChanging(value);
+					this.SendPropertyChanging();
+					this._code = value;
+					this.SendPropertyChanged("code");
+					this.OncodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_SRP1DSCE", Storage="_description", DbType="VarChar(32) NOT NULL", CanBeNull=false)]
+		public string description
+		{
+			get
+			{
+				return this._description;
+			}
+			set
+			{
+				if ((this._description != value))
+				{
+					this.OndescriptionChanging(value);
+					this.SendPropertyChanging();
+					this._description = value;
+					this.SendPropertyChanged("description");
+					this.OndescriptionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_SRP1SEQC", Storage="_sortIndex", DbType="SmallInt NOT NULL")]
+		public short sortIndex
+		{
+			get
+			{
+				return this._sortIndex;
+			}
+			set
+			{
+				if ((this._sortIndex != value))
+				{
+					this.OnsortIndexChanging(value);
+					this.SendPropertyChanging();
+					this._sortIndex = value;
+					this.SendPropertyChanged("sortIndex");
+					this.OnsortIndexChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_SRP1IACT", Storage="_active_p", DbType="Char(1) NOT NULL", CanBeNull=false)]
+		public string active_p
+		{
+			get
+			{
+				return this._active_p;
+			}
+			set
+			{
+				if ((this._active_p != value))
+				{
+					this.Onactive_pChanging(value);
+					this.SendPropertyChanging();
+					this._active_p = value;
+					this.SendPropertyChanged("active_p");
+					this.Onactive_pChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.T_CRFSRP2")]
+	public partial class IssueSourceLvl2 : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _parentCode;
+		
+		private string _code;
+		
+		private string _description;
+		
+		private short _sortIndex;
+		
+		private string _active_p;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnparentCodeChanging(string value);
+    partial void OnparentCodeChanged();
+    partial void OncodeChanging(string value);
+    partial void OncodeChanged();
+    partial void OndescriptionChanging(string value);
+    partial void OndescriptionChanged();
+    partial void OnsortIndexChanging(short value);
+    partial void OnsortIndexChanged();
+    partial void Onactive_pChanging(string value);
+    partial void Onactive_pChanged();
+    #endregion
+		
+		public IssueSourceLvl2()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_SRP1CODC", Storage="_parentCode", DbType="Char(1) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string parentCode
+		{
+			get
+			{
+				return this._parentCode;
+			}
+			set
+			{
+				if ((this._parentCode != value))
+				{
+					this.OnparentCodeChanging(value);
+					this.SendPropertyChanging();
+					this._parentCode = value;
+					this.SendPropertyChanged("parentCode");
+					this.OnparentCodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_SRP2CODC", Storage="_code", DbType="Char(1) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string code
+		{
+			get
+			{
+				return this._code;
+			}
+			set
+			{
+				if ((this._code != value))
+				{
+					this.OncodeChanging(value);
+					this.SendPropertyChanging();
+					this._code = value;
+					this.SendPropertyChanged("code");
+					this.OncodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_SRP2DSCE", Storage="_description", DbType="VarChar(32) NOT NULL", CanBeNull=false)]
+		public string description
+		{
+			get
+			{
+				return this._description;
+			}
+			set
+			{
+				if ((this._description != value))
+				{
+					this.OndescriptionChanging(value);
+					this.SendPropertyChanging();
+					this._description = value;
+					this.SendPropertyChanged("description");
+					this.OndescriptionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_SRP2SEQC", Storage="_sortIndex", DbType="SmallInt NOT NULL")]
+		public short sortIndex
+		{
+			get
+			{
+				return this._sortIndex;
+			}
+			set
+			{
+				if ((this._sortIndex != value))
+				{
+					this.OnsortIndexChanging(value);
+					this.SendPropertyChanging();
+					this._sortIndex = value;
+					this.SendPropertyChanged("sortIndex");
+					this.OnsortIndexChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_SRP2IACT", Storage="_active_p", DbType="Char(1) NOT NULL", CanBeNull=false)]
+		public string active_p
+		{
+			get
+			{
+				return this._active_p;
+			}
+			set
+			{
+				if ((this._active_p != value))
+				{
+					this.Onactive_pChanging(value);
+					this.SendPropertyChanging();
+					this._active_p = value;
+					this.SendPropertyChanged("active_p");
+					this.Onactive_pChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.T_CRFSRP3")]
+	public partial class IssueSourceLvl3 : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _grandparentCode;
+		
+		private string _parentCode;
+		
+		private string _code;
+		
+		private string _description;
+		
+		private short _sortIndex;
+		
+		private string _active_p;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OngrandparentCodeChanging(string value);
+    partial void OngrandparentCodeChanged();
+    partial void OnparentCodeChanging(string value);
+    partial void OnparentCodeChanged();
+    partial void OncodeChanging(string value);
+    partial void OncodeChanged();
+    partial void OndescriptionChanging(string value);
+    partial void OndescriptionChanged();
+    partial void OnsortIndexChanging(short value);
+    partial void OnsortIndexChanged();
+    partial void Onactive_pChanging(string value);
+    partial void Onactive_pChanged();
+    #endregion
+		
+		public IssueSourceLvl3()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_SRP1CODC", Storage="_grandparentCode", DbType="Char(1) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string grandparentCode
+		{
+			get
+			{
+				return this._grandparentCode;
+			}
+			set
+			{
+				if ((this._grandparentCode != value))
+				{
+					this.OngrandparentCodeChanging(value);
+					this.SendPropertyChanging();
+					this._grandparentCode = value;
+					this.SendPropertyChanged("grandparentCode");
+					this.OngrandparentCodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_SRP2CODC", Storage="_parentCode", DbType="Char(1) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string parentCode
+		{
+			get
+			{
+				return this._parentCode;
+			}
+			set
+			{
+				if ((this._parentCode != value))
+				{
+					this.OnparentCodeChanging(value);
+					this.SendPropertyChanging();
+					this._parentCode = value;
+					this.SendPropertyChanged("parentCode");
+					this.OnparentCodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_SRP3CODC", Storage="_code", DbType="Char(1) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string code
+		{
+			get
+			{
+				return this._code;
+			}
+			set
+			{
+				if ((this._code != value))
+				{
+					this.OncodeChanging(value);
+					this.SendPropertyChanging();
+					this._code = value;
+					this.SendPropertyChanged("code");
+					this.OncodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_SRP3DSCE", Storage="_description", DbType="VarChar(32) NOT NULL", CanBeNull=false)]
+		public string description
+		{
+			get
+			{
+				return this._description;
+			}
+			set
+			{
+				if ((this._description != value))
+				{
+					this.OndescriptionChanging(value);
+					this.SendPropertyChanging();
+					this._description = value;
+					this.SendPropertyChanged("description");
+					this.OndescriptionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_SRP3SEQC", Storage="_sortIndex", DbType="SmallInt NOT NULL")]
+		public short sortIndex
+		{
+			get
+			{
+				return this._sortIndex;
+			}
+			set
+			{
+				if ((this._sortIndex != value))
+				{
+					this.OnsortIndexChanging(value);
+					this.SendPropertyChanging();
+					this._sortIndex = value;
+					this.SendPropertyChanged("sortIndex");
+					this.OnsortIndexChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_SRP3IACT", Storage="_active_p", DbType="Char(1) NOT NULL", CanBeNull=false)]
+		public string active_p
+		{
+			get
+			{
+				return this._active_p;
+			}
+			set
+			{
+				if ((this._active_p != value))
+				{
+					this.Onactive_pChanging(value);
+					this.SendPropertyChanging();
+					this._active_p = value;
+					this.SendPropertyChanged("active_p");
+					this.Onactive_pChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.T_CRFRRM")]
+	public partial class RequestedResponse : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _code;
+		
+		private string _description;
+		
+		private short _sortIndex;
+		
+		private string _active_p;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OncodeChanging(string value);
+    partial void OncodeChanged();
+    partial void OndescriptionChanging(string value);
+    partial void OndescriptionChanged();
+    partial void OnsortIndexChanging(short value);
+    partial void OnsortIndexChanged();
+    partial void Onactive_pChanging(string value);
+    partial void Onactive_pChanged();
+    #endregion
+		
+		public RequestedResponse()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_RRMCODC", Storage="_code", DbType="Char(1) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string code
+		{
+			get
+			{
+				return this._code;
+			}
+			set
+			{
+				if ((this._code != value))
+				{
+					this.OncodeChanging(value);
+					this.SendPropertyChanging();
+					this._code = value;
+					this.SendPropertyChanged("code");
+					this.OncodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_RRMDSCE", Storage="_description", DbType="VarChar(32) NOT NULL", CanBeNull=false)]
+		public string description
+		{
+			get
+			{
+				return this._description;
+			}
+			set
+			{
+				if ((this._description != value))
+				{
+					this.OndescriptionChanging(value);
+					this.SendPropertyChanging();
+					this._description = value;
+					this.SendPropertyChanged("description");
+					this.OndescriptionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_RRMSEQC", Storage="_sortIndex", DbType="SmallInt NOT NULL")]
+		public short sortIndex
+		{
+			get
+			{
+				return this._sortIndex;
+			}
+			set
+			{
+				if ((this._sortIndex != value))
+				{
+					this.OnsortIndexChanging(value);
+					this.SendPropertyChanging();
+					this._sortIndex = value;
+					this.SendPropertyChanged("sortIndex");
+					this.OnsortIndexChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_RRMIACT", Storage="_active_p", DbType="Char(1) NOT NULL", CanBeNull=false)]
+		public string active_p
+		{
+			get
+			{
+				return this._active_p;
+			}
+			set
+			{
+				if ((this._active_p != value))
+				{
+					this.Onactive_pChanging(value);
+					this.SendPropertyChanging();
+					this._active_p = value;
+					this.SendPropertyChanged("active_p");
+					this.Onactive_pChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.T_CRFRAM")]
+	public partial class ActualResponse : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _code;
+		
+		private string _description;
+		
+		private short _sortIndex;
+		
+		private string _active_p;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OncodeChanging(string value);
+    partial void OncodeChanged();
+    partial void OndescriptionChanging(string value);
+    partial void OndescriptionChanged();
+    partial void OnsortIndexChanging(short value);
+    partial void OnsortIndexChanged();
+    partial void Onactive_pChanging(string value);
+    partial void Onactive_pChanged();
+    #endregion
+		
+		public ActualResponse()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_RAMCODC", Storage="_code", DbType="Char(1) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string code
+		{
+			get
+			{
+				return this._code;
+			}
+			set
+			{
+				if ((this._code != value))
+				{
+					this.OncodeChanging(value);
+					this.SendPropertyChanging();
+					this._code = value;
+					this.SendPropertyChanged("code");
+					this.OncodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_RAMDSCE", Storage="_description", DbType="VarChar(32) NOT NULL", CanBeNull=false)]
+		public string description
+		{
+			get
+			{
+				return this._description;
+			}
+			set
+			{
+				if ((this._description != value))
+				{
+					this.OndescriptionChanging(value);
+					this.SendPropertyChanging();
+					this._description = value;
+					this.SendPropertyChanged("description");
+					this.OndescriptionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_RAMSEQC", Storage="_sortIndex", DbType="SmallInt NOT NULL")]
+		public short sortIndex
+		{
+			get
+			{
+				return this._sortIndex;
+			}
+			set
+			{
+				if ((this._sortIndex != value))
+				{
+					this.OnsortIndexChanging(value);
+					this.SendPropertyChanging();
+					this._sortIndex = value;
+					this.SendPropertyChanged("sortIndex");
+					this.OnsortIndexChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_RAMIACT", Storage="_active_p", DbType="Char(1) NOT NULL", CanBeNull=false)]
+		public string active_p
+		{
+			get
+			{
+				return this._active_p;
+			}
+			set
+			{
+				if ((this._active_p != value))
+				{
+					this.Onactive_pChanging(value);
+					this.SendPropertyChanging();
+					this._active_p = value;
+					this.SendPropertyChanged("active_p");
+					this.Onactive_pChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.T_CDFCTT")]
+	public partial class Contract : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _code;
+		
+		private string _description;
+		
+		private int _sortIndex;
+		
+		private string _active_p;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OncodeChanging(int value);
+    partial void OncodeChanged();
+    partial void OndescriptionChanging(string value);
+    partial void OndescriptionChanged();
+    partial void OnsortIndexChanging(int value);
+    partial void OnsortIndexChanged();
+    partial void Onactive_pChanging(string value);
+    partial void Onactive_pChanged();
+    #endregion
+		
+		public Contract()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_CTTCIDC", Storage="_code", DbType="Decimal(5,0) NOT NULL", IsPrimaryKey=true)]
+		public int code
+		{
+			get
+			{
+				return this._code;
+			}
+			set
+			{
+				if ((this._code != value))
+				{
+					this.OncodeChanging(value);
+					this.SendPropertyChanging();
+					this._code = value;
+					this.SendPropertyChanged("code");
+					this.OncodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_CTTCNAM", Storage="_description", DbType="VarChar(250) NOT NULL", CanBeNull=false)]
+		public string description
+		{
+			get
+			{
+				return this._description;
+			}
+			set
+			{
+				if ((this._description != value))
+				{
+					this.OndescriptionChanging(value);
+					this.SendPropertyChanging();
+					this._description = value;
+					this.SendPropertyChanged("description");
+					this.OndescriptionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_CTTSEQC", Storage="_sortIndex", DbType="Decimal(5,0) NOT NULL")]
+		public int sortIndex
+		{
+			get
+			{
+				return this._sortIndex;
+			}
+			set
+			{
+				if ((this._sortIndex != value))
+				{
+					this.OnsortIndexChanging(value);
+					this.SendPropertyChanging();
+					this._sortIndex = value;
+					this.SendPropertyChanged("sortIndex");
+					this.OnsortIndexChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_CTTIACT", Storage="_active_p", DbType="Char(1) NOT NULL", CanBeNull=false)]
+		public string active_p
+		{
+			get
+			{
+				return this._active_p;
+			}
+			set
+			{
+				if ((this._active_p != value))
+				{
+					this.Onactive_pChanging(value);
+					this.SendPropertyChanging();
+					this._active_p = value;
+					this.SendPropertyChanged("active_p");
+					this.Onactive_pChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.E_CDFCMP")]
+	public partial class Company : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _contractCode;
+		
+		private int _code;
+		
+		private string _description;
+		
+		private int _sortIndex;
+		
+		private string _active_p;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OncontractCodeChanging(int value);
+    partial void OncontractCodeChanged();
+    partial void OncodeChanging(int value);
+    partial void OncodeChanged();
+    partial void OndescriptionChanging(string value);
+    partial void OndescriptionChanged();
+    partial void OnsortIndexChanging(int value);
+    partial void OnsortIndexChanged();
+    partial void Onactive_pChanging(string value);
+    partial void Onactive_pChanged();
+    #endregion
+		
+		public Company()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_CMPCIDC", Storage="_contractCode", DbType="Decimal(5,0) NOT NULL", IsPrimaryKey=true)]
+		public int contractCode
+		{
+			get
+			{
+				return this._contractCode;
+			}
+			set
+			{
+				if ((this._contractCode != value))
+				{
+					this.OncontractCodeChanging(value);
+					this.SendPropertyChanging();
+					this._contractCode = value;
+					this.SendPropertyChanged("contractCode");
+					this.OncontractCodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_CMPPIDC", Storage="_code", DbType="Decimal(5,0) NOT NULL", IsPrimaryKey=true)]
+		public int code
+		{
+			get
+			{
+				return this._code;
+			}
+			set
+			{
+				if ((this._code != value))
+				{
+					this.OncodeChanging(value);
+					this.SendPropertyChanging();
+					this._code = value;
+					this.SendPropertyChanged("code");
+					this.OncodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_CMPCNAM", Storage="_description", DbType="VarChar(250) NOT NULL", CanBeNull=false)]
+		public string description
+		{
+			get
+			{
+				return this._description;
+			}
+			set
+			{
+				if ((this._description != value))
+				{
+					this.OndescriptionChanging(value);
+					this.SendPropertyChanging();
+					this._description = value;
+					this.SendPropertyChanged("description");
+					this.OndescriptionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_CMPSEQC", Storage="_sortIndex", DbType="SmallInt NOT NULL")]
+		public int sortIndex
+		{
+			get
+			{
+				return this._sortIndex;
+			}
+			set
+			{
+				if ((this._sortIndex != value))
+				{
+					this.OnsortIndexChanging(value);
+					this.SendPropertyChanging();
+					this._sortIndex = value;
+					this.SendPropertyChanged("sortIndex");
+					this.OnsortIndexChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_CMPIACT", Storage="_active_p", DbType="Char(1) NOT NULL", CanBeNull=false)]
+		public string active_p
+		{
+			get
+			{
+				return this._active_p;
+			}
+			set
+			{
+				if ((this._active_p != value))
+				{
+					this.Onactive_pChanging(value);
+					this.SendPropertyChanging();
+					this._active_p = value;
+					this.SendPropertyChanged("active_p");
+					this.Onactive_pChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.T_CDFOFF")]
+	public partial class Office : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _contractCode;
+		
+		private int _companyCode;
+		
+		private string _code;
+		
+		private int _version;
+		
+		private string _description;
+		
+		private int _sortIndex;
+		
+		private string _active_p;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OncontractCodeChanging(int value);
+    partial void OncontractCodeChanged();
+    partial void OncompanyCodeChanging(int value);
+    partial void OncompanyCodeChanged();
+    partial void OncodeChanging(string value);
+    partial void OncodeChanged();
+    partial void OnversionChanging(int value);
+    partial void OnversionChanged();
+    partial void OndescriptionChanging(string value);
+    partial void OndescriptionChanged();
+    partial void OnsortIndexChanging(int value);
+    partial void OnsortIndexChanged();
+    partial void Onactive_pChanging(string value);
+    partial void Onactive_pChanged();
+    #endregion
+		
+		public Office()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_OFFCIDC", Storage="_contractCode", DbType="Decimal(5,0) NOT NULL", IsPrimaryKey=true)]
+		public int contractCode
+		{
+			get
+			{
+				return this._contractCode;
+			}
+			set
+			{
+				if ((this._contractCode != value))
+				{
+					this.OncontractCodeChanging(value);
+					this.SendPropertyChanging();
+					this._contractCode = value;
+					this.SendPropertyChanged("contractCode");
+					this.OncontractCodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_OFFPIDC", Storage="_companyCode", DbType="Decimal(5,0) NOT NULL", IsPrimaryKey=true)]
+		public int companyCode
+		{
+			get
+			{
+				return this._companyCode;
+			}
+			set
+			{
+				if ((this._companyCode != value))
+				{
+					this.OncompanyCodeChanging(value);
+					this.SendPropertyChanging();
+					this._companyCode = value;
+					this.SendPropertyChanged("companyCode");
+					this.OncompanyCodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_OFFIDT", Storage="_code", DbType="VarChar(50) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string code
+		{
+			get
+			{
+				return this._code;
+			}
+			set
+			{
+				if ((this._code != value))
+				{
+					this.OncodeChanging(value);
+					this.SendPropertyChanging();
+					this._code = value;
+					this.SendPropertyChanged("code");
+					this.OncodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_OFFVNE", Storage="_version", DbType="Decimal(5,0) NOT NULL", IsPrimaryKey=true)]
+		public int version
+		{
+			get
+			{
+				return this._version;
+			}
+			set
+			{
+				if ((this._version != value))
+				{
+					this.OnversionChanging(value);
+					this.SendPropertyChanging();
+					this._version = value;
+					this.SendPropertyChanged("version");
+					this.OnversionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_OFFNAM", Storage="_description", DbType="VarChar(250) NOT NULL", CanBeNull=false)]
+		public string description
+		{
+			get
+			{
+				return this._description;
+			}
+			set
+			{
+				if ((this._description != value))
+				{
+					this.OndescriptionChanging(value);
+					this.SendPropertyChanging();
+					this._description = value;
+					this.SendPropertyChanged("description");
+					this.OndescriptionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_OFFSEQC", Storage="_sortIndex", DbType="Decimal(5,0) NOT NULL")]
+		public int sortIndex
+		{
+			get
+			{
+				return this._sortIndex;
+			}
+			set
+			{
+				if ((this._sortIndex != value))
+				{
+					this.OnsortIndexChanging(value);
+					this.SendPropertyChanging();
+					this._sortIndex = value;
+					this.SendPropertyChanged("sortIndex");
+					this.OnsortIndexChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_OFFIACT", Storage="_active_p", DbType="Char(1) NOT NULL", CanBeNull=false)]
+		public string active_p
+		{
+			get
+			{
+				return this._active_p;
+			}
+			set
+			{
+				if ((this._active_p != value))
+				{
+					this.Onactive_pChanging(value);
+					this.SendPropertyChanging();
+					this._active_p = value;
+					this.SendPropertyChanged("active_p");
+					this.Onactive_pChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.T_CDFCEE")]
+	public partial class Employee : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _contractCode;
+		
+		private int _companyCode;
+		
+		private string _code;
+		
+		private int _version;
+		
+		private string _firstName;
+		
+		private string _lastName;
+		
+		private int _sortIndex;
+		
+		private string _active_p;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OncontractCodeChanging(int value);
+    partial void OncontractCodeChanged();
+    partial void OncompanyCodeChanging(int value);
+    partial void OncompanyCodeChanged();
+    partial void OncodeChanging(string value);
+    partial void OncodeChanged();
+    partial void OnversionChanging(int value);
+    partial void OnversionChanged();
+    partial void OnfirstNameChanging(string value);
+    partial void OnfirstNameChanged();
+    partial void OnlastNameChanging(string value);
+    partial void OnlastNameChanged();
+    partial void OnsortIndexChanging(int value);
+    partial void OnsortIndexChanged();
+    partial void Onactive_pChanging(string value);
+    partial void Onactive_pChanged();
+    #endregion
+		
+		public Employee()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_CEECIDC", Storage="_contractCode", DbType="Decimal(5,0) NOT NULL", IsPrimaryKey=true)]
+		public int contractCode
+		{
+			get
+			{
+				return this._contractCode;
+			}
+			set
+			{
+				if ((this._contractCode != value))
+				{
+					this.OncontractCodeChanging(value);
+					this.SendPropertyChanging();
+					this._contractCode = value;
+					this.SendPropertyChanged("contractCode");
+					this.OncontractCodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_CEEPIDC", Storage="_companyCode", DbType="Decimal(5,0) NOT NULL", IsPrimaryKey=true)]
+		public int companyCode
+		{
+			get
+			{
+				return this._companyCode;
+			}
+			set
+			{
+				if ((this._companyCode != value))
+				{
+					this.OncompanyCodeChanging(value);
+					this.SendPropertyChanging();
+					this._companyCode = value;
+					this.SendPropertyChanged("companyCode");
+					this.OncompanyCodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_CEEEIDT", Storage="_code", DbType="VarChar(50) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string code
+		{
+			get
+			{
+				return this._code;
+			}
+			set
+			{
+				if ((this._code != value))
+				{
+					this.OncodeChanging(value);
+					this.SendPropertyChanging();
+					this._code = value;
+					this.SendPropertyChanged("code");
+					this.OncodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_CEEEVNE", Storage="_version", DbType="Decimal(5,0) NOT NULL", IsPrimaryKey=true)]
+		public int version
+		{
+			get
+			{
+				return this._version;
+			}
+			set
+			{
+				if ((this._version != value))
+				{
+					this.OnversionChanging(value);
+					this.SendPropertyChanging();
+					this._version = value;
+					this.SendPropertyChanged("version");
+					this.OnversionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_CEEEFNM", Storage="_firstName", DbType="VarChar(250) NOT NULL", CanBeNull=false)]
+		public string firstName
+		{
+			get
+			{
+				return this._firstName;
+			}
+			set
+			{
+				if ((this._firstName != value))
+				{
+					this.OnfirstNameChanging(value);
+					this.SendPropertyChanging();
+					this._firstName = value;
+					this.SendPropertyChanged("firstName");
+					this.OnfirstNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_CEEEFLM", Storage="_lastName", DbType="VarChar(250) NOT NULL", CanBeNull=false)]
+		public string lastName
+		{
+			get
+			{
+				return this._lastName;
+			}
+			set
+			{
+				if ((this._lastName != value))
+				{
+					this.OnlastNameChanging(value);
+					this.SendPropertyChanging();
+					this._lastName = value;
+					this.SendPropertyChanged("lastName");
+					this.OnlastNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_CEESEQC", Storage="_sortIndex", DbType="SmallInt NOT NULL")]
+		public int sortIndex
+		{
+			get
+			{
+				return this._sortIndex;
+			}
+			set
+			{
+				if ((this._sortIndex != value))
+				{
+					this.OnsortIndexChanging(value);
+					this.SendPropertyChanging();
+					this._sortIndex = value;
+					this.SendPropertyChanged("sortIndex");
+					this.OnsortIndexChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_CEEIACT", Storage="_active_p", DbType="char(1)", CanBeNull=false)]
+		public string active_p
+		{
+			get
+			{
+				return this._active_p;
+			}
+			set
+			{
+				if ((this._active_p != value))
+				{
+					this.Onactive_pChanging(value);
+					this.SendPropertyChanging();
+					this._active_p = value;
+					this.SendPropertyChanged("active_p");
+					this.Onactive_pChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.T_CDFTKT")]
+	public partial class Ticket : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _code;
+		
+		private int _version;
+		
+		private int _contractCode;
+		
+		private int _companyCode;
+		
+		private string _officeCode;
+		
+		private int _officeVersion;
+		
+		private string _employeeCode;
+		
+		private int _employeeVersion;
+		
+		private string _priorityCode;
+		
+		private string _ticketSourceCode;
+		
+		private string _ticketSourceAlt;
+		
+		private string _issueSourceLvl1Code;
+		
+		private string _issueSourceLvl2Code;
+		
+		private string _issueSourceLvl3Code;
+		
+		private string _issueSourceAlt;
+		
+		private string _requestedResponseCode;
+		
+		private string _statusCode;
+		
+		private string _causeCode;
+		
+		private string _actualResponseCode;
+		
+		private string _enteringUserName;
+		
+		private string _enteringTime;
+		
+		private string _assignedUserName;
+		
+		private string _solvedTime;
+		
+		private string _respondingUserName;
+		
+		private string _respondingTime;
+		
+		private string _updatingUserName;
+		
+		private string _updatingTime;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OncodeChanging(string value);
+    partial void OncodeChanged();
+    partial void OnversionChanging(int value);
+    partial void OnversionChanged();
+    partial void OncontractCodeChanging(int value);
+    partial void OncontractCodeChanged();
+    partial void OncompanyCodeChanging(int value);
+    partial void OncompanyCodeChanged();
+    partial void OnofficeCodeChanging(string value);
+    partial void OnofficeCodeChanged();
+    partial void OnofficeVersionChanging(int value);
+    partial void OnofficeVersionChanged();
+    partial void OnemployeeCodeChanging(string value);
+    partial void OnemployeeCodeChanged();
+    partial void OnemployeeVersionChanging(int value);
+    partial void OnemployeeVersionChanged();
+    partial void OnpriorityCodeChanging(string value);
+    partial void OnpriorityCodeChanged();
+    partial void OnticketSourceCodeChanging(string value);
+    partial void OnticketSourceCodeChanged();
+    partial void OnticketSourceAltChanging(string value);
+    partial void OnticketSourceAltChanged();
+    partial void OnissueSourceLvl1CodeChanging(string value);
+    partial void OnissueSourceLvl1CodeChanged();
+    partial void OnissueSourceLvl2CodeChanging(string value);
+    partial void OnissueSourceLvl2CodeChanged();
+    partial void OnissueSourceLvl3CodeChanging(string value);
+    partial void OnissueSourceLvl3CodeChanged();
+    partial void OnissueSourceAltChanging(string value);
+    partial void OnissueSourceAltChanged();
+    partial void OnrequestedResponseCodeChanging(string value);
+    partial void OnrequestedResponseCodeChanged();
+    partial void OnstatusCodeChanging(string value);
+    partial void OnstatusCodeChanged();
+    partial void OncauseCodeChanging(string value);
+    partial void OncauseCodeChanged();
+    partial void OnactualResponseCodeChanging(string value);
+    partial void OnactualResponseCodeChanged();
+    partial void OnenteringUserNameChanging(string value);
+    partial void OnenteringUserNameChanged();
+    partial void OnenteringTimeChanging(string value);
+    partial void OnenteringTimeChanged();
+    partial void OnassignedUserNameChanging(string value);
+    partial void OnassignedUserNameChanged();
+    partial void OnsolvedTimeChanging(string value);
+    partial void OnsolvedTimeChanged();
+    partial void OnrespondingUserNameChanging(string value);
+    partial void OnrespondingUserNameChanged();
+    partial void OnrespondingTimeChanging(string value);
+    partial void OnrespondingTimeChanged();
+    partial void OnupdatingUserNameChanging(string value);
+    partial void OnupdatingUserNameChanged();
+    partial void OnupdatingTimeChanging(string value);
+    partial void OnupdatingTimeChanged();
+    #endregion
+		
+		public Ticket()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_TKTTIDC", Storage="_code", DbType="VarChar(8) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string code
+		{
+			get
+			{
+				return this._code;
+			}
+			set
+			{
+				if ((this._code != value))
+				{
+					this.OncodeChanging(value);
+					this.SendPropertyChanging();
+					this._code = value;
+					this.SendPropertyChanged("code");
+					this.OncodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_TKTTVNE", Storage="_version", DbType="Decimal(3,0) NOT NULL")]
+		public int version
+		{
+			get
+			{
+				return this._version;
+			}
+			set
+			{
+				if ((this._version != value))
+				{
+					this.OnversionChanging(value);
+					this.SendPropertyChanging();
+					this._version = value;
+					this.SendPropertyChanged("version");
+					this.OnversionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_TKTCIDC", Storage="_contractCode", DbType="Decimal(5,0) NOT NULL")]
+		public int contractCode
+		{
+			get
+			{
+				return this._contractCode;
+			}
+			set
+			{
+				if ((this._contractCode != value))
+				{
+					this.OncontractCodeChanging(value);
+					this.SendPropertyChanging();
+					this._contractCode = value;
+					this.SendPropertyChanged("contractCode");
+					this.OncontractCodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_TKTPIDC", Storage="_companyCode", DbType="Decimal(5,0) NOT NULL")]
+		public int companyCode
+		{
+			get
+			{
+				return this._companyCode;
+			}
+			set
+			{
+				if ((this._companyCode != value))
+				{
+					this.OncompanyCodeChanging(value);
+					this.SendPropertyChanging();
+					this._companyCode = value;
+					this.SendPropertyChanged("companyCode");
+					this.OncompanyCodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_TKTFIDT", Storage="_officeCode", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string officeCode
+		{
+			get
+			{
+				return this._officeCode;
+			}
+			set
+			{
+				if ((this._officeCode != value))
+				{
+					this.OnofficeCodeChanging(value);
+					this.SendPropertyChanging();
+					this._officeCode = value;
+					this.SendPropertyChanged("officeCode");
+					this.OnofficeCodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_TKTFVNE", Storage="_officeVersion", DbType="Decimal(5,0) NOT NULL")]
+		public int officeVersion
+		{
+			get
+			{
+				return this._officeVersion;
+			}
+			set
+			{
+				if ((this._officeVersion != value))
+				{
+					this.OnofficeVersionChanging(value);
+					this.SendPropertyChanging();
+					this._officeVersion = value;
+					this.SendPropertyChanged("officeVersion");
+					this.OnofficeVersionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_TKTEIDT", Storage="_employeeCode", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string employeeCode
+		{
+			get
+			{
+				return this._employeeCode;
+			}
+			set
+			{
+				if ((this._employeeCode != value))
+				{
+					this.OnemployeeCodeChanging(value);
+					this.SendPropertyChanging();
+					this._employeeCode = value;
+					this.SendPropertyChanged("employeeCode");
+					this.OnemployeeCodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_TKTEVNE", Storage="_employeeVersion", DbType="Decimal(5,0) NOT NULL")]
+		public int employeeVersion
+		{
+			get
+			{
+				return this._employeeVersion;
+			}
+			set
+			{
+				if ((this._employeeVersion != value))
+				{
+					this.OnemployeeVersionChanging(value);
+					this.SendPropertyChanging();
+					this._employeeVersion = value;
+					this.SendPropertyChanged("employeeVersion");
+					this.OnemployeeVersionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_TKTPRIC", Storage="_priorityCode", DbType="Char(1) NOT NULL", CanBeNull=false)]
+		public string priorityCode
+		{
+			get
+			{
+				return this._priorityCode;
+			}
+			set
+			{
+				if ((this._priorityCode != value))
+				{
+					this.OnpriorityCodeChanging(value);
+					this.SendPropertyChanging();
+					this._priorityCode = value;
+					this.SendPropertyChanged("priorityCode");
+					this.OnpriorityCodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_TKTSRTC", Storage="_ticketSourceCode", DbType="Char(1) NOT NULL", CanBeNull=false)]
+		public string ticketSourceCode
+		{
+			get
+			{
+				return this._ticketSourceCode;
+			}
+			set
+			{
+				if ((this._ticketSourceCode != value))
+				{
+					this.OnticketSourceCodeChanging(value);
+					this.SendPropertyChanging();
+					this._ticketSourceCode = value;
+					this.SendPropertyChanged("ticketSourceCode");
+					this.OnticketSourceCodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_TKTSROE", Storage="_ticketSourceAlt", DbType="VarChar(32) NOT NULL", CanBeNull=false)]
+		public string ticketSourceAlt
+		{
+			get
+			{
+				return this._ticketSourceAlt;
+			}
+			set
+			{
+				if ((this._ticketSourceAlt != value))
+				{
+					this.OnticketSourceAltChanging(value);
+					this.SendPropertyChanging();
+					this._ticketSourceAlt = value;
+					this.SendPropertyChanged("ticketSourceAlt");
+					this.OnticketSourceAltChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_TKTSC1C", Storage="_issueSourceLvl1Code", DbType="VarChar(1) NOT NULL", CanBeNull=false)]
+		public string issueSourceLvl1Code
+		{
+			get
+			{
+				return this._issueSourceLvl1Code;
+			}
+			set
+			{
+				if ((this._issueSourceLvl1Code != value))
+				{
+					this.OnissueSourceLvl1CodeChanging(value);
+					this.SendPropertyChanging();
+					this._issueSourceLvl1Code = value;
+					this.SendPropertyChanged("issueSourceLvl1Code");
+					this.OnissueSourceLvl1CodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_TKTSC2C", Storage="_issueSourceLvl2Code", DbType="VarChar(1) NOT NULL", CanBeNull=false)]
+		public string issueSourceLvl2Code
+		{
+			get
+			{
+				return this._issueSourceLvl2Code;
+			}
+			set
+			{
+				if ((this._issueSourceLvl2Code != value))
+				{
+					this.OnissueSourceLvl2CodeChanging(value);
+					this.SendPropertyChanging();
+					this._issueSourceLvl2Code = value;
+					this.SendPropertyChanged("issueSourceLvl2Code");
+					this.OnissueSourceLvl2CodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_TKTSC3C", Storage="_issueSourceLvl3Code", DbType="VarChar(1) NOT NULL", CanBeNull=false)]
+		public string issueSourceLvl3Code
+		{
+			get
+			{
+				return this._issueSourceLvl3Code;
+			}
+			set
+			{
+				if ((this._issueSourceLvl3Code != value))
+				{
+					this.OnissueSourceLvl3CodeChanging(value);
+					this.SendPropertyChanging();
+					this._issueSourceLvl3Code = value;
+					this.SendPropertyChanged("issueSourceLvl3Code");
+					this.OnissueSourceLvl3CodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_TKTSCOE", Storage="_issueSourceAlt", DbType="VarChar(32) NOT NULL", CanBeNull=false)]
+		public string issueSourceAlt
+		{
+			get
+			{
+				return this._issueSourceAlt;
+			}
+			set
+			{
+				if ((this._issueSourceAlt != value))
+				{
+					this.OnissueSourceAltChanging(value);
+					this.SendPropertyChanging();
+					this._issueSourceAlt = value;
+					this.SendPropertyChanged("issueSourceAlt");
+					this.OnissueSourceAltChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_TKTRRMC", Storage="_requestedResponseCode", DbType="Char(1) NOT NULL", CanBeNull=false)]
+		public string requestedResponseCode
+		{
+			get
+			{
+				return this._requestedResponseCode;
+			}
+			set
+			{
+				if ((this._requestedResponseCode != value))
+				{
+					this.OnrequestedResponseCodeChanging(value);
+					this.SendPropertyChanging();
+					this._requestedResponseCode = value;
+					this.SendPropertyChanged("requestedResponseCode");
+					this.OnrequestedResponseCodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_TKTSTSC", Storage="_statusCode", DbType="Char(1) NOT NULL", CanBeNull=false)]
+		public string statusCode
+		{
+			get
+			{
+				return this._statusCode;
+			}
+			set
+			{
+				if ((this._statusCode != value))
+				{
+					this.OnstatusCodeChanging(value);
+					this.SendPropertyChanging();
+					this._statusCode = value;
+					this.SendPropertyChanged("statusCode");
+					this.OnstatusCodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_TKTCAUC", Storage="_causeCode", DbType="Char(1) NOT NULL", CanBeNull=false)]
+		public string causeCode
+		{
+			get
+			{
+				return this._causeCode;
+			}
+			set
+			{
+				if ((this._causeCode != value))
+				{
+					this.OncauseCodeChanging(value);
+					this.SendPropertyChanging();
+					this._causeCode = value;
+					this.SendPropertyChanged("causeCode");
+					this.OncauseCodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_TKTAMC", Storage="_actualResponseCode", DbType="Char(1) NOT NULL", CanBeNull=false)]
+		public string actualResponseCode
+		{
+			get
+			{
+				return this._actualResponseCode;
+			}
+			set
+			{
+				if ((this._actualResponseCode != value))
+				{
+					this.OnactualResponseCodeChanging(value);
+					this.SendPropertyChanging();
+					this._actualResponseCode = value;
+					this.SendPropertyChanged("actualResponseCode");
+					this.OnactualResponseCodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_TKTUIEC", Storage="_enteringUserName", DbType="VarChar(8) NOT NULL", CanBeNull=false)]
+		public string enteringUserName
+		{
+			get
+			{
+				return this._enteringUserName;
+			}
+			set
+			{
+				if ((this._enteringUserName != value))
+				{
+					this.OnenteringUserNameChanging(value);
+					this.SendPropertyChanging();
+					this._enteringUserName = value;
+					this.SendPropertyChanged("enteringUserName");
+					this.OnenteringUserNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_TKTDTEE", Storage="_enteringTime", DbType="Char(14) NOT NULL", CanBeNull=false)]
+		public string enteringTime
+		{
+			get
+			{
+				return this._enteringTime;
+			}
+			set
+			{
+				if ((this._enteringTime != value))
+				{
+					this.OnenteringTimeChanging(value);
+					this.SendPropertyChanging();
+					this._enteringTime = value;
+					this.SendPropertyChanged("enteringTime");
+					this.OnenteringTimeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_TKTUIAC", Storage="_assignedUserName", DbType="VarChar(8) NOT NULL", CanBeNull=false)]
+		public string assignedUserName
+		{
+			get
+			{
+				return this._assignedUserName;
+			}
+			set
+			{
+				if ((this._assignedUserName != value))
+				{
+					this.OnassignedUserNameChanging(value);
+					this.SendPropertyChanging();
+					this._assignedUserName = value;
+					this.SendPropertyChanged("assignedUserName");
+					this.OnassignedUserNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_TKTDTAE", Storage="_solvedTime", DbType="Char(14) NOT NULL", CanBeNull=false)]
+		public string solvedTime
+		{
+			get
+			{
+				return this._solvedTime;
+			}
+			set
+			{
+				if ((this._solvedTime != value))
+				{
+					this.OnsolvedTimeChanging(value);
+					this.SendPropertyChanging();
+					this._solvedTime = value;
+					this.SendPropertyChanged("solvedTime");
+					this.OnsolvedTimeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_TKTUIRC", Storage="_respondingUserName", DbType="VarChar(8) NOT NULL", CanBeNull=false)]
+		public string respondingUserName
+		{
+			get
+			{
+				return this._respondingUserName;
+			}
+			set
+			{
+				if ((this._respondingUserName != value))
+				{
+					this.OnrespondingUserNameChanging(value);
+					this.SendPropertyChanging();
+					this._respondingUserName = value;
+					this.SendPropertyChanged("respondingUserName");
+					this.OnrespondingUserNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_TKTDTRE", Storage="_respondingTime", DbType="Char(14) NOT NULL", CanBeNull=false)]
+		public string respondingTime
+		{
+			get
+			{
+				return this._respondingTime;
+			}
+			set
+			{
+				if ((this._respondingTime != value))
+				{
+					this.OnrespondingTimeChanging(value);
+					this.SendPropertyChanging();
+					this._respondingTime = value;
+					this.SendPropertyChanged("respondingTime");
+					this.OnrespondingTimeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_TKTUIUC", Storage="_updatingUserName", DbType="VarChar(8) NOT NULL", CanBeNull=false)]
+		public string updatingUserName
+		{
+			get
+			{
+				return this._updatingUserName;
+			}
+			set
+			{
+				if ((this._updatingUserName != value))
+				{
+					this.OnupdatingUserNameChanging(value);
+					this.SendPropertyChanging();
+					this._updatingUserName = value;
+					this.SendPropertyChanged("updatingUserName");
+					this.OnupdatingUserNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_TKTDTUE", Storage="_updatingTime", DbType="Char(14) NOT NULL", CanBeNull=false)]
+		public string updatingTime
+		{
+			get
+			{
+				return this._updatingTime;
+			}
+			set
+			{
+				if ((this._updatingTime != value))
+				{
+					this.OnupdatingTimeChanging(value);
+					this.SendPropertyChanging();
+					this._updatingTime = value;
+					this.SendPropertyChanged("updatingTime");
+					this.OnupdatingTimeChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.T_CDFNOT")]
+	public partial class TicketNote : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _code;
+		
+		private char _type;
+		
+		private int _sortIndex;
+		
+		private string _content;
+		
+		private string _enteringUserName;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OncodeChanging(string value);
+    partial void OncodeChanged();
+    partial void OntypeChanging(char value);
+    partial void OntypeChanged();
+    partial void OnsortIndexChanging(int value);
+    partial void OnsortIndexChanged();
+    partial void OncontentChanging(string value);
+    partial void OncontentChanged();
+    partial void OnenteringUserNameChanging(string value);
+    partial void OnenteringUserNameChanged();
+    #endregion
+		
+		public TicketNote()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_NOTTIDC", Storage="_code", DbType="VarChar(8) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string code
+		{
+			get
+			{
+				return this._code;
+			}
+			set
+			{
+				if ((this._code != value))
+				{
+					this.OncodeChanging(value);
+					this.SendPropertyChanging();
+					this._code = value;
+					this.SendPropertyChanged("code");
+					this.OncodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_NOTNTPC", Storage="_type", DbType="Char(1) NOT NULL", IsPrimaryKey=true)]
+		public char type
+		{
+			get
+			{
+				return this._type;
+			}
+			set
+			{
+				if ((this._type != value))
+				{
+					this.OntypeChanging(value);
+					this.SendPropertyChanging();
+					this._type = value;
+					this.SendPropertyChanged("type");
+					this.OntypeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_NOTSEQC", Storage="_sortIndex", DbType="Decimal(3,0) NOT NULL", IsPrimaryKey=true)]
+		public int sortIndex
+		{
+			get
+			{
+				return this._sortIndex;
+			}
+			set
+			{
+				if ((this._sortIndex != value))
+				{
+					this.OnsortIndexChanging(value);
+					this.SendPropertyChanging();
+					this._sortIndex = value;
+					this.SendPropertyChanged("sortIndex");
+					this.OnsortIndexChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_NOTTXTE", Storage="_content", DbType="VarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string content
+		{
+			get
+			{
+				return this._content;
+			}
+			set
+			{
+				if ((this._content != value))
+				{
+					this.OncontentChanging(value);
+					this.SendPropertyChanging();
+					this._content = value;
+					this.SendPropertyChanged("content");
+					this.OncontentChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_NOTUIEC", Storage="_enteringUserName", DbType="VarChar(8) NOT NULL", CanBeNull=false)]
+		public string enteringUserName
+		{
+			get
+			{
+				return this._enteringUserName;
+			}
+			set
+			{
+				if ((this._enteringUserName != value))
+				{
+					this.OnenteringUserNameChanging(value);
+					this.SendPropertyChanging();
+					this._enteringUserName = value;
+					this.SendPropertyChanged("enteringUserName");
+					this.OnenteringUserNameChanged();
 				}
 			}
 		}
