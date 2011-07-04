@@ -39,6 +39,20 @@ namespace RedTelephone.EvilLinq {
             ((dynamic)src).Reverse();
             return (dynamic)src;
         }
+          public static IEnumerable<dynamic> OrderBy(this object src, Func<dynamic, dynamic> accessor)
+        {
+            ((dynamic)src).Sort((Comparison<dynamic>)((x, y) => (accessor(x).CompareTo(accessor(y)))));
+            return (dynamic)src;
+        }
+    }
+}
+
+//a bit of a sham that gives us type safety in Linq without exposing too much.
+public static partial class Extensions {
+    //WhereActiveOrderBytoList. as good a place as any for this doodad.
+    public static List<dynamic> WAOBTL(this IEnumerable<dynamic> src)
+    {
+        return (src as object).Where(x => x.active_p == "A").OrderBy(x => x.sortIndex).ToList();
     }
 }
 
@@ -150,6 +164,5 @@ namespace RedTelephone.Controllers {
             }
             table.Context.SubmitChanges();
         }
-
     }
 }

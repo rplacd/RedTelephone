@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
@@ -181,12 +182,16 @@ namespace RedTelephone.Controllers
         //Takes raw form variables in the format subkey?key (? delimits), and returns the map (key -> (subkey -> x))
         //This allows us to display collections together.
         //Why subkey_key? Because subkeys are determined by the programmer and won't have extra delimiters - WON'T THEY?
+        protected String[] extractQMarkParams(String qmarkparam)
+        {
+            return qmarkparam.Split(new Char[] { '?' }, 2, StringSplitOptions.None);
+        }
         protected Dictionary<String, Dictionary<String, String>> extractRowParams(NameValueCollection formVars)
         {
             Dictionary<String, Dictionary<String, String>> ret = new Dictionary<String, Dictionary<String, String>>();
             foreach (String key in formVars.AllKeys) {
                 if (key.Contains('?')) {
-                    String[] subkey_key = key.Split(new Char[] { '?' }, 2, StringSplitOptions.None);
+                    String[] subkey_key = extractQMarkParams(key);
 
                     if (!ret.ContainsKey(subkey_key[1])) {
                         ret[subkey_key[1]] = new Dictionary<String, String>();
@@ -238,13 +243,21 @@ namespace RedTelephone.Controllers
             Validate(asn, x => (bool)x, String.Format(msg, args));
         }
 
+        //get a 14-char timestamp for the local time in the en-US locale.
+        //formatted in chronologically reverse order - YYYYMMDDHHMMSS.
+        //why couldn't we just use a Date? Search me.
+        protected string char14Timestamp()
+        {
+            return DateTime.Now.ToString("yyyyMMddHHmmss", new CultureInfo("en-US"));
+        }
+
         //refresh the timestamp for a particular table.
         protected void updateTableTimestamp(String tableName)
         {
             var ctx = new ModelsDataContext();
             ReferenceTable table = ctx.ReferenceTables.FirstOrDefault(rf => rf.name == tableName);
             if (table != null) {
-                String newTimeStamp = new String((DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0)).TotalSeconds.ToString().Take(14).ToArray());
+                String newTimeStamp = char14Timestamp();
                 table.lastUpdate = newTimeStamp;
                 ctx.SubmitChanges();
                 logger.DebugFormat("RedTelephoneController.updateTableTimestamp - updating timestamp for {0} to {1}", tableName, newTimeStamp);
@@ -285,6 +298,30 @@ namespace RedTelephone.Controllers
                 return default(string);
             } else {
                 return intersect.First();
+            }
+        };
+        //adapted from http://stackoverflow.com/questions/1122483/c-random-string-generator.
+        private static Random random = new Random();
+        private static string randomString(int length)
+        {
+            StringBuilder builder = new StringBuilder();
+            char ch;
+            for (int i = 0; i < length; i++) {
+                ch = Convert.ToChar(Convert.ToInt32(Math.Floor(26 * random.NextDouble() + 65)));                 
+                builder.Append(ch);
+            }
+            return builder.ToString();
+        }
+        protected static Func<String[], String> Str8Gen = (e) => {
+            //bit of a hack, but surely we can't tell whether e contains every single type of string in the universe
+            if (e.Count() > 99999) {
+                return default(String);
+            } else {
+                var temp = randomString(8);
+                while (e.FirstOrDefault(s => s == temp) != default(String)) {
+                    temp = randomString(8);
+                }
+                return temp;
             }
         };
 

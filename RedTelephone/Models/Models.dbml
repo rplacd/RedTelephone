@@ -161,7 +161,6 @@
       <Column Name="E_TKTSC1C" Member="issueSourceLvl1Code" Type="System.String" DbType="VarChar(1) NOT NULL" CanBeNull="false" />
       <Column Name="E_TKTSC2C" Member="issueSourceLvl2Code" Type="System.String" DbType="VarChar(1) NOT NULL" CanBeNull="false" />
       <Column Name="E_TKTSC3C" Member="issueSourceLvl3Code" Type="System.String" DbType="VarChar(1) NOT NULL" CanBeNull="false" />
-      <Column Name="E_TKTSCOE" Member="issueSourceAlt" Type="System.String" DbType="VarChar(32) NOT NULL" CanBeNull="false" />
       <Column Name="E_TKTRRMC" Member="requestedResponseCode" Type="System.String" DbType="Char(1) NOT NULL" CanBeNull="false" />
       <Column Name="E_TKTSTSC" Member="statusCode" Type="System.String" DbType="Char(1) NOT NULL" CanBeNull="false" />
       <Column Name="E_TKTCAUC" Member="causeCode" Type="System.String" DbType="Char(1) NOT NULL" CanBeNull="false" />
@@ -174,6 +173,7 @@
       <Column Name="E_TKTDTRE" Member="respondingTime" Type="System.String" DbType="Char(14) NOT NULL" CanBeNull="false" />
       <Column Name="E_TKTUIUC" Member="updatingUserName" Type="System.String" DbType="VarChar(8) NOT NULL" CanBeNull="false" />
       <Column Name="E_TKTDTUE" Member="updatingTime" Type="System.String" DbType="Char(14) NOT NULL" CanBeNull="false" />
+      <Column Name="E_TKTSCOE" Member="issueSourceAlt" Type="System.String" DbType="varchar(32)" CanBeNull="false" />
     </Type>
   </Table>
   <Table Name="dbo.T_CDFNOT" Member="TicketNotes">

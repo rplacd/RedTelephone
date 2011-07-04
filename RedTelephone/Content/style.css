@@ -40,6 +40,11 @@ th, td {
 	padding-left: 5px;
 	padding-right: 5px;
 }
+hr {
+    height: 10px;
+    border: 0;
+    background-color: #bf3730;
+}
 
 
 section {

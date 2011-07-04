@@ -1,0 +1,330 @@
+﻿<macro name="optionList" collection="IEnumerable[[dynamic]]" target="String" accessor="Func[[dynamic, String]]" display="Func[[dynamic, String]]">
+    <for each="var x in collection">
+        <if condition="accessor(x) == target">
+            <option selected="selected" value="${accessor(x)}">${display(x)}</option>
+        </if>
+        <else>
+            <option value="${accessor(x)}">${display(x)}</option>
+        </else>
+    </for>
+</macro>
+<!-- this hardcodes STR_NOT_INSTANTIATED -->
+<macro name="emptyOption" target="String" required="bool">
+    <if condition='target == ""'>
+        <if condition="!required">
+            <option selected="selected" value="">-</option>
+        </if>
+        <else>
+            <option selected="selected" value="">- (required!)</option>
+        </else>
+    </if>
+</macro>
+<macro name="defaultPlaceholder" required_p="bool">
+    <if condition="required_p">
+        <span>
+            <strong>None</strong>
+            <input class="required" type="hidden" value=""></input>
+        </span>
+    </if>
+    <else>
+        <span>None</span>
+    </else>
+</macro>
+
+<script type="text/javascript">
+    function setDropdownInvalid(elem, required_p) {
+        elem.empty();
+        var option = new Option();
+        option.value = "";
+        if(required_p) {
+            elem.addClass("required");
+            elem.attr("value", "");
+            option.text = "- (required!)";
+        } else {
+            elem.removeClass("required");
+            option.text = "-";
+        }
+        elem[0].add(option);
+    }
+    function setDropdownArray(elem, arr, required_p) {
+    //elem is an array - the "children" member
+        elem.empty();
+        if(arr.length < 1) {
+            setDropdownInvalid(elem, required_p);
+        }
+        $.each(arr, function(i, d) {
+            var option = new Option();
+            option.value = d["code"];
+            option.text = d["description"];
+            elem[0].add(option);
+        });
+    }
+    //first invalidate all dep + rest dropdowns.
+    //traverse down topLvltree given the code values of src, update the dep with the child element of the last "parent"
+    function updateDependentDropdowns(src, topLvlTree, dep, rest, required_p) {
+        //first, we empty out dep and rest.
+        //if we error out below (if we somehow encounter an invalid path while traversing topLvlTree) the state is then consistent.
+        setDropdownInvalid(dep, required_p)
+        $.each(rest, function(i, d) {
+            setDropdownInvalid(d, required_p);
+        });
+        
+        var traverseState = topLvlTree;
+        $.each(src, function(i, srcLevel) {
+            //find the object with the code we need
+            var curr = traverseState.filter(function(child, i, a) {
+                return child["code"] == srcLevel.attr("value");
+            });
+            //then set traverseState to its child member - because we start with an array as well.
+            traverseState = curr[0]["children"];
+        });
+        
+        //now set the dependent dropdown.
+        setDropdownArray(dep, traverseState, required_p);
+    }
+    //REFACTOR: un-copypaste this - describe the above in terms of below.
+    //like the above, except instead of hardcoding setDropdownArray we have [key, target] pairs which we further traverse by key 
+    //and then get setdropdown called upon - for when we have more than one dependent and don't just use the "children" key.
+    function updateDependentDropdownsCustom(src, topLvlTree, key_target_s, rest, required_p) {
+        //first, we empty out the deps and rests.
+        //if we error out below (if we somehow encounter an invalid path while traversing topLvlTree) the state is then consistent.
+        $.each(key_target_s, function(i, d) {
+            dep = d[1];
+            setDropdownInvalid(dep, required_p);
+        });
+        $.each(rest, function(i, d) {
+            setDropdownInvalid(d, required_p);
+        });
+        
+        var traverseState = topLvlTree;
+        var backTrack = undefined;
+        $.each(src, function(i, srcLevel) {
+            //find the object with the code we need
+            var curr = traverseState.filter(function(child, i, a) {
+                return child["code"] == srcLevel.attr("value");
+            });
+            //while we still need traverseState as a temporary thing, backTrack will link the parent of traverseState - the thing we'd
+            //normally call "children" upon.
+            backTrack = curr[0];
+            traverseState = curr[0]["children"];
+        });
+        
+        //now set the dependent dropdown.
+        $.each(key_target_s, function(i, key_target_pair) {
+            key = key_target_pair[0];
+            target = key_target_pair[1];
+            setDropdownArray(target, backTrack[key], required_p);
+        });
+    }
+</script>
+
+<viewdata Ticket="Ticket" Users="IEnumerable[[User]]" Statuses="IEnumerable[[Status]]" Priorities="IEnumerable[[Priority]]"
+          RequestedResponses="IEnumerable[[RequestedResponse]]" ActualResponses="IEnumerable[[ActualResponse]]"
+          Causes="IEnumerable[[Cause]]" TicketSources="IEnumerable[[TicketSource]]"
+          IssueSourceLvl1s="IEnumerable[[IssueSourceLvl1]]" InitIssueSourceLvl2s="IEnumerable[[IssueSourceLvl2]]" InitIssueSourceLvl3s="IEnumerable[[IssueSourceLvl3]]"
+          Contracts="IEnumerable[[Contract]]" InitCompanies="IEnumerable[[Company]]" InitOffices="IEnumerable[[Office]]" InitEmployees="IEnumerable[[Employee]]"/>
+<var Controller="(RedTelephone.Controllers.TicketController)ViewContext.Controller" type="RedTelephone.Controllers.TicketController" />
+
+<script type="text/javascript">
+    var sourceTree = undefined;
+    var contractTree = undefined;
+    $.getJSON("/ticket/sourcetree", function(data) {
+        sourceTree = data;
+    });
+    $.getJSON("/ticket/contracttree", function(data) {
+        contractTree = data;
+    });
+</script>
+
+<div>
+    <header>
+        <h1>Manage a ticket</h1>
+    </header>
+    <form action="/ticket" method="post" id="form">
+        <section>
+            <h2>
+                <if condition="Ticket.code == Controller.STR_INSTANTIATE_ME">
+                This new ticket
+                </if>
+                <else>
+                Ticket ${Ticket.code}
+                </else>
+                is at revision ${Ticket.version}
+            </h2>
+            
+            <h2>Administrative</h2>
+
+            <div class="form">
+                <div class="form-row">
+                    <p class="form-cell">Status</p>
+                    <select name="status">
+                        <%=optionList(Statuses, Ticket.statusCode, (s)=>s.code, (s)=>s.description)%>
+                    </select>
+                    <p class="form-cell">Priority</p>
+                    <select name="priority">
+                        <%=optionList(Priorities, Ticket.priorityCode, (p)=>p.code, (p)=>p.description)%>
+                    </select>
+                </div>
+            </div>
+
+            <hr/>
+            
+            <div class="form">
+                <input type="hidden" name="code" value="${Ticket.code}" />
+                <input type="hidden" name="version" value="${Ticket.version}" />
+                
+                <div class="form-row">
+                    <p class="form-cell">First entered by</p>
+                    <input class="form-cell" readonly="readonly" type="text" name="enteringUser" value="${Ticket.enteringUserName}" />
+                    <p class="form-cell">at the time</p>
+                    <input class="form-cell" readonly="readonly" type="text" name="enteringTime" value="${Ticket.enteringTime}"/>
+                </div>
+                
+                <div class="form-row">
+                    <p class="form-cell">Last update by</p>
+                    <input class="form-cell" readonly="readonly" type="text" name="updatingUser" value="${Ticket.updatingUserName}" />
+                    <p class="form-cell">at the time</p>
+                    <input class="form-cell" readonly="readonly" type="text" name="updatingTime" value="${Ticket.updatingTime}"/>
+                </div>
+                
+                <!-- long - but not yet macro material. -->
+                <div class="form-row">
+                    <p class="form-cell">Assigned to</p>
+                    <select name="assignedUserName">
+                        <%=emptyOption(Ticket.assignedUserName, false)%>
+                        <%=optionList(Users, Ticket.assignedUserName, (u)=>u.userName, (u)=>u.userName)%>
+                    </select>
+                    <if condition="Ticket.solvedTime == Controller.STR_NOT_INSTANTIATED">
+                        <p class="form-cell">and has not been resolved yet.</p>
+                        <if condition="ViewData['CurrentUser'] == Ticket.assignedUserName">
+                            <input class="form-cell" type="checkbox" name="solved_p" value="Fix that." />
+                        </if>
+                    </if>
+                    <else>
+                        <p class="form-cell">and was marked resolved at</p>
+                        <input class="form-cell" type="text" name="solvedTime" value="${Ticket.solvedTime}" />
+                    </else>
+                </div>
+                
+                <div class="form-row">
+                    <p class="form-cell">User to respond</p>
+                    <select name="respondingUserName">
+                        <%=emptyOption(Ticket.assignedUserName, false)%>
+                        <%=optionList(Users, Ticket.assignedUserName, (u)=>u.userName, (u)=>u.userName)%>
+                    </select>
+                    <if condition="Ticket.respondingTime == Controller.STR_NOT_INSTANTIATED">
+                        <p class="form-cell">and has not been responded to yet.</p>
+                        <if condition="ViewData['CurrentUser'] == Ticket.respondingUserName">
+                            <input class="form-cell" type="checkbox" name="responded_p" value="Fix that." />
+                        </if>
+                    </if>
+                    <else>
+                        <p class="form-cell">and was marked responded to at</p>
+                        <input class="form-cell" type="text" name="respondingTime" value="${Ticket.respondingTime}" />
+                    </else>
+                </div>
+            </div>
+            
+            <h2>Source</h2>
+
+            <div class="form">
+                <div class="form-row">
+                    <p class="form-cell">Source</p>
+                    <select name="ticketSource">
+                        <%=optionList(TicketSources, Ticket.ticketSourceCode, (c)=>c.code, (c)=>c.description)%>
+                    </select>
+                    <p class="form-cell">Details</p>
+                    <input type="text" maxlength="32" name="ticketSourceAlt" value="${Ticket.ticketSourceAlt}" />
+                </div>
+                <div class="form-row">
+                    <p class="form-cell">Contract</p>
+                    <select id="contract" name="contract"
+                            onclick="updateDependentDropdowns([$('#contract')], contractTree, $('#company'), [$('#office'), $('#employee')], true)">
+                        <%=optionList(Contracts, Ticket.contractCode.ToString(), (c)=>c.code.ToString(), (c)=>c.description)%>
+                    </select>
+                    <p class="form-cell">Company</p>
+                    <select id="company" name="company"
+                            onclick="updateDependentDropdownsCustom([$('#contract'), $('#company')], contractTree, [['offices', $('#office')], ['employees', $('#employee')]], [], true)">
+                        <%=optionList(InitCompanies, Ticket.companyCode.ToString(), (c)=>c.code.ToString(), (c)=>c.description)%>
+                    </select>
+                </div>
+                <div class="form-row">
+                    <p class="form-cell">Office</p>
+                    <select id="office" name="office" class="required">
+                        <%=emptyOption(Ticket.officeCode.ToString(), true)%>
+                        <%=optionList(InitOffices, Ticket.officeCode.ToString(), (c)=>(c.code.ToString() + "?" + c.version.ToString()), (c)=>c.description)%>
+                    </select>
+                    <p class="form-cell">Employee</p>
+                    <select id="employee" name="employee" class="required">
+                        <%=emptyOption(Ticket.employeeCode.ToString(), true)%>
+                        <%=optionList(InitEmployees, Ticket.employeeCode.ToString(), (c)=>(c.code.ToString() + "?" + c.version.ToString()), (e)=>(e.firstName + " " + e.lastName))%>
+                        </select>
+                </div>
+            </div>
+
+            <hr/>
+
+            <div class="form">
+                <div class="form-row">
+                    <p class="form-cell">I have a</p>
+                    <select name="cause">
+                        <%=optionList(Causes, Ticket.causeCode, (c)=>c.code, (c)=>c.description)%>
+                    </select>
+                </div>
+            </div>
+            <div class="form">
+                <div class="form-row">
+                    <p class="form-cell">Cause</p>
+                    <select id="issueSourceLvl1" name="issueSourceLvl1" 
+                            onchange="updateDependentDropdowns([$('#issueSourceLvl1')], sourceTree, $('#issueSourceLvl2'), [$('#issueSourceLvl3')], false)">
+                        <%=emptyOption(Ticket.issueSourceLvl1Code, false)%>
+                        <%=optionList(IssueSourceLvl1s, Ticket.issueSourceLvl1Code, (c)=>c.code, (c)=>c.description)%>
+                    </select>
+                    <select id="issueSourceLvl2" name="issueSourceLvl2"
+                            onchange="updateDependentDropdowns([$('#issueSourceLvl1'), $('#issueSourceLvl2')], sourceTree, $('#issueSourceLvl3'), [], false)">
+                        <%=emptyOption(Ticket.issueSourceLvl2Code, false)%>
+                        <%=optionList(InitIssueSourceLvl2s, Ticket.issueSourceLvl2Code, (c)=>c.code, (c)=>c.description)%>
+                        </select>
+                    <select id="issueSourceLvl3" name="issueSourceLvl3">
+                        <%=emptyOption(Ticket.issueSourceLvl3Code, false)%>
+                        <%=optionList(InitIssueSourceLvl3s, Ticket.issueSourceLvl3Code, (c)=>c.code, (c)=>c.description)%>
+                        </select>
+                    <p class="form-cell">Details</p>
+                    <input type="text" name="issueSourceAlt" value="${Ticket.issueSourceAlt}" />
+                </div>
+            </div>
+
+            <h2>Response</h2>
+
+            <div class="form">
+                <div class="form-row">
+                    <p class="form-cell">Requested response</p>
+                    <select name="requestedResponse">
+                        <%=optionList(RequestedResponses, Ticket.requestedResponseCode, (r)=>r.code, (r)=>r.description)%>
+                    </select>
+                </div>
+                <div class="form-row">
+                    <p class="form-cell">Actual response</p>
+                    <select name="actualResponse">
+                        <%=emptyOption(Ticket.actualResponseCode, false)%>
+                        <%=optionList(ActualResponses, Ticket.actualResponseCode, (r)=>r.code, (r)=>r.description)%>
+                    </select>
+                </div>
+            </div>
+
+        </section>
+
+        <nav>
+            <div id="centering-hack">
+                <ul>
+                    <li>
+                        <a href="/users">Cancel</a>
+                    </li>
+                    <li>
+                        <input type="submit" class="submit" value="Save" />
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </form>
+</div>

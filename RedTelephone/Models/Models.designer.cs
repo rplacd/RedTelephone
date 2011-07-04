@@ -2817,8 +2817,6 @@ namespace RedTelephone.Models
 		
 		private string _issueSourceLvl3Code;
 		
-		private string _issueSourceAlt;
-		
 		private string _requestedResponseCode;
 		
 		private string _statusCode;
@@ -2842,6 +2840,8 @@ namespace RedTelephone.Models
 		private string _updatingUserName;
 		
 		private string _updatingTime;
+		
+		private string _issueSourceAlt;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -2875,8 +2875,6 @@ namespace RedTelephone.Models
     partial void OnissueSourceLvl2CodeChanged();
     partial void OnissueSourceLvl3CodeChanging(string value);
     partial void OnissueSourceLvl3CodeChanged();
-    partial void OnissueSourceAltChanging(string value);
-    partial void OnissueSourceAltChanged();
     partial void OnrequestedResponseCodeChanging(string value);
     partial void OnrequestedResponseCodeChanged();
     partial void OnstatusCodeChanging(string value);
@@ -2901,6 +2899,8 @@ namespace RedTelephone.Models
     partial void OnupdatingUserNameChanged();
     partial void OnupdatingTimeChanging(string value);
     partial void OnupdatingTimeChanged();
+    partial void OnissueSourceAltChanging(string value);
+    partial void OnissueSourceAltChanged();
     #endregion
 		
 		public Ticket()
@@ -3188,26 +3188,6 @@ namespace RedTelephone.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_TKTSCOE", Storage="_issueSourceAlt", DbType="VarChar(32) NOT NULL", CanBeNull=false)]
-		public string issueSourceAlt
-		{
-			get
-			{
-				return this._issueSourceAlt;
-			}
-			set
-			{
-				if ((this._issueSourceAlt != value))
-				{
-					this.OnissueSourceAltChanging(value);
-					this.SendPropertyChanging();
-					this._issueSourceAlt = value;
-					this.SendPropertyChanged("issueSourceAlt");
-					this.OnissueSourceAltChanged();
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_TKTRRMC", Storage="_requestedResponseCode", DbType="Char(1) NOT NULL", CanBeNull=false)]
 		public string requestedResponseCode
 		{
@@ -3444,6 +3424,26 @@ namespace RedTelephone.Models
 					this._updatingTime = value;
 					this.SendPropertyChanged("updatingTime");
 					this.OnupdatingTimeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_TKTSCOE", Storage="_issueSourceAlt", DbType="varchar(32)", CanBeNull=false)]
+		public string issueSourceAlt
+		{
+			get
+			{
+				return this._issueSourceAlt;
+			}
+			set
+			{
+				if ((this._issueSourceAlt != value))
+				{
+					this.OnissueSourceAltChanging(value);
+					this.SendPropertyChanging();
+					this._issueSourceAlt = value;
+					this.SendPropertyChanged("issueSourceAlt");
+					this.OnissueSourceAltChanged();
 				}
 			}
 		}
