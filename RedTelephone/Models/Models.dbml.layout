@@ -117,10 +117,10 @@
         <elementListCompartment Id="5d4b755b-3f59-4fb2-b253-52231f50d90b" absoluteBounds="8.015, 0.96, 1.9700000000000002, 5.4415283203125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="64f6824e-2ea3-4450-a262-1e7817755e00" absoluteBounds="8, 6.75, 2, 1.7708968098958331">
+    <classShape Id="64f6824e-2ea3-4450-a262-1e7817755e00" absoluteBounds="8, 6.75, 2, 1.9631982421875005">
       <DataClassMoniker Name="/ModelsDataContext/TicketNote" />
       <nestedChildShapes>
-        <elementListCompartment Id="80aba4d0-0082-4324-953c-8d16819ab2ef" absoluteBounds="8.015, 7.21, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="80aba4d0-0082-4324-953c-8d16819ab2ef" absoluteBounds="8.015, 7.21, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
   </nestedChildShapes>

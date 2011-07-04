@@ -122,8 +122,52 @@
           RequestedResponses="IEnumerable[[RequestedResponse]]" ActualResponses="IEnumerable[[ActualResponse]]"
           Causes="IEnumerable[[Cause]]" TicketSources="IEnumerable[[TicketSource]]"
           IssueSourceLvl1s="IEnumerable[[IssueSourceLvl1]]" InitIssueSourceLvl2s="IEnumerable[[IssueSourceLvl2]]" InitIssueSourceLvl3s="IEnumerable[[IssueSourceLvl3]]"
-          Contracts="IEnumerable[[Contract]]" InitCompanies="IEnumerable[[Company]]" InitOffices="IEnumerable[[Office]]" InitEmployees="IEnumerable[[Employee]]"/>
+          Contracts="IEnumerable[[Contract]]" InitCompanies="IEnumerable[[Company]]" InitOffices="IEnumerable[[Office]]" InitEmployees="IEnumerable[[Employee]]"
+          Notes="IEnumerable[[TicketNote]]"/>
 <var Controller="(RedTelephone.Controllers.TicketController)ViewContext.Controller" type="RedTelephone.Controllers.TicketController" />
+
+<style type="text/css">
+    .notes {
+        background-color: #ff9e9e;
+    }
+</style>
+
+<macro name="notesList" title="String" prefix="String" notes="IEnumerable[[TicketNote]]">
+    <div class="notes">
+        <div class="form">
+            <div class="form-row">
+                <p class="form-cell">${title}</p>
+            </div>
+        </div>
+        <table class="notesData" id="notes?${prefix}">
+            <tbody>
+                <for each="var note in Notes">
+                    <if condition="note.type == prefix">
+                        <tr id="${note.sortIndex}">
+                            <td>
+                                <input type="hidden" name="noteType?${note.sortIndex}" value="${note.type}" />
+                                ${note.enteringUserName}
+                                <input type="hidden" name="noteEnteringUser?${note.sortIndex}" value="${note.enteringUserName}" />
+                            </td>
+                            <td>
+                                ${note.enteringTime}
+                                <input type="hidden" name="noteEnteringTime?${note.sortIndex}" value="${note.enteringTime}" />
+                            </td>
+                            <td>
+                                <textarea cols="40" rows="4" readonly="readonly" name="noteContent?${note.sortIndex}">${note.content}</textarea>
+                            </td>
+                        </tr>
+                    </if>
+                </for>
+            </tbody>
+        </table>
+        <div class="form">
+            <div class="form-row">
+                <input type="button" onclick="AddNote('${prefix}')" value="Add a new note" />
+            </div>
+        </div>
+    </div>
+</macro>
 
 <script type="text/javascript">
     var sourceTree = undefined;
@@ -134,6 +178,20 @@
     $.getJSON("/ticket/contracttree", function(data) {
         contractTree = data;
     });
+    
+    function AddNote(prefix) {
+        var table = $("#notes\\?" + prefix);
+        var allNotes = $.map($(".notesData").children("tbody").children(), function(elem, i) {
+            return elem.getAttribute("id");
+        });
+        var newRow = $.get("/ticket/newrow/" + prefix, { rows: allNotes }, function(data){
+            table.children("tbody").append(data);
+        }, "html");
+    }
+    
+    function RemoveNote(id) {
+        $(id).remove();
+    }
 </script>
 
 <div>
@@ -194,15 +252,15 @@
                         <%=emptyOption(Ticket.assignedUserName, false)%>
                         <%=optionList(Users, Ticket.assignedUserName, (u)=>u.userName, (u)=>u.userName)%>
                     </select>
-                    <if condition="Ticket.solvedTime == Controller.STR_NOT_INSTANTIATED">
+                    <if condition="Ticket.solvedTime.Equals(Controller.STR_NOT_INSTANTIATED) || Ticket.solvedTime.Equals('              ')">
                         <p class="form-cell">and has not been resolved yet.</p>
-                        <if condition="ViewData['CurrentUser'] == Ticket.assignedUserName">
-                            <input class="form-cell" type="checkbox" name="solved_p" value="Fix that." />
+                        <if condition="ViewData['CurrentUser'].Equals(Ticket.assignedUserName)">
+                            <input class="form-cell" type="checkbox" name="solved_p" value="Fix that." /> Fix that
                         </if>
                     </if>
                     <else>
                         <p class="form-cell">and was marked resolved at</p>
-                        <input class="form-cell" type="text" name="solvedTime" value="${Ticket.solvedTime}" />
+                        <input class="form-cell" readonly="readonly" type="text" name="solvedTime" value="${Ticket.solvedTime}" />
                     </else>
                 </div>
                 
@@ -212,21 +270,23 @@
                         <%=emptyOption(Ticket.assignedUserName, false)%>
                         <%=optionList(Users, Ticket.assignedUserName, (u)=>u.userName, (u)=>u.userName)%>
                     </select>
-                    <if condition="Ticket.respondingTime == Controller.STR_NOT_INSTANTIATED">
+                    <if condition="Ticket.respondingTime.Equals(Controller.STR_NOT_INSTANTIATED) || Ticket.respondingTime.Equals('              ')">
                         <p class="form-cell">and has not been responded to yet.</p>
-                        <if condition="ViewData['CurrentUser'] == Ticket.respondingUserName">
-                            <input class="form-cell" type="checkbox" name="responded_p" value="Fix that." />
+                        <if condition="ViewData['CurrentUser'].Equals(Ticket.respondingUserName)">
+                            <input class="form-cell" type="checkbox" name="responded_p" value="Fix that." /> Fix that
                         </if>
                     </if>
                     <else>
                         <p class="form-cell">and was marked responded to at</p>
-                        <input class="form-cell" type="text" name="respondingTime" value="${Ticket.respondingTime}" />
+                        <input class="form-cell" readonly="readonly" type="text" name="respondingTime" value="${Ticket.respondingTime}" />
                     </else>
                 </div>
             </div>
             
             <h2>Source</h2>
-
+            
+            <%=notesList("Describe the problem", "D", Notes)%>
+            <%=notesList("Additional information", "A", Notes)%>
             <div class="form">
                 <div class="form-row">
                     <p class="form-cell">Source</p>
@@ -264,6 +324,7 @@
 
             <hr/>
 
+            <%=notesList("Reproducing the problem", "P", Notes)%> 
             <div class="form">
                 <div class="form-row">
                     <p class="form-cell">I have a</p>
@@ -293,6 +354,7 @@
                     <input type="text" name="issueSourceAlt" value="${Ticket.issueSourceAlt}" />
                 </div>
             </div>
+            <%=notesList("Solutions", "S", Notes)%>
 
             <h2>Response</h2>
 
@@ -303,6 +365,9 @@
                         <%=optionList(RequestedResponses, Ticket.requestedResponseCode, (r)=>r.code, (r)=>r.description)%>
                     </select>
                 </div>
+            </div>  
+            <%=notesList("Details on the requested response method", "Q", Notes)%>
+            <div class="form">
                 <div class="form-row">
                     <p class="form-cell">Actual response</p>
                     <select name="actualResponse">
@@ -311,8 +376,9 @@
                     </select>
                 </div>
             </div>
+            <%=notesList("Details on the actual response", "R", Notes)%>
 
-        </section>
+            </section>
 
         <nav>
             <div id="centering-hack">

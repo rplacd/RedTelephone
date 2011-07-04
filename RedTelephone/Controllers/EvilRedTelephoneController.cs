@@ -9,6 +9,9 @@ using RedTelephone.EvilLinq;
 //Nor can we use <parameterized> vars with extension methods.
 //Let's change that for a bit. (Stolen from http://jrwren.wrenfam.com/blog/2010/03/04/linq-abuse-with-the-c-4-dynamic-type/)
 //Compatible with Lists.
+
+//I'm terribly annoyed by the fact that I just can't *inherit* columns in Models, but for some reason we have to prefix
+//some form of table id to each column, so scratch that.
 namespace RedTelephone.EvilLinq {
     public static class EvilLinq {
         public static IEnumerable<dynamic> Select(this object src, Func<dynamic, dynamic> map)

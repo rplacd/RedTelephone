@@ -1,0 +1,19 @@
+﻿<use master="" />
+<var id="Convert.ToInt16(ViewData['id'])" type="short" />
+<tr class="fresh" id="${id}">
+    <td>
+        <input type="hidden" name="noteType?${id}" value="${ViewData['Type']}" />
+        ${ViewData['User']}
+        <input type="hidden" name="noteEnteringUser?${id}" value="${ViewData['User']}" />
+    </td>
+    <td>
+        ${ViewData['Time']}
+        <input type="hidden" name="noteEnteringTime?${id}" value="${ViewData['Time']}" />
+    </td>
+    <td>
+        <textarea cols="40" rows="4" name="noteContent?${id}"></textarea>
+    </td>
+    <td>
+        <a href="#" onclick="RemoveNote('#${id}')">Cancel</a>
+    </td>
+</tr>

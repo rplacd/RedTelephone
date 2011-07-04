@@ -3477,28 +3477,32 @@ namespace RedTelephone.Models
 		
 		private string _code;
 		
-		private char _type;
+		private string _type;
 		
-		private int _sortIndex;
+		private short _sortIndex;
 		
 		private string _content;
 		
 		private string _enteringUserName;
 		
+		private string _enteringTime;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
-    partial void OncodeChanging(string value);
-    partial void OncodeChanged();
-    partial void OntypeChanging(char value);
+    partial void OnticketCodeChanging(string value);
+    partial void OnticketCodeChanged();
+    partial void OntypeChanging(string value);
     partial void OntypeChanged();
-    partial void OnsortIndexChanging(int value);
+    partial void OnsortIndexChanging(short value);
     partial void OnsortIndexChanged();
     partial void OncontentChanging(string value);
     partial void OncontentChanged();
     partial void OnenteringUserNameChanging(string value);
     partial void OnenteringUserNameChanged();
+    partial void OnenteringTimeChanging(string value);
+    partial void OnenteringTimeChanged();
     #endregion
 		
 		public TicketNote()
@@ -3507,7 +3511,7 @@ namespace RedTelephone.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_NOTTIDC", Storage="_code", DbType="VarChar(8) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
-		public string code
+		public string ticketCode
 		{
 			get
 			{
@@ -3517,17 +3521,17 @@ namespace RedTelephone.Models
 			{
 				if ((this._code != value))
 				{
-					this.OncodeChanging(value);
+					this.OnticketCodeChanging(value);
 					this.SendPropertyChanging();
 					this._code = value;
-					this.SendPropertyChanged("code");
-					this.OncodeChanged();
+					this.SendPropertyChanged("ticketCode");
+					this.OnticketCodeChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_NOTNTPC", Storage="_type", DbType="Char(1) NOT NULL", IsPrimaryKey=true)]
-		public char type
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_NOTNTPC", Storage="_type", DbType="Char(1) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string type
 		{
 			get
 			{
@@ -3547,7 +3551,7 @@ namespace RedTelephone.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_NOTSEQC", Storage="_sortIndex", DbType="Decimal(3,0) NOT NULL", IsPrimaryKey=true)]
-		public int sortIndex
+		public short sortIndex
 		{
 			get
 			{
@@ -3602,6 +3606,26 @@ namespace RedTelephone.Models
 					this._enteringUserName = value;
 					this.SendPropertyChanged("enteringUserName");
 					this.OnenteringUserNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="E_NOTDTEE", Storage="_enteringTime", DbType="char(14)", CanBeNull=false)]
+		public string enteringTime
+		{
+			get
+			{
+				return this._enteringTime;
+			}
+			set
+			{
+				if ((this._enteringTime != value))
+				{
+					this.OnenteringTimeChanging(value);
+					this.SendPropertyChanging();
+					this._enteringTime = value;
+					this.SendPropertyChanged("enteringTime");
+					this.OnenteringTimeChanged();
 				}
 			}
 		}

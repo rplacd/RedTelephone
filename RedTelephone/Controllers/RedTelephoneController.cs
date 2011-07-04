@@ -324,6 +324,17 @@ namespace RedTelephone.Controllers
                 return temp;
             }
         };
+        protected static Func<String[], short> Short3Gen = (e) => {
+            if (e.Count() > 999) {
+                return default(short);
+            } else {
+                var temp = (short)random.Next(1, 999);
+                while (e.FirstOrDefault(s => s == temp.ToString()) != default(String)) {
+                    temp = (short)random.Next(1, 999);
+                }
+                return temp;
+            }
+        };
 
         protected T getFreshIdVal<T>(Func<String[], T> generator, String[] existing)
         {
@@ -332,7 +343,11 @@ namespace RedTelephone.Controllers
 
         protected ActionResult newRowAction<T>(Func<String[], T> gen) where T : class
         {
-            T frob = getFreshIdVal<T>(gen, extractDnDSerializedParam(Request.QueryString["table[]"]));
+            T frob;
+            if(Request.QueryString["table[]"] != null)
+                frob = getFreshIdVal<T>(gen, extractDnDSerializedParam(Request.QueryString["table[]"]));
+            else
+                frob = getFreshIdVal<T>(gen, extractDnDSerializedParam(""));
             if (frob == default(T)) {
                 logger.Warn("RedTelephoneController.NewRow hasn't been able to find a fresh ID!");
                 return View("RedTelephoneNewRowError");

@@ -176,6 +176,9 @@
     <Content Include="Views\Shared\Error.aspx" />
     <None Include="Views\Layouts\Application.spark" />
     <Content Include="Views\Shared\Site.Master" />
+    <None Include="Views\Ticket\NewRow.spark">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Views\Ticket\Ticket.spark">
       <SubType>Designer</SubType>
     </None>

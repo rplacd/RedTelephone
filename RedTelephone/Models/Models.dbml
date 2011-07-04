@@ -178,11 +178,12 @@
   </Table>
   <Table Name="dbo.T_CDFNOT" Member="TicketNotes">
     <Type Name="TicketNote">
-      <Column Name="E_NOTTIDC" Member="code" Type="System.String" DbType="VarChar(8) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="E_NOTNTPC" Member="type" Type="System.Char" DbType="Char(1) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="E_NOTSEQC" Member="sortIndex" Type="System.Int32" DbType="Decimal(3,0) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="E_NOTTIDC" Member="ticketCode" Storage="_code" Type="System.String" DbType="VarChar(8) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="E_NOTNTPC" Member="type" Type="System.String" DbType="Char(1) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="E_NOTSEQC" Member="sortIndex" Type="System.Int16" DbType="Decimal(3,0) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="E_NOTTXTE" Member="content" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
       <Column Name="E_NOTUIEC" Member="enteringUserName" Type="System.String" DbType="VarChar(8) NOT NULL" CanBeNull="false" />
+      <Column Name="E_NOTDTEE" Member="enteringTime" Type="System.String" DbType="char(14)" CanBeNull="false" />
     </Type>
   </Table>
 </Database>
