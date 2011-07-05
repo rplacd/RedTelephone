@@ -235,14 +235,16 @@
                     <p class="form-cell">First entered by</p>
                     <input class="form-cell" readonly="readonly" type="text" name="enteringUser" value="${Ticket.enteringUserName}" />
                     <p class="form-cell">at the time</p>
-                    <input class="form-cell" readonly="readonly" type="text" name="enteringTime" value="${Ticket.enteringTime}"/>
+                    <input class="form-cell" readonly="readonly" type="text" value="${((RedTelephoneController)ViewContext.Controller).presentChar14Timestamp(Ticket.enteringTime)}"/>
+                    <input class="form-cell" readonly="readonly" type="hidden" name="enteringTime" value="${Ticket.enteringTime}"/>
                 </div>
                 
                 <div class="form-row">
                     <p class="form-cell">Last update by</p>
                     <input class="form-cell" readonly="readonly" type="text" name="updatingUser" value="${Ticket.updatingUserName}" />
                     <p class="form-cell">at the time</p>
-                    <input class="form-cell" readonly="readonly" type="text" name="updatingTime" value="${Ticket.updatingTime}"/>
+                    <input class="form-cell" readonly="readonly" type="text" value="${((RedTelephoneController)ViewContext.Controller).presentChar14Timestamp(Ticket.updatingTime)}"/>
+                    <input class="form-cell" readonly="readonly" type="hidden" name="updatingTime" value="${Ticket.updatingTime}"/>
                 </div>
                 
                 <!-- long - but not yet macro material. -->
@@ -260,7 +262,8 @@
                     </if>
                     <else>
                         <p class="form-cell">and was marked resolved at</p>
-                        <input class="form-cell" readonly="readonly" type="text" name="solvedTime" value="${Ticket.solvedTime}" />
+                        <input class="form-cell" readonly="readonly" type="text" value="${((RedTelephoneController)ViewContext.Controller).presentChar14Timestamp(Ticket.solvedTime)}" />
+                        <input class="form-cell" readonly="readonly" type="hidden" name="solvedTime" value="${Ticket.solvedTime}" />
                     </else>
                 </div>
                 
@@ -278,7 +281,8 @@
                     </if>
                     <else>
                         <p class="form-cell">and was marked responded to at</p>
-                        <input class="form-cell" readonly="readonly" type="text" name="respondingTime" value="${Ticket.respondingTime}" />
+                        <input class="form-cell" readonly="readonly" type="text" value="${((RedTelephoneController)ViewContext.Controller).presentChar14Timestamp(Ticket.respondingTime)}" />
+                        <input class="form-cell" readonly="readonly" type="hidden" name="respondingTime" value="${Ticket.respondingTime}" />
                     </else>
                 </div>
             </div>

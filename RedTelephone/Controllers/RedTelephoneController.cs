@@ -251,6 +251,18 @@ namespace RedTelephone.Controllers
             return DateTime.Now.ToString("yyyyMMddHHmmss", new CultureInfo("en-US"));
         }
 
+        //now format that 14-char timestamp.
+        public string presentChar14Timestamp(String timestamp)
+        {
+            var year = timestamp.Substring(0, 4);
+            var month = timestamp.Substring(4, 2);
+            var day = timestamp.Substring(6, 2);
+            var hour = timestamp.Substring(8, 2);
+            var minute = timestamp.Substring(10, 2);
+            var second = timestamp.Substring(12, 2);
+            return String.Format("{0}:{1}:{2} {3}/{4}/{5}", hour, minute, second, year, month, day);
+        }
+
         //refresh the timestamp for a particular table.
         protected void updateTableTimestamp(String tableName)
         {
