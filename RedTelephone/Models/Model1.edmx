@@ -1,0 +1,720 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="RedTelephoneModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="RedTelephoneModelStoreContainer">
+          <EntitySet Name="E_CDFCMP" EntityType="RedTelephoneModel.Store.E_CDFCMP" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="T_CDFCEE" EntityType="RedTelephoneModel.Store.T_CDFCEE" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="T_CDFCTT" EntityType="RedTelephoneModel.Store.T_CDFCTT" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="T_CDFNOT" EntityType="RedTelephoneModel.Store.T_CDFNOT" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="T_CDFOFF" EntityType="RedTelephoneModel.Store.T_CDFOFF" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="T_CDFTKT" EntityType="RedTelephoneModel.Store.T_CDFTKT" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="T_CDFUPM" EntityType="RedTelephoneModel.Store.T_CDFUPM" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="T_CDFUSR" EntityType="RedTelephoneModel.Store.T_CDFUSR" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="T_CRFCAP" EntityType="RedTelephoneModel.Store.T_CRFCAP" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="T_CRFPNM" EntityType="RedTelephoneModel.Store.T_CRFPNM" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="T_CRFPRI" EntityType="RedTelephoneModel.Store.T_CRFPRI" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="T_CRFRAM" EntityType="RedTelephoneModel.Store.T_CRFRAM" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="T_CRFRRM" EntityType="RedTelephoneModel.Store.T_CRFRRM" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="T_CRFSRP1" EntityType="RedTelephoneModel.Store.T_CRFSRP1" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="T_CRFSRP2" EntityType="RedTelephoneModel.Store.T_CRFSRP2" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="T_CRFSRP3" EntityType="RedTelephoneModel.Store.T_CRFSRP3" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="T_CRFSRT" EntityType="RedTelephoneModel.Store.T_CRFSRT" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="T_CRFSTS" EntityType="RedTelephoneModel.Store.T_CRFSTS" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="T_CRFTOT" EntityType="RedTelephoneModel.Store.T_CRFTOT" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="Permissions usernames" Association="RedTelephoneModel.Store.Permissions usernames">
+            <End Role="T_CDFUSR" EntitySet="T_CDFUSR" />
+            <End Role="T_CDFUPM" EntitySet="T_CDFUPM" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="E_CDFCMP">
+          <Key>
+            <PropertyRef Name="E_CMPCIDC" />
+            <PropertyRef Name="E_CMPPIDC" />
+          </Key>
+          <Property Name="E_CMPCIDC" Type="decimal" Nullable="false" Precision="5" />
+          <Property Name="E_CMPPIDC" Type="decimal" Nullable="false" Precision="5" />
+          <Property Name="E_CMPCNAM" Type="varchar" Nullable="false" MaxLength="250" />
+          <Property Name="E_CMPSEQC" Type="smallint" Nullable="false" />
+          <Property Name="E_CMPIACT" Type="char" Nullable="false" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="T_CDFCEE">
+          <Key>
+            <PropertyRef Name="E_CEECIDC" />
+            <PropertyRef Name="E_CEEPIDC" />
+            <PropertyRef Name="E_CEEEIDT" />
+            <PropertyRef Name="E_CEEEVNE" />
+          </Key>
+          <Property Name="E_CEECIDC" Type="decimal" Nullable="false" Precision="5" />
+          <Property Name="E_CEEPIDC" Type="decimal" Nullable="false" Precision="5" />
+          <Property Name="E_CEEEIDT" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="E_CEEEVNE" Type="decimal" Nullable="false" Precision="5" />
+          <Property Name="E_CEEEFNM" Type="varchar" Nullable="false" MaxLength="250" />
+          <Property Name="E_CEEEFLM" Type="varchar" Nullable="false" MaxLength="250" />
+          <Property Name="E_CEESEQC" Type="smallint" Nullable="false" />
+          <Property Name="E_CEEIACT" Type="char" Nullable="false" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="T_CDFCTT">
+          <Key>
+            <PropertyRef Name="E_CTTCIDC" />
+          </Key>
+          <Property Name="E_CTTCIDC" Type="decimal" Nullable="false" Precision="5" />
+          <Property Name="E_CTTCNAM" Type="varchar" Nullable="false" MaxLength="250" />
+          <Property Name="E_CTTSEQC" Type="decimal" Nullable="false" Precision="5" />
+          <Property Name="E_CTTIACT" Type="char" Nullable="false" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="T_CDFNOT">
+          <Key>
+            <PropertyRef Name="E_NOTTIDC" />
+            <PropertyRef Name="E_NOTNTPC" />
+            <PropertyRef Name="E_NOTSEQC" />
+          </Key>
+          <Property Name="E_NOTTIDC" Type="varchar" Nullable="false" MaxLength="8" />
+          <Property Name="E_NOTNTPC" Type="char" Nullable="false" MaxLength="1" />
+          <Property Name="E_NOTSEQC" Type="decimal" Nullable="false" Precision="3" />
+          <Property Name="E_NOTTXTE" Type="varchar(max)" Nullable="false" />
+          <Property Name="E_NOTDTEE" Type="char" Nullable="false" MaxLength="14" />
+          <Property Name="E_NOTUIEC" Type="varchar" Nullable="false" MaxLength="8" />
+        </EntityType>
+        <EntityType Name="T_CDFOFF">
+          <Key>
+            <PropertyRef Name="E_OFFCIDC" />
+            <PropertyRef Name="E_OFFPIDC" />
+            <PropertyRef Name="E_OFFIDT" />
+            <PropertyRef Name="E_OFFVNE" />
+          </Key>
+          <Property Name="E_OFFCIDC" Type="decimal" Nullable="false" Precision="5" />
+          <Property Name="E_OFFPIDC" Type="decimal" Nullable="false" Precision="5" />
+          <Property Name="E_OFFIDT" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="E_OFFVNE" Type="decimal" Nullable="false" Precision="5" />
+          <Property Name="E_OFFNAM" Type="varchar" Nullable="false" MaxLength="250" />
+          <Property Name="E_OFFSEQC" Type="decimal" Nullable="false" Precision="5" />
+          <Property Name="E_OFFIACT" Type="char" Nullable="false" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="T_CDFTKT">
+          <Key>
+            <PropertyRef Name="E_TKTTIDC" />
+          </Key>
+          <Property Name="E_TKTTIDC" Type="varchar" Nullable="false" MaxLength="8" />
+          <Property Name="E_TKTTVNE" Type="decimal" Nullable="false" Precision="3" />
+          <Property Name="E_TKTCIDC" Type="decimal" Nullable="false" Precision="5" />
+          <Property Name="E_TKTPIDC" Type="decimal" Nullable="false" Precision="5" />
+          <Property Name="E_TKTFIDT" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="E_TKTFVNE" Type="decimal" Nullable="false" Precision="5" />
+          <Property Name="E_TKTEIDT" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="E_TKTEVNE" Type="decimal" Nullable="false" Precision="5" />
+          <Property Name="E_TKTPRIC" Type="char" Nullable="false" MaxLength="1" />
+          <Property Name="E_TKTSRTC" Type="char" Nullable="false" MaxLength="1" />
+          <Property Name="E_TKTSROE" Type="varchar" Nullable="false" MaxLength="32" />
+          <Property Name="E_TKTSC1C" Type="varchar" Nullable="false" MaxLength="1" />
+          <Property Name="E_TKTSC2C" Type="varchar" Nullable="false" MaxLength="1" />
+          <Property Name="E_TKTSC3C" Type="varchar" Nullable="false" MaxLength="1" />
+          <Property Name="E_TKTSCOE" Type="varchar" Nullable="false" MaxLength="32" />
+          <Property Name="E_TKTRRMC" Type="char" Nullable="false" MaxLength="1" />
+          <Property Name="E_TKTSTSC" Type="char" Nullable="false" MaxLength="1" />
+          <Property Name="E_TKTCAUC" Type="char" Nullable="false" MaxLength="1" />
+          <Property Name="E_TKTAMC" Type="char" Nullable="false" MaxLength="1" />
+          <Property Name="E_TKTUIEC" Type="varchar" Nullable="false" MaxLength="8" />
+          <Property Name="E_TKTDTEE" Type="char" Nullable="false" MaxLength="14" />
+          <Property Name="E_TKTUIAC" Type="varchar" Nullable="false" MaxLength="8" />
+          <Property Name="E_TKTDTAE" Type="char" Nullable="false" MaxLength="14" />
+          <Property Name="E_TKTUIRC" Type="varchar" Nullable="false" MaxLength="8" />
+          <Property Name="E_TKTDTRE" Type="char" Nullable="false" MaxLength="14" />
+          <Property Name="E_TKTUIUC" Type="varchar" Nullable="false" MaxLength="8" />
+          <Property Name="E_TKTDTUE" Type="char" Nullable="false" MaxLength="14" />
+        </EntityType>
+        <EntityType Name="T_CDFUPM">
+          <Key>
+            <PropertyRef Name="E_UPMPNMC" />
+            <PropertyRef Name="E_USRUIDC" />
+          </Key>
+          <Property Name="E_UPMPNMC" Type="char" Nullable="false" MaxLength="2" />
+          <Property Name="E_USRUIDC" Type="varchar" Nullable="false" MaxLength="8" />
+        </EntityType>
+        <EntityType Name="T_CDFUSR">
+          <Key>
+            <PropertyRef Name="E_USRUIDC" />
+          </Key>
+          <Property Name="E_USRUIDC" Type="varchar" Nullable="false" MaxLength="8" />
+          <Property Name="E_USRUPWE" Type="varchar" Nullable="false" MaxLength="64" />
+          <Property Name="E_USRUNFE" Type="varchar" Nullable="false" MaxLength="64" />
+          <Property Name="E_USRUNLE" Type="varchar" Nullable="false" MaxLength="64" />
+          <Property Name="E_USRIACT" Type="char" Nullable="false" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="T_CRFCAP">
+          <Key>
+            <PropertyRef Name="E_CAPCODC" />
+          </Key>
+          <Property Name="E_CAPCODC" Type="char" Nullable="false" MaxLength="1" />
+          <Property Name="E_CAPDSCE" Type="varchar" Nullable="false" MaxLength="32" />
+          <Property Name="E_CAPSEQC" Type="smallint" Nullable="false" />
+          <Property Name="E_CAPIACT" Type="char" Nullable="false" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="T_CRFPNM">
+          <Key>
+            <PropertyRef Name="E_PNMCODC" />
+          </Key>
+          <Property Name="E_PNMCODC" Type="char" Nullable="false" MaxLength="2" />
+          <Property Name="E_PNMDSCE" Type="varchar" Nullable="false" MaxLength="32" />
+          <Property Name="E_PNMSEQC" Type="smallint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="T_CRFPRI">
+          <Key>
+            <PropertyRef Name="E_PRICODC" />
+          </Key>
+          <Property Name="E_PRICODC" Type="char" Nullable="false" MaxLength="1" />
+          <Property Name="E_PRIDSCE" Type="varchar" Nullable="false" MaxLength="32" />
+          <Property Name="E_PRISEQC" Type="smallint" Nullable="false" />
+          <Property Name="E_PRIIACT" Type="char" Nullable="false" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="T_CRFRAM">
+          <Key>
+            <PropertyRef Name="E_RAMCODC" />
+          </Key>
+          <Property Name="E_RAMCODC" Type="char" Nullable="false" MaxLength="1" />
+          <Property Name="E_RAMDSCE" Type="varchar" Nullable="false" MaxLength="32" />
+          <Property Name="E_RAMSEQC" Type="smallint" Nullable="false" />
+          <Property Name="E_RAMIACT" Type="char" Nullable="false" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="T_CRFRRM">
+          <Key>
+            <PropertyRef Name="E_RRMCODC" />
+          </Key>
+          <Property Name="E_RRMCODC" Type="char" Nullable="false" MaxLength="1" />
+          <Property Name="E_RRMDSCE" Type="varchar" Nullable="false" MaxLength="32" />
+          <Property Name="E_RRMSEQC" Type="smallint" Nullable="false" />
+          <Property Name="E_RRMIACT" Type="char" Nullable="false" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="T_CRFSRP1">
+          <Key>
+            <PropertyRef Name="E_SRP1CODC" />
+          </Key>
+          <Property Name="E_SRP1CODC" Type="char" Nullable="false" MaxLength="1" />
+          <Property Name="E_SRP1DSCE" Type="varchar" Nullable="false" MaxLength="32" />
+          <Property Name="E_SRP1SEQC" Type="smallint" Nullable="false" />
+          <Property Name="E_SRP1IACT" Type="char" Nullable="false" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="T_CRFSRP2">
+          <Key>
+            <PropertyRef Name="E_SRP1CODC" />
+            <PropertyRef Name="E_SRP2CODC" />
+          </Key>
+          <Property Name="E_SRP1CODC" Type="char" Nullable="false" MaxLength="1" />
+          <Property Name="E_SRP2CODC" Type="char" Nullable="false" MaxLength="1" />
+          <Property Name="E_SRP2DSCE" Type="varchar" Nullable="false" MaxLength="32" />
+          <Property Name="E_SRP2SEQC" Type="smallint" Nullable="false" />
+          <Property Name="E_SRP2IACT" Type="char" Nullable="false" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="T_CRFSRP3">
+          <Key>
+            <PropertyRef Name="E_SRP1CODC" />
+            <PropertyRef Name="E_SRP2CODC" />
+            <PropertyRef Name="E_SRP3CODC" />
+          </Key>
+          <Property Name="E_SRP1CODC" Type="char" Nullable="false" MaxLength="1" />
+          <Property Name="E_SRP2CODC" Type="char" Nullable="false" MaxLength="1" />
+          <Property Name="E_SRP3CODC" Type="char" Nullable="false" MaxLength="1" />
+          <Property Name="E_SRP3DSCE" Type="varchar" Nullable="false" MaxLength="32" />
+          <Property Name="E_SRP3SEQC" Type="smallint" Nullable="false" />
+          <Property Name="E_SRP3IACT" Type="char" Nullable="false" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="T_CRFSRT">
+          <Key>
+            <PropertyRef Name="E_SRTCODC" />
+          </Key>
+          <Property Name="E_SRTCODC" Type="char" Nullable="false" MaxLength="1" />
+          <Property Name="E_SRTDSCE" Type="varchar" Nullable="false" MaxLength="32" />
+          <Property Name="E_SRTSEQC" Type="smallint" Nullable="false" />
+          <Property Name="E_SRTIACT" Type="char" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="T_CRFSTS">
+          <Key>
+            <PropertyRef Name="E_STSCODC" />
+          </Key>
+          <Property Name="E_STSCODC" Type="char" Nullable="false" MaxLength="1" />
+          <Property Name="E_STSDSCE" Type="varchar" Nullable="false" MaxLength="32" />
+          <Property Name="E_STSSEQC" Type="smallint" Nullable="false" />
+          <Property Name="E_STSIACT" Type="char" Nullable="false" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="T_CRFTOT">
+          <Key>
+            <PropertyRef Name="E_TOTTNMC" />
+          </Key>
+          <Property Name="E_TOTTNMC" Type="char" Nullable="false" MaxLength="10" />
+          <Property Name="E_RORMDTC" Type="char" Nullable="false" MaxLength="14" />
+        </EntityType>
+        <Association Name="Permissions usernames">
+          <End Role="T_CDFUSR" Type="RedTelephoneModel.Store.T_CDFUSR" Multiplicity="1" />
+          <End Role="T_CDFUPM" Type="RedTelephoneModel.Store.T_CDFUPM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_CDFUSR">
+              <PropertyRef Name="E_USRUIDC" />
+            </Principal>
+            <Dependent Role="T_CDFUPM">
+              <PropertyRef Name="E_USRUIDC" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="RedTelephone" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="ModelsDataContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Companies" EntityType="RedTelephone.Company" />
+          <EntitySet Name="Employees" EntityType="RedTelephone.Employee" />
+          <EntitySet Name="Contracts" EntityType="RedTelephone.Contract" />
+          <EntitySet Name="TicketNotes" EntityType="RedTelephone.TicketNote" />
+          <EntitySet Name="Offices" EntityType="RedTelephone.Office" />
+          <EntitySet Name="Tickets" EntityType="RedTelephone.Ticket" />
+          <EntitySet Name="UserPermissionPairs" EntityType="RedTelephone.UserPermissionPair" />
+          <EntitySet Name="Users" EntityType="RedTelephone.User" />
+          <EntitySet Name="Causes" EntityType="RedTelephone.Cause" />
+          <EntitySet Name="Permissions" EntityType="RedTelephone.Permission" />
+          <EntitySet Name="Priorities" EntityType="RedTelephone.Priority" />
+          <EntitySet Name="ActualResponses" EntityType="RedTelephone.ActualResponse" />
+          <EntitySet Name="RequestedResponses" EntityType="RedTelephone.RequestedResponse" />
+          <EntitySet Name="IssueSourceLvl1s" EntityType="RedTelephone.IssueSourceLvl1" />
+          <EntitySet Name="IssueSourceLvl2s" EntityType="RedTelephone.IssueSourceLvl2" />
+          <EntitySet Name="IssueSourceLvl3s" EntityType="RedTelephone.IssueSourceLvl3" />
+          <EntitySet Name="TicketSources" EntityType="RedTelephone.TicketSource" />
+          <EntitySet Name="Status" EntityType="RedTelephone.Status" />
+          <EntitySet Name="ReferenceTables" EntityType="RedTelephone.ReferenceTable" />
+          <AssociationSet Name="Permissions_usernames" Association="RedTelephone.Permissions_usernames">
+            <End Role="T_CDFUSR" EntitySet="Users" />
+            <End Role="T_CDFUPM" EntitySet="UserPermissionPairs" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Company">
+          <Key>
+            <PropertyRef Name="contractCode" />
+            <PropertyRef Name="code" />
+          </Key>
+          <Property Name="contractCode" Type="Int16" Nullable="false" />
+          <Property Name="code" Type="Int16" Nullable="false" />
+          <Property Name="description" Type="String" Nullable="false" MaxLength="250" Unicode="false" FixedLength="false" />
+          <Property Name="sortIndex" Type="Int16" Nullable="false" />
+          <Property Name="active_p" Type="String" Nullable="false" MaxLength="1" Unicode="false" FixedLength="true" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="contractCode" />
+            <PropertyRef Name="companyCode" />
+            <PropertyRef Name="code" />
+            <PropertyRef Name="version" />
+          </Key>
+          <Property Name="contractCode" Type="Int16" Nullable="false" />
+          <Property Name="companyCode" Type="Int16" Nullable="false" />
+          <Property Name="code" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="version" Type="Int32" Nullable="false" />
+          <Property Name="firstName" Type="String" Nullable="false" MaxLength="250" Unicode="false" FixedLength="false" />
+          <Property Name="lastName" Type="String" Nullable="false" MaxLength="250" Unicode="false" FixedLength="false" />
+          <Property Name="sortIndex" Type="Int16" Nullable="false" />
+          <Property Name="active_p" Type="String" Nullable="false" MaxLength="1" Unicode="false" FixedLength="true" />
+        </EntityType>
+        <EntityType Name="Contract">
+          <Key>
+            <PropertyRef Name="code" />
+          </Key>
+          <Property Name="code" Type="Int16" Nullable="false" />
+          <Property Name="description" Type="String" Nullable="false" MaxLength="250" Unicode="false" FixedLength="false" />
+          <Property Name="sortIndex" Type="Decimal" Nullable="false" Precision="5" Scale="0" />
+          <Property Name="active_p" Type="String" Nullable="false" MaxLength="1" Unicode="false" FixedLength="true" />
+        </EntityType>
+        <EntityType Name="TicketNote">
+          <Key>
+            <PropertyRef Name="ticketCode" />
+            <PropertyRef Name="type" />
+            <PropertyRef Name="sortIndex" />
+          </Key>
+          <Property Name="ticketCode" Type="String" Nullable="false" MaxLength="8" Unicode="false" FixedLength="false" />
+          <Property Name="type" Type="String" Nullable="false" MaxLength="1" Unicode="false" FixedLength="true" />
+          <Property Name="sortIndex" Type="Decimal" Nullable="false" Precision="3" Scale="0" />
+          <Property Name="content" Type="String" Nullable="false" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="enteringUserName" Type="String" Nullable="false" MaxLength="14" Unicode="false" FixedLength="true" />
+          <Property Name="enteringTime" Type="String" Nullable="false" MaxLength="8" Unicode="false" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Office">
+          <Key>
+            <PropertyRef Name="contractCode" />
+            <PropertyRef Name="companyCode" />
+            <PropertyRef Name="code" />
+            <PropertyRef Name="version" />
+          </Key>
+          <Property Name="contractCode" Type="Int16" Nullable="false" />
+          <Property Name="companyCode" Type="Int16" Nullable="false" />
+          <Property Name="code" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="version" Type="Int32" Nullable="false" />
+          <Property Name="description" Type="String" Nullable="false" MaxLength="250" Unicode="false" FixedLength="false" />
+          <Property Name="sortIndex" Type="Decimal" Nullable="false" Precision="5" Scale="0" />
+          <Property Name="active_p" Type="String" Nullable="false" MaxLength="1" Unicode="false" FixedLength="true" />
+        </EntityType>
+        <EntityType Name="Ticket">
+          <Key>
+            <PropertyRef Name="code" />
+          </Key>
+          <Property Name="code" Type="String" Nullable="false" MaxLength="8" Unicode="false" FixedLength="false" />
+          <Property Name="version" Type="Int32" Nullable="false" />
+          <Property Name="contractCode" Type="Int32" Nullable="false" />
+          <Property Name="companyCode" Type="Int32" Nullable="false" />
+          <Property Name="officeCode" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="officeVersion" Type="Int32" Nullable="false" />
+          <Property Name="employeeCode" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="employeeVersion" Type="Int32" Nullable="false" />
+          <Property Name="priorityCode" Type="String" Nullable="false" MaxLength="1" Unicode="false" FixedLength="true" />
+          <Property Name="ticketSourceCode" Type="String" Nullable="false" MaxLength="1" Unicode="false" FixedLength="true" />
+          <Property Name="ticketSourceAlt" Type="String" Nullable="false" MaxLength="32" Unicode="false" FixedLength="false" />
+          <Property Name="issueSourceLvl1Code" Type="String" Nullable="false" MaxLength="1" Unicode="false" FixedLength="false" />
+          <Property Name="issueSourceLvl2Code" Type="String" Nullable="false" MaxLength="1" Unicode="false" FixedLength="false" />
+          <Property Name="issueSourceLvl3Code" Type="String" Nullable="false" MaxLength="1" Unicode="false" FixedLength="false" />
+          <Property Name="issueSourceAlt" Type="String" Nullable="false" MaxLength="32" Unicode="false" FixedLength="false" />
+          <Property Name="requestedResponseCode" Type="String" Nullable="false" MaxLength="1" Unicode="false" FixedLength="true" />
+          <Property Name="statusCode" Type="String" Nullable="false" MaxLength="1" Unicode="false" FixedLength="true" />
+          <Property Name="causeCode" Type="String" Nullable="false" MaxLength="1" Unicode="false" FixedLength="true" />
+          <Property Name="actualResponseCode" Type="String" Nullable="false" MaxLength="1" Unicode="false" FixedLength="true" />
+          <Property Name="enteringUserName" Type="String" Nullable="false" MaxLength="8" Unicode="false" FixedLength="false" />
+          <Property Name="enteringTime" Type="String" Nullable="false" MaxLength="14" Unicode="false" FixedLength="true" />
+          <Property Name="assignedUserName" Type="String" Nullable="false" MaxLength="8" Unicode="false" FixedLength="false" />
+          <Property Name="solvedTime" Type="String" Nullable="false" MaxLength="14" Unicode="false" FixedLength="true" />
+          <Property Name="respondingUserName" Type="String" Nullable="false" MaxLength="8" Unicode="false" FixedLength="false" />
+          <Property Name="respondingTime" Type="String" Nullable="false" MaxLength="14" Unicode="false" FixedLength="true" />
+          <Property Name="updatingUserName" Type="String" Nullable="false" MaxLength="8" Unicode="false" FixedLength="false" />
+          <Property Name="updatingTime" Type="String" Nullable="false" MaxLength="14" Unicode="false" FixedLength="true" />
+        </EntityType>
+        <EntityType Name="UserPermissionPair">
+          <Key>
+            <PropertyRef Name="permission" />
+            <PropertyRef Name="userName" />
+          </Key>
+          <Property Name="permission" Type="String" Nullable="false" MaxLength="2" Unicode="false" FixedLength="true" />
+          <Property Name="userName" Type="String" Nullable="false" MaxLength="8" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="T_CDFUSR" Relationship="RedTelephone.Permissions_usernames" FromRole="T_CDFUPM" ToRole="T_CDFUSR" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="userName" />
+          </Key>
+          <Property Name="userName" Type="String" Nullable="false" MaxLength="8" Unicode="false" FixedLength="false" />
+          <Property Name="hashCombo" Type="String" Nullable="false" MaxLength="64" Unicode="false" FixedLength="false" />
+          <Property Name="firstName" Type="String" Nullable="false" MaxLength="64" Unicode="false" FixedLength="false" />
+          <Property Name="lastName" Type="String" Nullable="false" MaxLength="64" Unicode="false" FixedLength="false" />
+          <Property Name="active_p" Type="String" Nullable="false" MaxLength="1" Unicode="false" FixedLength="true" />
+          <NavigationProperty Name="T_CDFUPM" Relationship="RedTelephone.Permissions_usernames" FromRole="T_CDFUSR" ToRole="T_CDFUPM" />
+        </EntityType>
+        <EntityType Name="Cause">
+          <Key>
+            <PropertyRef Name="code" />
+          </Key>
+          <Property Name="code" Type="String" Nullable="false" MaxLength="1" Unicode="false" FixedLength="true" />
+          <Property Name="description" Type="String" Nullable="false" MaxLength="32" Unicode="false" FixedLength="false" />
+          <Property Name="sortIndex" Type="Int16" Nullable="false" />
+          <Property Name="active_p" Type="String" Nullable="false" MaxLength="1" Unicode="false" FixedLength="true" />
+        </EntityType>
+        <EntityType Name="Permission">
+          <Key>
+            <PropertyRef Name="permission" />
+          </Key>
+          <Property Name="permission" Type="String" Nullable="false" MaxLength="2" Unicode="false" FixedLength="true" />
+          <Property Name="description" Type="String" Nullable="false" MaxLength="32" Unicode="false" FixedLength="false" />
+          <Property Name="sortIndex" Type="Int16" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Priority">
+          <Key>
+            <PropertyRef Name="code" />
+          </Key>
+          <Property Name="code" Type="String" Nullable="false" MaxLength="1" Unicode="false" FixedLength="true" />
+          <Property Name="description" Type="String" Nullable="false" MaxLength="32" Unicode="false" FixedLength="false" />
+          <Property Name="sortIndex" Type="Int16" Nullable="false" />
+          <Property Name="active_p" Type="String" Nullable="false" MaxLength="1" Unicode="false" FixedLength="true" />
+        </EntityType>
+        <EntityType Name="ActualResponse">
+          <Key>
+            <PropertyRef Name="code" />
+          </Key>
+          <Property Name="code" Type="String" Nullable="false" MaxLength="1" Unicode="false" FixedLength="true" />
+          <Property Name="description" Type="String" Nullable="false" MaxLength="32" Unicode="false" FixedLength="false" />
+          <Property Name="sortIndex" Type="Int16" Nullable="false" />
+          <Property Name="active_p" Type="String" Nullable="false" MaxLength="1" Unicode="false" FixedLength="true" />
+        </EntityType>
+        <EntityType Name="RequestedResponse">
+          <Key>
+            <PropertyRef Name="code" />
+          </Key>
+          <Property Name="code" Type="String" Nullable="false" MaxLength="1" Unicode="false" FixedLength="true" />
+          <Property Name="description" Type="String" Nullable="false" MaxLength="32" Unicode="false" FixedLength="false" />
+          <Property Name="sortIndex" Type="Int16" Nullable="false" />
+          <Property Name="active_p" Type="String" Nullable="false" MaxLength="1" Unicode="false" FixedLength="true" />
+        </EntityType>
+        <EntityType Name="IssueSourceLvl1">
+          <Key>
+            <PropertyRef Name="code" />
+          </Key>
+          <Property Name="code" Type="String" Nullable="false" MaxLength="1" Unicode="false" FixedLength="true" />
+          <Property Name="description" Type="String" Nullable="false" MaxLength="32" Unicode="false" FixedLength="false" />
+          <Property Name="sortIndex" Type="Int16" Nullable="false" />
+          <Property Name="active_p" Type="String" Nullable="false" MaxLength="1" Unicode="false" FixedLength="true" />
+        </EntityType>
+        <EntityType Name="IssueSourceLvl2">
+          <Key>
+            <PropertyRef Name="parentCode" />
+            <PropertyRef Name="code" />
+          </Key>
+          <Property Name="parentCode" Type="String" Nullable="false" MaxLength="1" Unicode="false" FixedLength="true" />
+          <Property Name="code" Type="String" Nullable="false" MaxLength="1" Unicode="false" FixedLength="true" />
+          <Property Name="description" Type="String" Nullable="false" MaxLength="32" Unicode="false" FixedLength="false" />
+          <Property Name="sortIndex" Type="Int16" Nullable="false" />
+          <Property Name="active_p" Type="String" Nullable="false" MaxLength="1" Unicode="false" FixedLength="true" />
+        </EntityType>
+        <EntityType Name="IssueSourceLvl3">
+          <Key>
+            <PropertyRef Name="grandparentCode" />
+            <PropertyRef Name="parentCode" />
+            <PropertyRef Name="code" />
+          </Key>
+          <Property Name="grandparentCode" Type="String" Nullable="false" MaxLength="1" Unicode="false" FixedLength="true" />
+          <Property Name="parentCode" Type="String" Nullable="false" MaxLength="1" Unicode="false" FixedLength="true" />
+          <Property Name="code" Type="String" Nullable="false" MaxLength="1" Unicode="false" FixedLength="true" />
+          <Property Name="description" Type="String" Nullable="false" MaxLength="32" Unicode="false" FixedLength="false" />
+          <Property Name="sortIndex" Type="Int16" Nullable="false" />
+          <Property Name="active_p" Type="String" Nullable="false" MaxLength="1" Unicode="false" FixedLength="true" />
+        </EntityType>
+        <EntityType Name="TicketSource">
+          <Key>
+            <PropertyRef Name="code" />
+          </Key>
+          <Property Name="code" Type="String" Nullable="false" MaxLength="1" Unicode="false" FixedLength="true" />
+          <Property Name="description" Type="String" Nullable="false" MaxLength="32" Unicode="false" FixedLength="false" />
+          <Property Name="sortIndex" Type="Int16" Nullable="false" />
+          <Property Name="active_p" Type="String" MaxLength="1" Unicode="false" FixedLength="true" />
+        </EntityType>
+        <EntityType Name="Status">
+          <Key>
+            <PropertyRef Name="code" />
+          </Key>
+          <Property Name="code" Type="String" Nullable="false" MaxLength="1" Unicode="false" FixedLength="true" />
+          <Property Name="description" Type="String" Nullable="false" MaxLength="32" Unicode="false" FixedLength="false" />
+          <Property Name="sortIndex" Type="Int16" Nullable="false" />
+          <Property Name="active_p" Type="String" Nullable="false" MaxLength="1" Unicode="false" FixedLength="true" />
+        </EntityType>
+        <EntityType Name="ReferenceTable">
+          <Key>
+            <PropertyRef Name="name" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="true" />
+          <Property Name="lastUpdate" Type="String" Nullable="false" MaxLength="14" Unicode="false" FixedLength="true" />
+        </EntityType>
+        <Association Name="Permissions_usernames">
+          <End Role="T_CDFUSR" Type="RedTelephone.User" Multiplicity="1" />
+          <End Role="T_CDFUPM" Type="RedTelephone.UserPermissionPair" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_CDFUSR">
+              <PropertyRef Name="userName" />
+            </Principal>
+            <Dependent Role="T_CDFUPM">
+              <PropertyRef Name="userName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="RedTelephoneModelStoreContainer" CdmEntityContainer="ModelsDataContext">
+          <EntitySetMapping Name="Companies"><EntityTypeMapping TypeName="RedTelephone.Company"><MappingFragment StoreEntitySet="E_CDFCMP">
+            <ScalarProperty Name="contractCode" ColumnName="E_CMPCIDC" />
+            <ScalarProperty Name="code" ColumnName="E_CMPPIDC" />
+            <ScalarProperty Name="description" ColumnName="E_CMPCNAM" />
+            <ScalarProperty Name="sortIndex" ColumnName="E_CMPSEQC" />
+            <ScalarProperty Name="active_p" ColumnName="E_CMPIACT" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Employees"><EntityTypeMapping TypeName="RedTelephone.Employee"><MappingFragment StoreEntitySet="T_CDFCEE">
+            <ScalarProperty Name="contractCode" ColumnName="E_CEECIDC" />
+            <ScalarProperty Name="companyCode" ColumnName="E_CEEPIDC" />
+            <ScalarProperty Name="code" ColumnName="E_CEEEIDT" />
+            <ScalarProperty Name="version" ColumnName="E_CEEEVNE" />
+            <ScalarProperty Name="firstName" ColumnName="E_CEEEFNM" />
+            <ScalarProperty Name="lastName" ColumnName="E_CEEEFLM" />
+            <ScalarProperty Name="sortIndex" ColumnName="E_CEESEQC" />
+            <ScalarProperty Name="active_p" ColumnName="E_CEEIACT" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Contracts"><EntityTypeMapping TypeName="RedTelephone.Contract"><MappingFragment StoreEntitySet="T_CDFCTT">
+            <ScalarProperty Name="code" ColumnName="E_CTTCIDC" />
+            <ScalarProperty Name="description" ColumnName="E_CTTCNAM" />
+            <ScalarProperty Name="sortIndex" ColumnName="E_CTTSEQC" />
+            <ScalarProperty Name="active_p" ColumnName="E_CTTIACT" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="TicketNotes"><EntityTypeMapping TypeName="RedTelephone.TicketNote"><MappingFragment StoreEntitySet="T_CDFNOT">
+            <ScalarProperty Name="ticketCode" ColumnName="E_NOTTIDC" />
+            <ScalarProperty Name="type" ColumnName="E_NOTNTPC" />
+            <ScalarProperty Name="sortIndex" ColumnName="E_NOTSEQC" />
+            <ScalarProperty Name="content" ColumnName="E_NOTTXTE" />
+            <ScalarProperty Name="enteringUserName" ColumnName="E_NOTDTEE" />
+            <ScalarProperty Name="enteringTime" ColumnName="E_NOTUIEC" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Offices"><EntityTypeMapping TypeName="RedTelephone.Office"><MappingFragment StoreEntitySet="T_CDFOFF">
+            <ScalarProperty Name="contractCode" ColumnName="E_OFFCIDC" />
+            <ScalarProperty Name="companyCode" ColumnName="E_OFFPIDC" />
+            <ScalarProperty Name="code" ColumnName="E_OFFIDT" />
+            <ScalarProperty Name="version" ColumnName="E_OFFVNE" />
+            <ScalarProperty Name="description" ColumnName="E_OFFNAM" />
+            <ScalarProperty Name="sortIndex" ColumnName="E_OFFSEQC" />
+            <ScalarProperty Name="active_p" ColumnName="E_OFFIACT" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Tickets"><EntityTypeMapping TypeName="RedTelephone.Ticket"><MappingFragment StoreEntitySet="T_CDFTKT">
+            <ScalarProperty Name="code" ColumnName="E_TKTTIDC" />
+            <ScalarProperty Name="version" ColumnName="E_TKTTVNE" />
+            <ScalarProperty Name="contractCode" ColumnName="E_TKTCIDC" />
+            <ScalarProperty Name="companyCode" ColumnName="E_TKTPIDC" />
+            <ScalarProperty Name="officeCode" ColumnName="E_TKTFIDT" />
+            <ScalarProperty Name="officeVersion" ColumnName="E_TKTFVNE" />
+            <ScalarProperty Name="employeeCode" ColumnName="E_TKTEIDT" />
+            <ScalarProperty Name="employeeVersion" ColumnName="E_TKTEVNE" />
+            <ScalarProperty Name="priorityCode" ColumnName="E_TKTPRIC" />
+            <ScalarProperty Name="ticketSourceCode" ColumnName="E_TKTSRTC" />
+            <ScalarProperty Name="ticketSourceAlt" ColumnName="E_TKTSROE" />
+            <ScalarProperty Name="issueSourceLvl1Code" ColumnName="E_TKTSC1C" />
+            <ScalarProperty Name="issueSourceLvl2Code" ColumnName="E_TKTSC2C" />
+            <ScalarProperty Name="issueSourceLvl3Code" ColumnName="E_TKTSC3C" />
+            <ScalarProperty Name="issueSourceAlt" ColumnName="E_TKTSCOE" />
+            <ScalarProperty Name="requestedResponseCode" ColumnName="E_TKTRRMC" />
+            <ScalarProperty Name="statusCode" ColumnName="E_TKTSTSC" />
+            <ScalarProperty Name="causeCode" ColumnName="E_TKTCAUC" />
+            <ScalarProperty Name="actualResponseCode" ColumnName="E_TKTAMC" />
+            <ScalarProperty Name="enteringUserName" ColumnName="E_TKTUIEC" />
+            <ScalarProperty Name="enteringTime" ColumnName="E_TKTDTEE" />
+            <ScalarProperty Name="assignedUserName" ColumnName="E_TKTUIAC" />
+            <ScalarProperty Name="solvedTime" ColumnName="E_TKTDTAE" />
+            <ScalarProperty Name="respondingUserName" ColumnName="E_TKTUIRC" />
+            <ScalarProperty Name="respondingTime" ColumnName="E_TKTDTRE" />
+            <ScalarProperty Name="updatingUserName" ColumnName="E_TKTUIUC" />
+            <ScalarProperty Name="updatingTime" ColumnName="E_TKTDTUE" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="UserPermissionPairs"><EntityTypeMapping TypeName="RedTelephone.UserPermissionPair"><MappingFragment StoreEntitySet="T_CDFUPM">
+            <ScalarProperty Name="permission" ColumnName="E_UPMPNMC" />
+            <ScalarProperty Name="userName" ColumnName="E_USRUIDC" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Users"><EntityTypeMapping TypeName="RedTelephone.User"><MappingFragment StoreEntitySet="T_CDFUSR">
+            <ScalarProperty Name="userName" ColumnName="E_USRUIDC" />
+            <ScalarProperty Name="hashCombo" ColumnName="E_USRUPWE" />
+            <ScalarProperty Name="firstName" ColumnName="E_USRUNFE" />
+            <ScalarProperty Name="lastName" ColumnName="E_USRUNLE" />
+            <ScalarProperty Name="active_p" ColumnName="E_USRIACT" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Causes"><EntityTypeMapping TypeName="RedTelephone.Cause"><MappingFragment StoreEntitySet="T_CRFCAP">
+            <ScalarProperty Name="code" ColumnName="E_CAPCODC" />
+            <ScalarProperty Name="description" ColumnName="E_CAPDSCE" />
+            <ScalarProperty Name="sortIndex" ColumnName="E_CAPSEQC" />
+            <ScalarProperty Name="active_p" ColumnName="E_CAPIACT" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Permissions"><EntityTypeMapping TypeName="RedTelephone.Permission"><MappingFragment StoreEntitySet="T_CRFPNM">
+            <ScalarProperty Name="permission" ColumnName="E_PNMCODC" />
+            <ScalarProperty Name="description" ColumnName="E_PNMDSCE" />
+            <ScalarProperty Name="sortIndex" ColumnName="E_PNMSEQC" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Priorities"><EntityTypeMapping TypeName="RedTelephone.Priority"><MappingFragment StoreEntitySet="T_CRFPRI">
+            <ScalarProperty Name="code" ColumnName="E_PRICODC" />
+            <ScalarProperty Name="description" ColumnName="E_PRIDSCE" />
+            <ScalarProperty Name="sortIndex" ColumnName="E_PRISEQC" />
+            <ScalarProperty Name="active_p" ColumnName="E_PRIIACT" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="ActualResponses"><EntityTypeMapping TypeName="RedTelephone.ActualResponse"><MappingFragment StoreEntitySet="T_CRFRAM">
+            <ScalarProperty Name="code" ColumnName="E_RAMCODC" />
+            <ScalarProperty Name="description" ColumnName="E_RAMDSCE" />
+            <ScalarProperty Name="sortIndex" ColumnName="E_RAMSEQC" />
+            <ScalarProperty Name="active_p" ColumnName="E_RAMIACT" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="RequestedResponses"><EntityTypeMapping TypeName="RedTelephone.RequestedResponse"><MappingFragment StoreEntitySet="T_CRFRRM">
+            <ScalarProperty Name="code" ColumnName="E_RRMCODC" />
+            <ScalarProperty Name="description" ColumnName="E_RRMDSCE" />
+            <ScalarProperty Name="sortIndex" ColumnName="E_RRMSEQC" />
+            <ScalarProperty Name="active_p" ColumnName="E_RRMIACT" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="IssueSourceLvl1s"><EntityTypeMapping TypeName="RedTelephone.IssueSourceLvl1"><MappingFragment StoreEntitySet="T_CRFSRP1">
+            <ScalarProperty Name="code" ColumnName="E_SRP1CODC" />
+            <ScalarProperty Name="description" ColumnName="E_SRP1DSCE" />
+            <ScalarProperty Name="sortIndex" ColumnName="E_SRP1SEQC" />
+            <ScalarProperty Name="active_p" ColumnName="E_SRP1IACT" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="IssueSourceLvl2s"><EntityTypeMapping TypeName="RedTelephone.IssueSourceLvl2"><MappingFragment StoreEntitySet="T_CRFSRP2">
+            <ScalarProperty Name="parentCode" ColumnName="E_SRP1CODC" />
+            <ScalarProperty Name="code" ColumnName="E_SRP2CODC" />
+            <ScalarProperty Name="description" ColumnName="E_SRP2DSCE" />
+            <ScalarProperty Name="sortIndex" ColumnName="E_SRP2SEQC" />
+            <ScalarProperty Name="active_p" ColumnName="E_SRP2IACT" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="IssueSourceLvl3s"><EntityTypeMapping TypeName="RedTelephone.IssueSourceLvl3"><MappingFragment StoreEntitySet="T_CRFSRP3">
+            <ScalarProperty Name="grandparentCode" ColumnName="E_SRP1CODC" />
+            <ScalarProperty Name="parentCode" ColumnName="E_SRP2CODC" />
+            <ScalarProperty Name="code" ColumnName="E_SRP3CODC" />
+            <ScalarProperty Name="description" ColumnName="E_SRP3DSCE" />
+            <ScalarProperty Name="sortIndex" ColumnName="E_SRP3SEQC" />
+            <ScalarProperty Name="active_p" ColumnName="E_SRP3IACT" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="TicketSources"><EntityTypeMapping TypeName="RedTelephone.TicketSource"><MappingFragment StoreEntitySet="T_CRFSRT">
+            <ScalarProperty Name="code" ColumnName="E_SRTCODC" />
+            <ScalarProperty Name="description" ColumnName="E_SRTDSCE" />
+            <ScalarProperty Name="sortIndex" ColumnName="E_SRTSEQC" />
+            <ScalarProperty Name="active_p" ColumnName="E_SRTIACT" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Status"><EntityTypeMapping TypeName="RedTelephone.Status"><MappingFragment StoreEntitySet="T_CRFSTS">
+            <ScalarProperty Name="code" ColumnName="E_STSCODC" />
+            <ScalarProperty Name="description" ColumnName="E_STSDSCE" />
+            <ScalarProperty Name="sortIndex" ColumnName="E_STSSEQC" />
+            <ScalarProperty Name="active_p" ColumnName="E_STSIACT" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="ReferenceTables"><EntityTypeMapping TypeName="RedTelephone.ReferenceTable"><MappingFragment StoreEntitySet="T_CRFTOT">
+            <ScalarProperty Name="name" ColumnName="E_TOTTNMC" />
+            <ScalarProperty Name="lastUpdate" ColumnName="E_RORMDTC" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="Model1" ZoomLevel="63">
+        <EntityTypeShape EntityType="RedTelephone.Company" Width="1.5" PointX="8.375" PointY="3.375" Height="1.9802864583333335" IsExpanded="true" />
+        <EntityTypeShape EntityType="RedTelephone.Employee" Width="1.5" PointX="8.375" PointY="8.5" Height="2.5571907552083322" IsExpanded="true" />
+        <EntityTypeShape EntityType="RedTelephone.Contract" Width="1.5" PointX="8.375" PointY="1.25" Height="1.7879850260416665" IsExpanded="true" />
+        <EntityTypeShape EntityType="RedTelephone.TicketNote" Width="1.5" PointX="12.375" PointY="8.25" Height="2.1725878906249996" IsExpanded="true" />
+        <EntityTypeShape EntityType="RedTelephone.Office" Width="1.5" PointX="8.375" PointY="5.75" Height="2.3648893229166656" IsExpanded="true" />
+        <EntityTypeShape EntityType="RedTelephone.Ticket" Width="1.5" PointX="14.25" PointY="4.25" Height="6.21091796875" IsExpanded="true" />
+        <EntityTypeShape EntityType="RedTelephone.UserPermissionPair" Width="1.5" PointX="3" PointY="1.25" Height="1.5956835937499996" IsExpanded="true" />
+        <EntityTypeShape EntityType="RedTelephone.User" Width="1.5" PointX="0.75" PointY="0.875" Height="2.1725878906249996" IsExpanded="true" />
+        <EntityTypeShape EntityType="RedTelephone.Cause" Width="1.5" PointX="2.5" PointY="5.625" Height="1.7879850260416674" IsExpanded="true" />
+        <EntityTypeShape EntityType="RedTelephone.Permission" Width="1.5" PointX="2" PointY="3.25" Height="1.5956835937499996" IsExpanded="true" />
+        <EntityTypeShape EntityType="RedTelephone.Priority" Width="1.5" PointX="0.75" PointY="5.625" Height="1.7879850260416674" IsExpanded="true" />
+        <EntityTypeShape EntityType="RedTelephone.ActualResponse" Width="1.5" PointX="2.5" PointY="9.625" Height="1.7879850260416674" IsExpanded="true" />
+        <EntityTypeShape EntityType="RedTelephone.RequestedResponse" Width="1.5" PointX="2.5" PointY="7.625" Height="1.7879850260416674" IsExpanded="true" />
+        <EntityTypeShape EntityType="RedTelephone.IssueSourceLvl1" Width="1.5" PointX="4.25" PointY="5.625" Height="1.7879850260416674" IsExpanded="true" />
+        <EntityTypeShape EntityType="RedTelephone.IssueSourceLvl2" Width="1.5" PointX="4.25" PointY="7.625" Height="1.9802864583333388" IsExpanded="true" />
+        <EntityTypeShape EntityType="RedTelephone.IssueSourceLvl3" Width="1.5" PointX="4.25" PointY="9.75" Height="2.1725878906250031" IsExpanded="true" />
+        <EntityTypeShape EntityType="RedTelephone.TicketSource" Width="1.5" PointX="0.75" PointY="7.625" Height="1.7879850260416674" IsExpanded="true" />
+        <EntityTypeShape EntityType="RedTelephone.Status" Width="1.5" PointX="0.75" PointY="9.625" Height="1.7879850260416674" IsExpanded="true" />
+        <EntityTypeShape EntityType="RedTelephone.ReferenceTable" Width="1.5" PointX="5.75" PointY="1.25" Height="1.4033821614583388" IsExpanded="true" />
+        <AssociationConnector Association="RedTelephone.Permissions_usernames" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="2.047841796875" />
+          <ConnectorPoint PointX="3" PointY="2.047841796875" />
+        </AssociationConnector>
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

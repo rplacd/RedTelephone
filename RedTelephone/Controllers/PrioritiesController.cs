@@ -26,7 +26,8 @@ namespace RedTelephone.Controllers
                         //update properties of each row, with the exception of...
                         var formVars = extractRowParams(Request.Form);
                         foreach (KeyValuePair<String, Dictionary<String, String>> priority in formVars) {
-                            Priority possiblepriority = db.Priorities.FirstOrDefault(p => p.code == priority.Value["code"]);
+                            var code = priority.Value["code"];
+                            Priority possiblepriority = db.Priorities.FirstOrDefault(p => p.code == code);
 
                             //VALIDATION HAPPENS HERE
                             validationLogPrefix = "PrioritiesController.Index";
@@ -42,7 +43,7 @@ namespace RedTelephone.Controllers
                                 possiblepriority.code = priority.Value["code"];
                                 possiblepriority.description = priority.Value["description"];
                                 possiblepriority.active_p = "A";
-                                db.Priorities.InsertOnSubmit(possiblepriority);
+                                db.Priorities.AddObject(possiblepriority);
                                 logger.ErrorFormat("PrioritiesController.Index adding {0} with description {1}", priority.Key, priority.Value["description"]);
                             }
 
@@ -53,7 +54,7 @@ namespace RedTelephone.Controllers
                                 possiblepriority.active_p = "N";
                             }
 
-                            db.SubmitChanges();
+                            db.SaveChanges();
                         }
 
                         //orderingindex, which we do seperately.

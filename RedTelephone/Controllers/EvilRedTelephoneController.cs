@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Data.Objects;
 using System.Web;
 using System.Web.Mvc;
 using RedTelephone.EvilLinq;
@@ -65,25 +66,25 @@ namespace RedTelephone.Controllers {
         //some shared behavior for CRUD controllers - check whether we're showing hidden items, for ex.
         //also some "dynamic" accessors on models - inc/dec sorting idxes, show/hide (and is shown/hidden), etc.
         //and that "ting".
-        protected void setRowActive<Model>(System.Data.Linq.Table<Model> table, Func<Model, bool> pred, String active_p) where Model : class
+        protected void setRowActive<Model>(ObjectSet<Model> table, Func<Model, bool> pred, String active_p) where Model : class
         {
             Model target = table.FirstOrDefault(pred);
             if (target != null) {
                 dynamic dyn_target = target;
                 dyn_target.active_p = active_p;
-                table.Context.SubmitChanges();
+                table.Context.SaveChanges();
                 logger.DebugFormat("RedTelephoneController.SetRowActive setting {0} {1} to {2}", table.ToString(), pred.ToString(), active_p.ToString());
             } else {
                 logger.ErrorFormat("RedTelephoneController.SetRowActive couldn't set {0} {1} to {2}", table.ToString(), pred.ToString(), active_p.ToString());
             }
         }
-        protected ActionResult disableRowAction<Model>(String[] perms, System.Data.Linq.Table<Model> table, Func<Model, bool> pred) where Model : class
+        protected ActionResult disableRowAction<Model>(String[] perms, ObjectSet<Model> table, Func<Model, bool> pred) where Model : class
         {
             return authenticatedAction(perms, () => sideEffectingAction(() => {
                 setRowActive<Model>(table, pred, "N");
             }));
         }
-        protected ActionResult enableRowAction<Model>(String[] perms, System.Data.Linq.Table<Model> table, Func<Model, bool> pred) where Model : class
+        protected ActionResult enableRowAction<Model>(String[] perms, ObjectSet<Model> table, Func<Model, bool> pred) where Model : class
         {
             return authenticatedAction(perms, () => sideEffectingAction(() => {
                 setRowActive<Model>(table, pred, "A");
@@ -92,7 +93,7 @@ namespace RedTelephone.Controllers {
 
         //generic methods for swapping sort IDs.
         protected enum TargetRelationship { GreaterThan, LesserThan };
-        protected Model getSwap<Model>(System.Data.Linq.Table<Model> table, dynamic toSwap, TargetRelationship tgtrel) where Model : class
+        protected Model getSwap<Model>(ObjectSet<Model> table, dynamic toSwap, TargetRelationship tgtrel) where Model : class
         {
             Model eligibleSwap = default(Model);
             if (toSwap != null) {
@@ -107,7 +108,7 @@ namespace RedTelephone.Controllers {
             }
             return eligibleSwap;
         }
-        protected void swapSortIndices<Model>(System.Data.Linq.Table<Model> table, Func<Model, bool> pred, TargetRelationship tgtrel) where Model : class
+        protected void swapSortIndices<Model>(ObjectSet<Model> table, Func<Model, bool> pred, TargetRelationship tgtrel) where Model : class
         {
             dynamic toSwap = table.FirstOrDefault(pred);
             dynamic eligibleSwap = getSwap<Model>(table, toSwap, tgtrel);
@@ -115,7 +116,7 @@ namespace RedTelephone.Controllers {
                 var intermediate = toSwap.sortIndex;
                 toSwap.sortIndex = eligibleSwap.sortIndex;
                 eligibleSwap.sortIndex = intermediate;
-                table.Context.SubmitChanges();
+                table.Context.SaveChanges();
                 logger.DebugFormat("RedTelephoneController.swapSortIndices swapping {0} {1} with {2}, with a relationship of {3}",
                     table.ToString(), toSwap.ToString(), eligibleSwap.ToString(), tgtrel.ToString());
             } else {
@@ -123,19 +124,19 @@ namespace RedTelephone.Controllers {
                     table.ToString(), pred.ToString(), tgtrel.ToString());
             }
         }
-        protected ActionResult incSortIndexAction<Model>(String[] perms, System.Data.Linq.Table<Model> table, Func<Model, bool> pred) where Model : class
+        protected ActionResult incSortIndexAction<Model>(String[] perms, ObjectSet<Model> table, Func<Model, bool> pred) where Model : class
         {
             return authenticatedAction(perms, () => sideEffectingAction(() => {
                 swapSortIndices<Model>(table, pred, TargetRelationship.GreaterThan);
             }));
         }
-        protected ActionResult decSortIndexAction<Model>(String[] perms, System.Data.Linq.Table<Model> table, Func<Model, bool> pred) where Model : class
+        protected ActionResult decSortIndexAction<Model>(String[] perms, ObjectSet<Model> table, Func<Model, bool> pred) where Model : class
         {
             return authenticatedAction(perms, () => sideEffectingAction(() => {
                 swapSortIndices<Model>(table, pred, TargetRelationship.LesserThan);
             }));
         }
-        protected short greatestSortIndex<Model>(System.Data.Linq.Table<Model> table) where Model : class
+        protected short greatestSortIndex<Model>(ObjectSet<Model> table) where Model : class
         {
             var allModels = table.ToList();
             if (allModels.Count() < 1) {
@@ -147,14 +148,14 @@ namespace RedTelephone.Controllers {
 
         //generic method for committing sort indexes to DB.
         //assumes the "ordering" parameter and the sortIndex method.
-        protected void setSortIndexes<Model>(System.Data.Linq.Table<Model> table, Func<Model, String> identityAccessor) where Model : class
+        protected void setSortIndexes<Model>(ObjectSet<Model> table, Func<Model, String> identityAccessor) where Model : class
         {
             Dictionary<String, short> paramsDict = extractOrderingParam(Request.Form["ordering"]);
             table.ToList().ForEach(x => {
                 dynamic dx = x;
                 dx.sortIndex = -1;
             });
-            table.Context.SubmitChanges();
+            table.Context.SaveChanges();
             foreach (KeyValuePair<String, short> pair in paramsDict) {
                 Model curr = ((object)table).FirstOrDefault(x => identityAccessor(x) == pair.Key);
                 if (curr != null) {
@@ -165,7 +166,7 @@ namespace RedTelephone.Controllers {
                     logger.ErrorFormat("EvilRedTelephoneController.Index couldn't give {0} sortindex {1}", pair.Key, pair.Value);
                 }
             }
-            table.Context.SubmitChanges();
+            table.Context.SaveChanges();
         }
     }
 }

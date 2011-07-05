@@ -3,6 +3,7 @@ using System.Globalization;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
+using System.Data.Objects;
 using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
@@ -271,7 +272,7 @@ namespace RedTelephone.Controllers
             if (table != null) {
                 String newTimeStamp = char14Timestamp();
                 table.lastUpdate = newTimeStamp;
-                ctx.SubmitChanges();
+                ctx.SaveChanges();
                 logger.DebugFormat("RedTelephoneController.updateTableTimestamp - updating timestamp for {0} to {1}", tableName, newTimeStamp);
             } else {
                 logger.ErrorFormat("RedTelephoneController.updateTableTimestamp - couldn't find the table {0} to update for", tableName);

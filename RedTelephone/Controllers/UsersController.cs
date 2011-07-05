@@ -45,7 +45,7 @@ namespace RedTelephone.Controllers
                             }
                         }
 
-                        db.SubmitChanges();
+                        db.SaveChanges();
                     })));
                 
         }
@@ -79,8 +79,8 @@ namespace RedTelephone.Controllers
 
                         var db = new ModelsDataContext();
                         var usersModel = db.Users;
-                        usersModel.InsertOnSubmit(newUser);
-                        db.SubmitChanges();
+                        usersModel.AddObject(newUser);
+                        db.SaveChanges();
 
 
                         logger.DebugFormat("UsersController.NewUser creating the new user {0}", newUser.ToString());
@@ -113,7 +113,7 @@ namespace RedTelephone.Controllers
                 User user = usersModel.FirstOrDefault(u => u.userName == operand);
 
                 user.hashCombo = hashCombo(user.userName, password);
-                db.SubmitChanges();
+                db.SaveChanges();
 
                 logger.DebugFormat("UsersController.PasswordReset resetting for {0} to {1}", operand, user.hashCombo);
 
@@ -187,18 +187,21 @@ namespace RedTelephone.Controllers
                 //remove all the existing permissions for the user in question...
                 IEnumerable<UserPermissionPair> permsForUser = permsModel.Where(upp => upp.userName == operand);
                 foreach(UserPermissionPair permPair in permsForUser) {
-                    permsModel.DeleteOnSubmit(permPair);
+                    permsModel.DeleteObject(permPair);
                 }
                 
                 //...and readd the ones we need.
-                permsModel.InsertAllOnSubmit(perms.Select((String p) => {
+                var newPerms = (perms.Select((String p) => {
                     var foo = new UserPermissionPair();
                     foo.userName = operand;
                     foo.permission = p;
                     return foo;
                 }));
+                foreach (var perm in newPerms) {
+                    db.UserPermissionPairs.AddObject(perm);
+                }
 
-                db.SubmitChanges();
+                db.SaveChanges();
 
                 logger.DebugFormat("UsersController.Permissions updated for {0} with new perms {1}", operand, perms.ToString());
                 updateTableTimestamp("T_CRFPNM");

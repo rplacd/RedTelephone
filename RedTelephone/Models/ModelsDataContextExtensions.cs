@@ -1,12 +1,18 @@
-using System;
+﻿using System;
+using System.Data.Objects;
+using System.Data.Objects.DataClasses;
+using System.Data.EntityClient;
+using System.ComponentModel;
+using System.Xml.Serialization;
+using System.Runtime.Serialization;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
 using System.Data.Linq;
 
-
 namespace RedTelephone.Models {
-    partial class ModelsDataContext {
+
+    public partial class ModelsDataContext : ObjectContext {
         //REFACTOR: why can't I just db.xs.orderbydescending(version).first?
         public IEnumerable<Office> newestOffices()
         {
@@ -32,4 +38,5 @@ namespace RedTelephone.Models {
             );
         }
     }
+
 }

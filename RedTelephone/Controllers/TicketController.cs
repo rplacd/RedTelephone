@@ -298,7 +298,8 @@ namespace RedTelephone.Controllers
                     //STUB
                     target.code = getFreshIdVal<String>(Str8Gen, db.Tickets.Select(t => t.code).ToArray());
                 } else {
-                    target = db.Tickets.First(t => t.code == collection["code"]);
+                    var code = collection["code"];
+                    target = db.Tickets.First(t => t.code == code);
                 }
                 target.version++;
 
@@ -350,7 +351,7 @@ namespace RedTelephone.Controllers
                 }
 
                 if(newTicket_p)
-                    db.Tickets.InsertOnSubmit(target);
+                    db.Tickets.AddObject(target);
 
                 //now deal with the notes.
                 var noteParams = extractRowParams(collection);
@@ -367,11 +368,11 @@ namespace RedTelephone.Controllers
                         possibleNote.enteringUserName = noteValues["noteEnteringUser"];
                         possibleNote.enteringTime = noteValues["noteEnteringTime"];
                         possibleNote.content = noteValues["noteContent"];
-                        db.TicketNotes.InsertOnSubmit(possibleNote);
+                        db.TicketNotes.AddObject(possibleNote);
                     }
                 }
 
-                db.SubmitChanges();
+                db.SaveChanges();
                 return Redirect("/ticket");
             });
         }
