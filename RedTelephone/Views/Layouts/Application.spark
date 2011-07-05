@@ -14,7 +14,7 @@
             <div id="centering-hack">
                 <ul>
                     <li>
-                        <a>Tickets</a>
+                        <a href="/ticket">Tickets</a>
                     </li>
                     <li>
                         <a>Reporting</a>

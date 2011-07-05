@@ -7,6 +7,7 @@ using System.Data.Linq;
 
 namespace RedTelephone.Models {
     partial class ModelsDataContext {
+        //REFACTOR: why can't I just db.xs.orderbydescending(version).first?
         public IEnumerable<Office> newestOffices()
         {
             var officesByName = Offices.GroupBy(o => o.code).ToList();

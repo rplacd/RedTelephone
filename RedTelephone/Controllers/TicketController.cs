@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -32,6 +33,52 @@ namespace RedTelephone.Extensions
     }
 }
 
+//extensions to Ticket to use in Index.
+namespace RedTelephone.Models 
+{
+    public partial class Ticket
+    {
+        ModelsDataContext db = new ModelsDataContext();
+        public string formatSource()
+        {
+            StringBuilder str = new StringBuilder();
+
+            str.Append(db.Contracts.FirstOrDefault(c => c.code == contractCode).description);
+            str.Append(" > ");
+            str.Append(db.Companies.FirstOrDefault(c => c.code == companyCode).description);
+            str.Append(" > ");
+            str.Append(db.Offices.Where(o => o.code == officeCode).OrderByDescending(o => o.version).First().description);
+            str.Append(" > ");
+            var firstname = db.Employees.Where(e => e.code == employeeCode).OrderByDescending(e => e.version).First().firstName;
+            var lastname = db.Employees.Where(e => e.code == employeeCode).OrderByDescending(e => e.version).First().lastName;
+            str.Append(firstname + " " + lastname);
+
+            return str.ToString();
+        }
+
+        public string formatCause()
+        {
+            StringBuilder str = new StringBuilder();
+
+            str.Append(db.Causes.FirstOrDefault(c => c.code == causeCode).description);
+            if (issueSourceLvl1Code != "") {
+                str.Append(" > ");
+                str.Append(db.IssueSourceLvl1s.FirstOrDefault(s => s.code == issueSourceLvl1Code).description);
+                if (issueSourceLvl2Code != "") {
+                    str.Append(" > ");
+                    str.Append(db.IssueSourceLvl2s.FirstOrDefault(s => s.code == issueSourceLvl2Code).description);
+                    if (issueSourceLvl3Code != "") {
+                        str.Append(" > ");
+                        str.Append(db.IssueSourceLvl3s.FirstOrDefault(s => s.code == _issueSourceLvl3Code).description);
+                    }
+                }
+            }
+
+            return str.ToString();
+        }
+    }
+}
+
 namespace RedTelephone.Controllers
 {
     public class TicketController : RedTelephoneController
@@ -59,6 +106,23 @@ namespace RedTelephone.Controllers
                 return default(ActionResult);
             }
         }
+
+        public ActionResult Index()
+        {
+            return authenticatedAction(new String[] { "UT" }, () => {
+                var username = Request.Cookies["Authentication"]["username"];
+                var allActiveTickets = db.Tickets.Where(t => t.respondingTime.Equals("              ") || t.respondingTime.Equals(STR_NOT_INSTANTIATED));
+                //not as straightforward as you might think - Created is allActiveTickets.filter for username - (Assigned U Responding)
+                //so things don't pop up in Created and elsewhere.
+                var responding = allActiveTickets.Where(t => t.respondingUserName == username);
+                var assigned = allActiveTickets.Where(t => t.assignedUserName == username).Except(responding);
+                ViewData["Created"] = allActiveTickets.Where(t => t.enteringUserName == username).Except(assigned).Except(responding);
+                ViewData["Assigned"] = assigned;
+                ViewData["Responding"] = responding;
+                return View();
+            });
+        }
+
 
         private ActionResult seedViewData()
         //fill out the seed data values in the ViewData.
@@ -225,7 +289,7 @@ namespace RedTelephone.Controllers
         public ActionResult Index(FormCollection collection)
         //Commits ticket to disk - reads some data from form values, and autogenerates some of its own like updatingTime and respondingTime.
         {
-            return authenticatedAction(new String[] { "UT" }, () => sideEffectingAction(() => {
+            return authenticatedAction(new String[] { "UT" }, () => {
                 //first create the ticket...
                 bool newTicket_p = collection["code"] == STR_INSTANTIATE_ME;
                 Ticket target = null;
@@ -308,7 +372,8 @@ namespace RedTelephone.Controllers
                 }
 
                 db.SubmitChanges();
-            }));
+                return Redirect("/ticket");
+            });
         }
 
         public ActionResult NewRow(string operand)
