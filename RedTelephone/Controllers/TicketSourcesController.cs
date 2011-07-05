@@ -6,52 +6,52 @@ using System.Web;
 using System.Web.Mvc;
 using RedTelephone.Models;
 
-//REFACTOR: switch me, too, to the "as-parameterized-as-possible" format seen in CausesController et al.
 namespace RedTelephone.Controllers {
     [ValidateInput(false)]
     public class TicketSourcesController : RedTelephoneController {
         ObjectSet<TicketSource> table = (new ModelsDataContext()).TicketSources;
+        String className = "TicketSourcesController";
 
         public ActionResult Index()
         {
             return authenticatedAction(new String[] { "UR" }, () => formAction(
                     () => {
-                        logger.Debug("TicketSourcesController.Index accessed.");
-                        ViewData["TicketSources"] = table.OrderBy(p => p.sortIndex).ToList();
+                        logger.Debug(className + ".Index accessed.");
+                        ViewData["Items"] = table.OrderBy(p => p.sortIndex).ToList();
                         return View();
                     },
                     () => sideEffectingAction(() => {
-                        logger.Debug("TicketSourcesController.Index updating.");
+                        logger.Debug(className + ".Index updating.");
 
                         //update properties of each row, with the exception of...
                         var formVars = extractRowParams(Request.Form);
-                        foreach (KeyValuePair<String, Dictionary<String, String>> ticketSource in formVars) {
-                            var code = ticketSource.Value["code"];
-                            TicketSource possibleTicketSource = table.FirstOrDefault(p => p.code == code);
+                        foreach (KeyValuePair<String, Dictionary<String, String>> itemPair in formVars) {
+                            var code = itemPair.Value["code"];
+                            TicketSource possibleItem = table.FirstOrDefault(p => p.code == code);
 
                             //VALIDATION HAPPENS HERE
-                            validationLogPrefix = "TicketSourcesController.Index";
-                            ValidateStrLen(ticketSource.Value["description"], 32, "Ticket source descriptions");
+                            validationLogPrefix = className + "Index";
+                            ValidateStrLen(itemPair.Value["description"], 32, "Ticket source descriptions");
                             //AND THEN ENDS.
 
                             //does it exist - or do we have to add it in?
-                            if (possibleTicketSource != null) {
-                                possibleTicketSource.description = ticketSource.Value["description"];
-                                logger.DebugFormat("TicketSourcesController.Index updating {0}", possibleTicketSource.ToString());
+                            if (possibleItem != null) {
+                                possibleItem.description = itemPair.Value["description"];
+                                logger.DebugFormat(className + "Index updating {0}", possibleItem.ToString());
                             } else {
-                                possibleTicketSource = new TicketSource();
-                                possibleTicketSource.code = ticketSource.Value["code"];
-                                possibleTicketSource.description = ticketSource.Value["description"];
-                                possibleTicketSource.active_p = "A";
-                                table.AddObject(possibleTicketSource);
-                                logger.ErrorFormat("TicketSourcesController.Index adding {0} with description {1}", ticketSource.Key, ticketSource.Value["description"]);
+                                possibleItem = new TicketSource();
+                                possibleItem.code = itemPair.Value["code"];
+                                possibleItem.description = itemPair.Value["description"];
+                                possibleItem.active_p = "A";
+                                table.AddObject(possibleItem);
+                                logger.ErrorFormat(className + "Index adding {0} with description {1}", itemPair.Key, itemPair.Value["description"]);
                             }
 
                             //set the "active" as well.
-                            if (ticketSource.Value.ContainsKey("active")) {
-                                possibleTicketSource.active_p = "A";
+                            if (itemPair.Value.ContainsKey("active")) {
+                                possibleItem.active_p = "A";
                             } else {
-                                possibleTicketSource.active_p = "N";
+                                possibleItem.active_p = "N";
                             }
 
                             table.Context.SaveChanges();

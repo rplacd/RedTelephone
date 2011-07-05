@@ -11,8 +11,8 @@
                     <th>Enabled?</th>
                     <th>Description</th>
                 </tr>
-                <viewdata Causes="IEnumerable[[Cause]]"/>
-                <for each="var item in Causes">
+                <viewdata Items="IEnumerable[[Cause]]"/>
+                <for each="var item in Items">
                     <tr id="${item.code}">
                         <td>
                             <input type="hidden" name="code?${item.code}" value="${item.code}" />

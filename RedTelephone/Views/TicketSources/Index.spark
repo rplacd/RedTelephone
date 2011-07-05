@@ -11,20 +11,20 @@
                     <th>Enabled?</th>
                     <th>Description</th>
                 </tr>
-                <viewdata TicketSources="IEnumerable[[TicketSource]]"/>
-                <for each="var ticketSource in TicketSources">
-                    <tr id="${ticketSource.code}">
+                <viewdata Items="IEnumerable[[TicketSource]]"/>
+                <for each="var item in Items">
+                    <tr id="${item.code}">
                         <td>
-                            <input type="hidden" name="code?${ticketSource.code}" value="${ticketSource.code}" />
-                            <if condition='ticketSource.active_p == "A"'>
-                                <input type="checkbox" name="active?${ticketSource.code}" value="A" checked="" />
+                            <input type="hidden" name="code?${item.code}" value="${item.code}" />
+                            <if condition='item.active_p == "A"'>
+                                <input type="checkbox" name="active?${item.code}" value="A" checked="" />
                             </if>
                             <else>
-                                <input type="checkbox" name="active?${ticketSource.code}" value="N" />                               
+                                <input type="checkbox" name="active?${item.code}" value="N" />                               
                             </else>
                         </td>
                         <td>
-                            <input type="text" name="description?${ticketSource.code}" value="${ticketSource.description}" class="required" maxlength="32" />
+                            <input type="text" name="description?${item.code}" value="${item.description}" class="required" maxlength="32" />
                         </td>
                     </tr>
                 </for>

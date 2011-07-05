@@ -17,7 +17,7 @@ namespace RedTelephone.Controllers {
             return authenticatedAction(new String[] { "UR" }, () => formAction(
                     () => {
                         logger.Debug(className + ".Index accessed.");
-                        ViewData["Causes"] = table.OrderBy(p => p.sortIndex).ToList();
+                        ViewData["Items"] = table.OrderBy(p => p.sortIndex).ToList();
                         return View();
                     },
                     () => sideEffectingAction(() => {
@@ -31,7 +31,7 @@ namespace RedTelephone.Controllers {
 
                             //VALIDATION HAPPENS HERE
                             validationLogPrefix = className + ".Index";
-                            ValidateStrLen(itemPair.Value["description"], 32, "Ticket source descriptions");
+                            ValidateStrLen(itemPair.Value["description"], 32, "Cause descriptions");
                             //AND THEN ENDS.
 
                             //does it exist - or do we have to add it in?
