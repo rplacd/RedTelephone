@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using RedTelephone.Models;
 
+//REFACTOR: for consistency, use the new table var scheme instead of a db var.
 namespace RedTelephone.Controllers
 {
     [ValidateInput(false)]

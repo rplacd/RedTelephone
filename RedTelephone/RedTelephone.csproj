@@ -104,6 +104,7 @@
     </Compile>
     <Compile Include="Controllers\StatusesController.cs" />
     <Compile Include="Controllers\TicketController.cs" />
+    <Compile Include="Controllers\TicketSourcesController.cs" />
     <Compile Include="Controllers\UsersController.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -128,6 +129,8 @@
     <Content Include="Content\style.css" />
     <Content Include="Scripts\CRUDtilities.js" />
     <Content Include="Scripts\jquery.tablednd_0_5.js" />
+    <Content Include="Views\Shared\Error.aspx" />
+    <Content Include="Views\Shared\Site.Master" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -153,34 +156,43 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model1.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="Views\Priorities\NewRow.spark">
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Views\Home\Index.spark">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Views\Layouts\Application.spark" />
     <None Include="Views\Priorities\Index.spark">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Views\Priorities\NewRow.spark">
       <SubType>Designer</SubType>
     </None>
     <None Include="Views\ReferenceData\Index.spark">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Views\Shared\RedTelephoneNewRowError.spark">
+    <None Include="Views\Shared\RedTelephoneError.spark">
       <SubType>Designer</SubType>
     </None>
     <None Include="Views\Shared\RedTelephoneLogin.spark">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Views\Shared\RedTelephoneError.spark">
+    <None Include="Views\Shared\RedTelephoneNewRowError.spark">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Views\Home\Index.spark">
-      <SubType>Designer</SubType>
-    </None>
-    <Content Include="Views\Shared\Error.aspx" />
-    <None Include="Views\Layouts\Application.spark" />
-    <Content Include="Views\Shared\Site.Master" />
     <None Include="Views\Statuses\Index.spark">
       <SubType>Designer</SubType>
     </None>
     <None Include="Views\Statuses\NewRow.spark">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Views\TicketSources\Index.spark">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Views\TicketSources\NewRow.spark">
       <SubType>Designer</SubType>
     </None>
     <None Include="Views\Ticket\Index.spark">
@@ -192,23 +204,19 @@
     <None Include="Views\Ticket\Ticket.spark">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Views\Users\Permissions.spark">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Views\Users\PasswordReset.spark">
+    <None Include="Views\Users\Index.spark">
       <SubType>Designer</SubType>
     </None>
     <None Include="Views\Users\NewUser.spark">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Views\Users\Index.spark">
+    <None Include="Views\Users\PasswordReset.spark">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Views\Users\Permissions.spark">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
-  </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

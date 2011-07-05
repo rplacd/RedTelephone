@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using RedTelephone.Models;
 
+//REFACTOR: for consistency, use the new table var scheme instead of a db var.
 namespace RedTelephone.Controllers {
     [ValidateInput(false)]
     public class StatusesController : RedTelephoneController {
@@ -29,7 +30,7 @@ namespace RedTelephone.Controllers {
 
                             //VALIDATION HAPPENS HERE
                             validationLogPrefix = "StatusesController.Index";
-                            ValidateStrLen(status.Value["description"], 32, "Priority descriptions");
+                            ValidateStrLen(status.Value["description"], 32, "Status descriptions");
                             //AND THEN ENDS.
 
                             //does it exist - or do we have to add it in?
