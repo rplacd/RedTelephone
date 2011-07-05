@@ -102,6 +102,7 @@
     <Compile Include="Controllers\ReferenceDataController.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Controllers\StatusesController.cs" />
     <Compile Include="Controllers\TicketController.cs" />
     <Compile Include="Controllers\UsersController.cs">
       <SubType>Code</SubType>
@@ -176,6 +177,12 @@
     <Content Include="Views\Shared\Error.aspx" />
     <None Include="Views\Layouts\Application.spark" />
     <Content Include="Views\Shared\Site.Master" />
+    <None Include="Views\Statuses\Index.spark">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Views\Statuses\NewRow.spark">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Views\Ticket\Index.spark">
       <SubType>Designer</SubType>
     </None>

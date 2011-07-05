@@ -1,0 +1,48 @@
+﻿<div>
+    <header>
+        <h1>Manage status codes</h1>
+    </header>
+    <form id="form" action="/referencedata/statuses" method="post">
+        <input type="hidden" id="ordering" name="ordering" value="" />
+        <section>
+            <table id="table">
+                <tbody>
+                <tr class="nodrop nodrag">
+                    <th>Enabled?</th>
+                    <th>Description</th>
+                </tr>
+                <viewdata Statuses="IEnumerable[[Status]]"/>
+                <for each="var status in Statuses">
+                    <tr id="${status.code}">
+                        <td>
+                            <input type="hidden" name="code?${status.code}" value="${status.code}" />
+                            <if condition='status.active_p == "A"'>
+                                <input type="checkbox" name="active?${status.code}" value="A" checked="" />
+                            </if>
+                            <else>
+                                <input type="checkbox" name="active?${status.code}" value="N" />                               
+                            </else>
+                        </td>
+                        <td>
+                            <input type="text" name="description?${status.code}" value="${status.description}" class="required" maxlength="32" />
+                        </td>
+                    </tr>
+                </for>
+                </tbody>
+            </table>
+        </section>
+
+        <nav>
+            <div id="centering-hack">
+                <ul>
+                    <li>
+                        <input type="button" onclick="AddRow('statuses')" value="Add a new code"/>
+                    </li>
+                    <li>
+                        <input class="submit" type="submit" onclick="StabilizeState()" value="Save changes" />
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </form>
+</div>
