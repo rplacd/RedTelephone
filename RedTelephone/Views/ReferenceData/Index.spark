@@ -30,6 +30,11 @@
                     <a href="/referencedata/requestedresponses">Requested methods of response</a>
                 </td>
             </tr>
+            <tr>
+                <td>
+                    <a href="/referencedata/actualresponses">Actual methods of response</a>
+                </td>
+            </tr>
         </table>
     </section>
 </div>

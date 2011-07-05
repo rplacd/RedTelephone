@@ -88,6 +88,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Controllers\CausesController.cs" />
+    <Compile Include="Controllers\ActualResponses.cs" />
     <Compile Include="Controllers\RequestedResponses.cs" />
     <Compile Include="Controllers\EvilRedTelephoneController.cs">
       <SubType>Code</SubType>
@@ -167,6 +168,12 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Views\Causes\NewRow.spark">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Views\ActualResponses\Index.spark">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Views\ActualResponses\NewRow.spark">
       <SubType>Designer</SubType>
     </None>
     <None Include="Views\RequestedResponses\Index.spark">
