@@ -25,6 +25,11 @@
                     <a href="/referencedata/statuses">Status codes</a>
                 </td>
             </tr>
+            <tr>
+                <td>
+                    <a href="/referencedata/requestedresponses">Requested methods of response</a>
+                </td>
+            </tr>
         </table>
     </section>
 </div>

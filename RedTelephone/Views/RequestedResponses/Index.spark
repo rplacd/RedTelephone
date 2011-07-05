@@ -1,0 +1,48 @@
+﻿<div>
+    <header>
+        <h1>Manage requested methods of response</h1>
+    </header>
+    <form id="form" action="/referencedata/requestedresponses" method="post">
+        <input type="hidden" id="ordering" name="ordering" value="" />
+        <section>
+            <table id="table">
+                <tbody>
+                <tr class="nodrop nodrag">
+                    <th>Enabled?</th>
+                    <th>Description</th>
+                </tr>
+                <viewdata Items="IEnumerable[[RequestedResponse]]"/>
+                <for each="var item in Items">
+                    <tr id="${item.code}">
+                        <td>
+                            <input type="hidden" name="code?${item.code}" value="${item.code}" />
+                            <if condition='item.active_p == "A"'>
+                                <input type="checkbox" name="active?${item.code}" value="A" checked="" />
+                            </if>
+                            <else>
+                                <input type="checkbox" name="active?${item.code}" value="N" />                               
+                            </else>
+                        </td>
+                        <td>
+                            <input type="text" name="description?${item.code}" value="${item.description}" class="required" maxlength="32" />
+                        </td>
+                    </tr>
+                </for>
+                </tbody>
+            </table>
+        </section>
+
+        <nav>
+            <div id="centering-hack">
+                <ul>
+                    <li>
+                        <input type="button" onclick="AddRow('requestedresponses')" value="Add a new code"/>
+                    </li>
+                    <li>
+                        <input class="submit" type="submit" onclick="StabilizeState()" value="Save changes" />
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </form>
+</div>
