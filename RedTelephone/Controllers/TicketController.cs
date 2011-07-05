@@ -153,7 +153,7 @@ namespace RedTelephone.Controllers
             //get priorities and statuses.
             var priorities = db.Priorities.OrderBy(p => p.sortIndex).Where(p => p.active_p == "A").ToList();
             checkAndAddList(priorities, "priorities", "Priorities");
-            var statuses = db.Status.OrderBy(s => s.sortIndex).Where(s => s.active_p == "A").ToList();
+            var statuses = db.Statuses.OrderBy(s => s.sortIndex).Where(s => s.active_p == "A").ToList();
             checkAndAddList(statuses, "statuses", "Statuses");
 
             //get methods of response.

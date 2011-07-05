@@ -281,7 +281,7 @@
           <EntitySet Name="IssueSourceLvl2s" EntityType="RedTelephone.IssueSourceLvl2" />
           <EntitySet Name="IssueSourceLvl3s" EntityType="RedTelephone.IssueSourceLvl3" />
           <EntitySet Name="TicketSources" EntityType="RedTelephone.TicketSource" />
-          <EntitySet Name="Status" EntityType="RedTelephone.Status" />
+          <EntitySet Name="Statuses" EntityType="RedTelephone.Status" />
           <EntitySet Name="ReferenceTables" EntityType="RedTelephone.ReferenceTable" />
           <AssociationSet Name="Permissions_usernames" Association="RedTelephone.Permissions_usernames">
             <End Role="T_CDFUSR" EntitySet="Users" />
@@ -660,7 +660,7 @@
             <ScalarProperty Name="sortIndex" ColumnName="E_SRTSEQC" />
             <ScalarProperty Name="active_p" ColumnName="E_SRTIACT" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
-          <EntitySetMapping Name="Status"><EntityTypeMapping TypeName="RedTelephone.Status"><MappingFragment StoreEntitySet="T_CRFSTS">
+          <EntitySetMapping Name="Statuses"><EntityTypeMapping TypeName="RedTelephone.Status"><MappingFragment StoreEntitySet="T_CRFSTS">
             <ScalarProperty Name="code" ColumnName="E_STSCODC" />
             <ScalarProperty Name="description" ColumnName="E_STSDSCE" />
             <ScalarProperty Name="sortIndex" ColumnName="E_STSSEQC" />

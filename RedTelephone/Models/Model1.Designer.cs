@@ -345,18 +345,18 @@ namespace RedTelephone.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<Status> Status
+        public ObjectSet<Status> Statuses
         {
             get
             {
-                if ((_Status == null))
+                if ((_Statuses == null))
                 {
-                    _Status = base.CreateObjectSet<Status>("Status");
+                    _Statuses = base.CreateObjectSet<Status>("Statuses");
                 }
-                return _Status;
+                return _Statuses;
             }
         }
-        private ObjectSet<Status> _Status;
+        private ObjectSet<Status> _Statuses;
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -514,11 +514,11 @@ namespace RedTelephone.Models
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the Status EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// Deprecated Method for adding a new object to the Statuses EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
-        public void AddToStatus(Status status)
+        public void AddToStatuses(Status status)
         {
-            base.AddObject("Status", status);
+            base.AddObject("Statuses", status);
         }
     
         /// <summary>
