@@ -293,8 +293,8 @@
             <PropertyRef Name="contractCode" />
             <PropertyRef Name="code" />
           </Key>
-          <Property Name="contractCode" Type="Int16" Nullable="false" />
-          <Property Name="code" Type="Int16" Nullable="false" />
+          <Property Name="contractCode" Type="Decimal" Nullable="false" />
+          <Property Name="code" Type="Decimal" Nullable="false" />
           <Property Name="description" Type="String" Nullable="false" MaxLength="250" Unicode="false" FixedLength="false" />
           <Property Name="sortIndex" Type="Int16" Nullable="false" />
           <Property Name="active_p" Type="String" Nullable="false" MaxLength="1" Unicode="false" FixedLength="true" />
@@ -306,8 +306,8 @@
             <PropertyRef Name="code" />
             <PropertyRef Name="version" />
           </Key>
-          <Property Name="contractCode" Type="Int16" Nullable="false" />
-          <Property Name="companyCode" Type="Int16" Nullable="false" />
+          <Property Name="contractCode" Type="Decimal" Nullable="false" />
+          <Property Name="companyCode" Type="Decimal" Nullable="false" />
           <Property Name="code" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
           <Property Name="version" Type="Int32" Nullable="false" />
           <Property Name="firstName" Type="String" Nullable="false" MaxLength="250" Unicode="false" FixedLength="false" />
@@ -319,7 +319,7 @@
           <Key>
             <PropertyRef Name="code" />
           </Key>
-          <Property Name="code" Type="Int16" Nullable="false" />
+          <Property Name="code" Type="Decimal" Nullable="false" />
           <Property Name="description" Type="String" Nullable="false" MaxLength="250" Unicode="false" FixedLength="false" />
           <Property Name="sortIndex" Type="Decimal" Nullable="false" Precision="5" Scale="0" />
           <Property Name="active_p" Type="String" Nullable="false" MaxLength="1" Unicode="false" FixedLength="true" />
@@ -344,8 +344,8 @@
             <PropertyRef Name="code" />
             <PropertyRef Name="version" />
           </Key>
-          <Property Name="contractCode" Type="Int16" Nullable="false" />
-          <Property Name="companyCode" Type="Int16" Nullable="false" />
+          <Property Name="contractCode" Type="Decimal" Nullable="false" />
+          <Property Name="companyCode" Type="Decimal" Nullable="false" />
           <Property Name="code" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
           <Property Name="version" Type="Int32" Nullable="false" />
           <Property Name="description" Type="String" Nullable="false" MaxLength="250" Unicode="false" FixedLength="false" />
@@ -358,8 +358,8 @@
           </Key>
           <Property Name="code" Type="String" Nullable="false" MaxLength="8" Unicode="false" FixedLength="false" />
           <Property Name="version" Type="Int32" Nullable="false" />
-          <Property Name="contractCode" Type="Int32" Nullable="false" />
-          <Property Name="companyCode" Type="Int32" Nullable="false" />
+          <Property Name="contractCode" Type="Decimal" Nullable="false" />
+          <Property Name="companyCode" Type="Decimal" Nullable="false" />
           <Property Name="officeCode" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
           <Property Name="officeVersion" Type="Int32" Nullable="false" />
           <Property Name="employeeCode" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />

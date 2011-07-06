@@ -821,7 +821,7 @@ namespace RedTelephone.Models
         /// <param name="description">Initial value of the description property.</param>
         /// <param name="sortIndex">Initial value of the sortIndex property.</param>
         /// <param name="active_p">Initial value of the active_p property.</param>
-        public static Company CreateCompany(global::System.Int16 contractCode, global::System.Int16 code, global::System.String description, global::System.Int16 sortIndex, global::System.String active_p)
+        public static Company CreateCompany(global::System.Decimal contractCode, global::System.Decimal code, global::System.String description, global::System.Int16 sortIndex, global::System.String active_p)
         {
             Company company = new Company();
             company.contractCode = contractCode;
@@ -840,7 +840,7 @@ namespace RedTelephone.Models
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int16 contractCode
+        public global::System.Decimal contractCode
         {
             get
             {
@@ -858,8 +858,8 @@ namespace RedTelephone.Models
                 }
             }
         }
-        private global::System.Int16 _contractCode;
-        partial void OncontractCodeChanging(global::System.Int16 value);
+        private global::System.Decimal _contractCode;
+        partial void OncontractCodeChanging(global::System.Decimal value);
         partial void OncontractCodeChanged();
     
         /// <summary>
@@ -867,7 +867,7 @@ namespace RedTelephone.Models
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int16 code
+        public global::System.Decimal code
         {
             get
             {
@@ -885,8 +885,8 @@ namespace RedTelephone.Models
                 }
             }
         }
-        private global::System.Int16 _code;
-        partial void OncodeChanging(global::System.Int16 value);
+        private global::System.Decimal _code;
+        partial void OncodeChanging(global::System.Decimal value);
         partial void OncodeChanged();
     
         /// <summary>
@@ -982,7 +982,7 @@ namespace RedTelephone.Models
         /// <param name="description">Initial value of the description property.</param>
         /// <param name="sortIndex">Initial value of the sortIndex property.</param>
         /// <param name="active_p">Initial value of the active_p property.</param>
-        public static Contract CreateContract(global::System.Int16 code, global::System.String description, global::System.Decimal sortIndex, global::System.String active_p)
+        public static Contract CreateContract(global::System.Decimal code, global::System.String description, global::System.Decimal sortIndex, global::System.String active_p)
         {
             Contract contract = new Contract();
             contract.code = code;
@@ -1000,7 +1000,7 @@ namespace RedTelephone.Models
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int16 code
+        public global::System.Decimal code
         {
             get
             {
@@ -1018,8 +1018,8 @@ namespace RedTelephone.Models
                 }
             }
         }
-        private global::System.Int16 _code;
-        partial void OncodeChanging(global::System.Int16 value);
+        private global::System.Decimal _code;
+        partial void OncodeChanging(global::System.Decimal value);
         partial void OncodeChanged();
     
         /// <summary>
@@ -1119,7 +1119,7 @@ namespace RedTelephone.Models
         /// <param name="lastName">Initial value of the lastName property.</param>
         /// <param name="sortIndex">Initial value of the sortIndex property.</param>
         /// <param name="active_p">Initial value of the active_p property.</param>
-        public static Employee CreateEmployee(global::System.Int16 contractCode, global::System.Int16 companyCode, global::System.String code, global::System.Int32 version, global::System.String firstName, global::System.String lastName, global::System.Int16 sortIndex, global::System.String active_p)
+        public static Employee CreateEmployee(global::System.Decimal contractCode, global::System.Decimal companyCode, global::System.String code, global::System.Int32 version, global::System.String firstName, global::System.String lastName, global::System.Int16 sortIndex, global::System.String active_p)
         {
             Employee employee = new Employee();
             employee.contractCode = contractCode;
@@ -1141,7 +1141,7 @@ namespace RedTelephone.Models
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int16 contractCode
+        public global::System.Decimal contractCode
         {
             get
             {
@@ -1159,8 +1159,8 @@ namespace RedTelephone.Models
                 }
             }
         }
-        private global::System.Int16 _contractCode;
-        partial void OncontractCodeChanging(global::System.Int16 value);
+        private global::System.Decimal _contractCode;
+        partial void OncontractCodeChanging(global::System.Decimal value);
         partial void OncontractCodeChanged();
     
         /// <summary>
@@ -1168,7 +1168,7 @@ namespace RedTelephone.Models
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int16 companyCode
+        public global::System.Decimal companyCode
         {
             get
             {
@@ -1186,8 +1186,8 @@ namespace RedTelephone.Models
                 }
             }
         }
-        private global::System.Int16 _companyCode;
-        partial void OncompanyCodeChanging(global::System.Int16 value);
+        private global::System.Decimal _companyCode;
+        partial void OncompanyCodeChanging(global::System.Decimal value);
         partial void OncompanyCodeChanged();
     
         /// <summary>
@@ -1850,7 +1850,7 @@ namespace RedTelephone.Models
         /// <param name="description">Initial value of the description property.</param>
         /// <param name="sortIndex">Initial value of the sortIndex property.</param>
         /// <param name="active_p">Initial value of the active_p property.</param>
-        public static Office CreateOffice(global::System.Int16 contractCode, global::System.Int16 companyCode, global::System.String code, global::System.Int32 version, global::System.String description, global::System.Decimal sortIndex, global::System.String active_p)
+        public static Office CreateOffice(global::System.Decimal contractCode, global::System.Decimal companyCode, global::System.String code, global::System.Int32 version, global::System.String description, global::System.Decimal sortIndex, global::System.String active_p)
         {
             Office office = new Office();
             office.contractCode = contractCode;
@@ -1871,7 +1871,7 @@ namespace RedTelephone.Models
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int16 contractCode
+        public global::System.Decimal contractCode
         {
             get
             {
@@ -1889,8 +1889,8 @@ namespace RedTelephone.Models
                 }
             }
         }
-        private global::System.Int16 _contractCode;
-        partial void OncontractCodeChanging(global::System.Int16 value);
+        private global::System.Decimal _contractCode;
+        partial void OncontractCodeChanging(global::System.Decimal value);
         partial void OncontractCodeChanged();
     
         /// <summary>
@@ -1898,7 +1898,7 @@ namespace RedTelephone.Models
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int16 companyCode
+        public global::System.Decimal companyCode
         {
             get
             {
@@ -1916,8 +1916,8 @@ namespace RedTelephone.Models
                 }
             }
         }
-        private global::System.Int16 _companyCode;
-        partial void OncompanyCodeChanging(global::System.Int16 value);
+        private global::System.Decimal _companyCode;
+        partial void OncompanyCodeChanging(global::System.Decimal value);
         partial void OncompanyCodeChanged();
     
         /// <summary>
@@ -2677,7 +2677,7 @@ namespace RedTelephone.Models
         /// <param name="respondingTime">Initial value of the respondingTime property.</param>
         /// <param name="updatingUserName">Initial value of the updatingUserName property.</param>
         /// <param name="updatingTime">Initial value of the updatingTime property.</param>
-        public static Ticket CreateTicket(global::System.String code, global::System.Int32 version, global::System.Int32 contractCode, global::System.Int32 companyCode, global::System.String officeCode, global::System.Int32 officeVersion, global::System.String employeeCode, global::System.Int32 employeeVersion, global::System.String priorityCode, global::System.String ticketSourceCode, global::System.String ticketSourceAlt, global::System.String issueSourceLvl1Code, global::System.String issueSourceLvl2Code, global::System.String issueSourceLvl3Code, global::System.String issueSourceAlt, global::System.String requestedResponseCode, global::System.String statusCode, global::System.String causeCode, global::System.String actualResponseCode, global::System.String enteringUserName, global::System.String enteringTime, global::System.String assignedUserName, global::System.String solvedTime, global::System.String respondingUserName, global::System.String respondingTime, global::System.String updatingUserName, global::System.String updatingTime)
+        public static Ticket CreateTicket(global::System.String code, global::System.Int32 version, global::System.Decimal contractCode, global::System.Decimal companyCode, global::System.String officeCode, global::System.Int32 officeVersion, global::System.String employeeCode, global::System.Int32 employeeVersion, global::System.String priorityCode, global::System.String ticketSourceCode, global::System.String ticketSourceAlt, global::System.String issueSourceLvl1Code, global::System.String issueSourceLvl2Code, global::System.String issueSourceLvl3Code, global::System.String issueSourceAlt, global::System.String requestedResponseCode, global::System.String statusCode, global::System.String causeCode, global::System.String actualResponseCode, global::System.String enteringUserName, global::System.String enteringTime, global::System.String assignedUserName, global::System.String solvedTime, global::System.String respondingUserName, global::System.String respondingTime, global::System.String updatingUserName, global::System.String updatingTime)
         {
             Ticket ticket = new Ticket();
             ticket.code = code;
@@ -2769,7 +2769,7 @@ namespace RedTelephone.Models
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int32 contractCode
+        public global::System.Decimal contractCode
         {
             get
             {
@@ -2784,8 +2784,8 @@ namespace RedTelephone.Models
                 OncontractCodeChanged();
             }
         }
-        private global::System.Int32 _contractCode;
-        partial void OncontractCodeChanging(global::System.Int32 value);
+        private global::System.Decimal _contractCode;
+        partial void OncontractCodeChanging(global::System.Decimal value);
         partial void OncontractCodeChanged();
     
         /// <summary>
@@ -2793,7 +2793,7 @@ namespace RedTelephone.Models
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int32 companyCode
+        public global::System.Decimal companyCode
         {
             get
             {
@@ -2808,8 +2808,8 @@ namespace RedTelephone.Models
                 OncompanyCodeChanged();
             }
         }
-        private global::System.Int32 _companyCode;
-        partial void OncompanyCodeChanging(global::System.Int32 value);
+        private global::System.Decimal _companyCode;
+        partial void OncompanyCodeChanging(global::System.Decimal value);
         partial void OncompanyCodeChanged();
     
         /// <summary>
