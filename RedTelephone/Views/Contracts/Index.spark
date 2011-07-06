@@ -1,6 +1,6 @@
 ﻿<div>
     <header>
-        <h1>Manage report causes</h1>
+        <h1>Manage contracts</h1>
     </header>
     <form id="form" action="/referencedata/contracts" method="post">
         <input type="hidden" id="ordering" name="ordering" value="" />
@@ -25,6 +25,9 @@
                         </td>
                         <td>
                             <input type="text" name="description?${item.code}" value="${item.description}" class="required" maxlength="32" />
+                        </td>
+                        <td>
+                            <a href="/reference/companies/index/${item.code}">Edit companies</a>
                         </td>
                     </tr>
                 </for>
