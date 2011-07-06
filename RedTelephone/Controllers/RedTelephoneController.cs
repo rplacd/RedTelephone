@@ -325,6 +325,9 @@ namespace RedTelephone.Controllers
             }
             return builder.ToString();
         }
+
+        //REFACTOR: if you're going to write one more of these, just make a generic combinator that factors out
+        //the existing-objects limit and the generator...
         protected static Func<String[], String> Str8Gen = (e) => {
             //bit of a hack, but surely we can't tell whether e contains every single type of string in the universe
             if (e.Count() > 99999) {
@@ -348,20 +351,31 @@ namespace RedTelephone.Controllers
                 return temp;
             }
         };
+        protected static Func<String[], Decimal> Decimal5Gen = (e) => {
+            if (e.Count() > 99999) {
+                return default(Decimal);
+            } else {
+                var temp = Convert.ToDecimal(random.Next(1, 99999));
+                while (e.FirstOrDefault(s => s == temp.ToString()) != default(String)) {
+                    temp = Convert.ToDecimal(random.Next(1, 99999));
+                }
+                return temp;
+            }
+        };
 
         protected T getFreshIdVal<T>(Func<String[], T> generator, String[] existing)
         {
             return generator(existing);
         }
 
-        protected ActionResult newRowAction<T>(Func<String[], T> gen) where T : class
+        protected ActionResult newRowAction<T>(Func<String[], T> gen)
         {
             T frob;
             if(Request.QueryString["table[]"] != null)
                 frob = getFreshIdVal<T>(gen, extractDnDSerializedParam(Request.QueryString["table[]"]));
             else
                 frob = getFreshIdVal<T>(gen, extractDnDSerializedParam(""));
-            if (frob == default(T)) {
+            if (EqualityComparer<T>.Default.Equals(frob, default(T))) {
                 logger.Warn("RedTelephoneController.NewRow hasn't been able to find a fresh ID!");
                 return View("RedTelephoneNewRowError");
             } else {

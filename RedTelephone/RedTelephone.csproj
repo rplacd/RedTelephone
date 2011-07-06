@@ -89,6 +89,7 @@
     </Compile>
     <Compile Include="Controllers\CausesController.cs" />
     <Compile Include="Controllers\ActualResponses.cs" />
+    <Compile Include="Controllers\ContractsController.cs" />
     <Compile Include="Controllers\IssueSourceLvl1sController.cs" />
     <Compile Include="Controllers\RequestedResponses.cs" />
     <Compile Include="Controllers\EvilRedTelephoneController.cs">
@@ -175,6 +176,12 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Views\ActualResponses\NewRow.spark">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Views\Contracts\Index.spark">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Views\Contracts\NewRow.spark">
       <SubType>Designer</SubType>
     </None>
     <None Include="Views\IssueSourceLvl1s\Index.spark">
