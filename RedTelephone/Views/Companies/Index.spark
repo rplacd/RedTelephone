@@ -1,17 +1,18 @@
-﻿<div>
+﻿<viewdata Items="IEnumerable[[Company]]" Parent="Contract"/>
+<div>
     <header>
-        <h1>Manage contracts</h1>
+        <h1>Manage companies for a contract</h1>
     </header>
-    <form id="form" action="/referencedata/contracts" method="post">
+    <form id="form" action="/referencedata/companies/index/${Parent.code}" method="post">
         <input type="hidden" id="ordering" name="ordering" value="" />
         <section>
+            <h2>You're editing companies for ${Parent.description}</h2>
             <table id="table">
                 <tbody>
                 <tr class="nodrop nodrag">
                     <th>Enabled?</th>
                     <th>Description</th>
                 </tr>
-                <viewdata Items="IEnumerable[[Contract]]"/>
                 <for each="var item in Items">
                     <tr id="${item.code}">
                         <td>
@@ -23,12 +24,6 @@
                                 <input type="checkbox" name="active?${item.code}" value="N" />                               
                             </else>
                         </td>
-                        <td>
-                            <input type="text" name="description?${item.code}" value="${item.description}" class="required" maxlength="32" />
-                        </td>
-                        <td>
-                            <a href="/referencedata/companies/index/${item.code}">Edit companies</a>
-                        </td>
                     </tr>
                 </for>
                 </tbody>
@@ -39,7 +34,10 @@
             <div id="centering-hack">
                 <ul>
                     <li>
-                        <input type="button" onclick="AddRow('contracts')" value="Add a new code"/>
+                        <a href="/referencedata/contracts">Cancel</a>
+                    </li>
+                    <li>
+                        <input type="button" onclick="AddRow('companies')" value="Add a new code"/>
                     </li>
                     <li>
                         <input class="submit" type="submit" onclick="StabilizeState()" value="Save changes" />

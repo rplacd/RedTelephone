@@ -90,6 +90,7 @@
     <Compile Include="Controllers\CausesController.cs" />
     <Compile Include="Controllers\ActualResponses.cs" />
     <Compile Include="Controllers\ContractsController.cs" />
+    <Compile Include="Controllers\CompaniesController.cs" />
     <Compile Include="Controllers\IssueSourceLvl3sController.cs" />
     <Compile Include="Controllers\IssueSourceLvl2sController.cs" />
     <Compile Include="Controllers\IssueSourceLvl1sController.cs" />
@@ -181,10 +182,14 @@
     <None Include="Views\ActualResponses\NewRow.spark">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Views\Companies\NewRow.spark" />
     <None Include="Views\Contracts\Index.spark">
       <SubType>Designer</SubType>
     </None>
     <None Include="Views\Contracts\NewRow.spark">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Views\Companies\Index.spark">
       <SubType>Designer</SubType>
     </None>
     <None Include="Views\IssueSourceLvl3s\Index.spark">
