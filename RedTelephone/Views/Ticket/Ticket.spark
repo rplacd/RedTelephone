@@ -52,10 +52,10 @@
 <script type="text/javascript">
     var sourceTree = undefined;
     var contractTree = undefined;
-    $.getJSON("/ticket/sourcetree", function(data) {
+    $.getJSON("/referencedata/trees/sources", function(data) {
         sourceTree = data;
     });
-    $.getJSON("/ticket/contracttree", function(data) {
+    $.getJSON("/referencedata/trees/contracts", function(data) {
         contractTree = data;
     });
     

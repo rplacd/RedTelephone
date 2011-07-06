@@ -106,7 +106,7 @@ namespace RedTelephone.Controllers
             return (new ModelsDataContext().UserPermissionPairs)
                                 .Where(up => up.userName == username)
                                 .Where(up => perms.Contains(up.permission)).Count()
-                   == perms.Count();
+                   > 0;
         }
 
         private bool userAuthed_p(String[] perms)
@@ -143,9 +143,10 @@ namespace RedTelephone.Controllers
             ViewData["Message"] = message;
             return View("RedTelephoneLogin");
         }
-        // The combinator you need.
+        // The combinator you need. Checks if user has at least one of the perms required - this is because while we expect
+        // to share resources that require authentication, fewer use-cases require a combination of permissions.
         protected ActionResult authenticatedAction(String[] perms, Func<ActionResult> action)
-            //provides a combinator that checks whether the user is authenticated, then runs the innter action.
+            //provides a combinator that checks whether the user is authenticated, then runs the inner action.
         {
             if (!userAuthed_p(perms))
                 return LoginRequired();
