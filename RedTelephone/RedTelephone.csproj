@@ -90,6 +90,8 @@
     <Compile Include="Controllers\CausesController.cs" />
     <Compile Include="Controllers\ActualResponses.cs" />
     <Compile Include="Controllers\ContractsController.cs" />
+    <Compile Include="Controllers\IssueSourceLvl3sController.cs" />
+    <Compile Include="Controllers\IssueSourceLvl2sController.cs" />
     <Compile Include="Controllers\IssueSourceLvl1sController.cs" />
     <Compile Include="Controllers\RequestedResponses.cs" />
     <Compile Include="Controllers\EvilRedTelephoneController.cs">
@@ -110,6 +112,7 @@
     <Compile Include="Controllers\StatusesController.cs" />
     <Compile Include="Controllers\TicketController.cs" />
     <Compile Include="Controllers\TicketSourcesController.cs" />
+    <Compile Include="Controllers\TreesController.cs" />
     <Compile Include="Controllers\UsersController.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -182,6 +185,18 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Views\Contracts\NewRow.spark">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Views\IssueSourceLvl3s\Index.spark">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Views\IssueSourceLvl3s\NewRow.spark">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Views\IssueSourceLvl2s\Index.spark">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Views\IssueSourceLvl2s\NewRow.spark">
       <SubType>Designer</SubType>
     </None>
     <None Include="Views\IssueSourceLvl1s\Index.spark">

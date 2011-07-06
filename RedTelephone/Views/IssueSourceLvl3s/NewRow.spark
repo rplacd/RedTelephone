@@ -1,0 +1,14 @@
+﻿<use master="" />
+<tr class="fresh" id="${ViewData['id']}">
+    <td>
+        <input type="checkbox" name="active?${ViewData['id']}" value="A" checked="" />
+        <input type="hidden" name="code?${ViewData['id']}" value="${ViewData['id']}" />
+    </td>
+    <!--<td>${ViewData["id"]}</td> -->
+    <td>
+        <input type="text" name="description?${ViewData['id']}" value="${ViewData['id']}" class="required" maxlength="32" />
+    </td>
+    <td>
+        <a href="#" onclick="RemoveRow('#${ViewData['id']}')">Cancel</a>
+    </td>
+</tr>

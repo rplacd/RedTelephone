@@ -1,17 +1,18 @@
-﻿<div>
+﻿<viewdata Items="IEnumerable[[IssueSourceLvl3]]" Parent="IssueSourceLvl2" GrandParent="IssueSourceLvl1"/>
+<div>
     <header>
-        <h1>Manage first level issue sources</h1>
+        <h1>Manage third level issue sources</h1>
     </header>
-    <form id="form" action="/referencedata/issuesourcelvl1s" method="post">
+    <form id="form" action="/referencedata/issuesourcelvl3s/index/${GrandParent.code}/${Parent.code}" method="post">
         <input type="hidden" id="ordering" name="ordering" value="" />
         <section>
+            <h2>You're editing third level sources for ${Parent.description}</h2>
             <table id="table">
                 <tbody>
                 <tr class="nodrop nodrag">
                     <th>Enabled?</th>
                     <th>Description</th>
                 </tr>
-                <viewdata Items="IEnumerable[[IssueSourceLvl1]]"/>
                 <for each="var item in Items">
                     <tr id="${item.code}">
                         <td>
@@ -26,9 +27,6 @@
                         <td>
                             <input type="text" name="description?${item.code}" value="${item.description}" class="required" maxlength="32" />
                         </td>
-                        <td>
-                            <a href="/referencedata/issuesourcelvl2s/index/${item.code}">Edit second level sources</a>
-                        </td>
                     </tr>
                 </for>
                 </tbody>
@@ -39,7 +37,10 @@
             <div id="centering-hack">
                 <ul>
                     <li>
-                        <input type="button" onclick="AddRow('issuesourcelvl1s')" value="Add a new code"/>
+                        <a href="/referencedata/issuesourcelvl2s/index/${GrandParent.code}">Cancel</a>
+                    </li>
+                    <li>
+                        <input type="button" onclick="AddRow('issuesourcelvl3s')" value="Add a new code"/>
                     </li>
                     <li>
                         <input class="submit" type="submit" onclick="StabilizeState()" value="Save changes" />

@@ -19,8 +19,8 @@ namespace RedTelephone
 
             routes.MapRoute(
                 "ReferenceData",
-                "referencedata/{controller}/{action}/{operand}",
-                new { controller = "ReferenceData", action = "Index", operand = UrlParameter.Optional }
+                "referencedata/{controller}/{action}/{operand}/{operand2}",
+                new { controller = "ReferenceData", action = "Index", operand = UrlParameter.Optional, operand2 = UrlParameter.Optional }
             );
 
             routes.MapRoute(

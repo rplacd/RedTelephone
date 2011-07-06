@@ -40,15 +40,12 @@
         <table class="largelist">
             <tr>
                 <td>
-                    <a href="/referencedata/issuesourcelvl1s">First-level issue sources</a>
+                    <a href="/referencedata/issuesourcelvl1s">Issue sources</a>
                 </td>
             </tr>
-        </table>
-        <hr />
-        <table class="largelist">
             <tr>
                 <td>
-                    <a href="/referencedata/contracts">Contracts</a>
+                    <a href="/referencedata/contracts">Contracts, companies, offices, and employees</a>
                 </td>
             </tr>
         </table>

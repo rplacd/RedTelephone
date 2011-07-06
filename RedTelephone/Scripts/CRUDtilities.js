@@ -23,7 +23,7 @@ function AddRow(prefix) {
     var failure = function () { table.children("tbody").children("tr:last").remove(); }
     table.children("tbody").append('<tr class="fresh nodrop nodrag"><td>Attempting to load a new row.</td></tr>');
     var foo = $.ajax({
-        url: "./" + prefix + "/newrow?ordering=" + EncodeTableMembers(),
+        url: "/referencedata/" + prefix + "/newrow?ordering=" + EncodeTableMembers(),
         dataType: "html",
         timeout: 5000,
         success: function (data) {

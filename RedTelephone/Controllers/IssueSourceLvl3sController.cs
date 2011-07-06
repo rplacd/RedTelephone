@@ -8,32 +8,35 @@ using RedTelephone.Models;
 
 namespace RedTelephone.Controllers {
     [ValidateInput(false)]
-    public class IssueSourceLvl1sController : RedTelephoneController {
-        ObjectSet<IssueSourceLvl1> table = (new ModelsDataContext()).IssueSourceLvl1s;
-        String className = "IssueSourceLvl1sController";
+    public class IssueSourceLvl3sController : RedTelephoneController {
+        String className = "IssueSourceLvl3sController";
 
-        public ActionResult Index()
+        public ActionResult Index(String operand, String operand2)
         {
-            return authenticatedAction(new String[] { "UR" }, () => formAction(
+            return authenticatedAction(new String[] { "UR" }, () => { 
+                ObjectSet<IssueSourceLvl3> table = (new ModelsDataContext()).IssueSourceLvl3s;
+                IssueSourceLvl2 parent = (new ModelsDataContext()).IssueSourceLvl2s.Where(s => s.code == operand2).First();
+                IssueSourceLvl1 grandParent = (new ModelsDataContext()).IssueSourceLvl1s.Where(s => s.code == operand).First();
+                return formAction(
                     () => {
                         logger.Debug(className + ".Index accessed.");
-                        ViewData["Items"] = table.OrderBy(p => p.sortIndex).ToList();
-                        var hlp = new UrlHelper(this.ControllerContext.RequestContext);
-                        var foo = hlp.RouteUrl("ReferenceData", new { controller = "IssueSourceLvl2s", operand = "foo" });
+                        ViewData["Parent"] = parent;
+                        ViewData["GrandParent"] = grandParent;
+                        ViewData["Items"] = table.Where(s => s.grandparentCode == operand).Where(s => s.parentCode == operand2).OrderBy(i => i.sortIndex).ToList();
                         return View();
                     },
                     () => sideEffectingAction(() => {
-                        logger.Debug(className + ".Index updating.");
 
+                        logger.Debug(className + ".Index updating.");
                         //update properties of each row, with the exception of...
                         var formVars = extractRowParams(Request.Form);
                         foreach (KeyValuePair<String, Dictionary<String, String>> itemPair in formVars) {
                             var code = itemPair.Value["code"];
-                            IssueSourceLvl1 possibleItem = table.FirstOrDefault(p => p.code == code);
+                            IssueSourceLvl3 possibleItem = table.Where(s => s.grandparentCode == operand).Where(s => s.parentCode == operand2).FirstOrDefault(p => p.code == code);
 
                             //VALIDATION HAPPENS HERE
                             validationLogPrefix = className + ".Index";
-                            ValidateStrLen(itemPair.Value["description"], 32, "Level one issue source descriptions");
+                            ValidateStrLen(itemPair.Value["description"], 32, "Level three issue source descriptions");
                             //AND THEN ENDS.
 
                             //does it exist - or do we have to add it in?
@@ -41,7 +44,9 @@ namespace RedTelephone.Controllers {
                                 possibleItem.description = itemPair.Value["description"];
                                 logger.DebugFormat(className + ".Index updating {0}", possibleItem.ToString());
                             } else {
-                                possibleItem = new IssueSourceLvl1();
+                                possibleItem = new IssueSourceLvl3();
+                                possibleItem.grandparentCode = operand;
+                                possibleItem.parentCode = operand2;
                                 possibleItem.code = itemPair.Value["code"];
                                 possibleItem.description = itemPair.Value["description"];
                                 possibleItem.active_p = "A";
@@ -62,9 +67,9 @@ namespace RedTelephone.Controllers {
                         //orderingindex, which we do seperately.
                         setSortIndexes(table, x => x.code);
 
-                        updateTableTimestamp("T_CRFSRP1");
-                    }
-           )));
+                        updateTableTimestamp("T_CRFSRP3");
+                    }));
+            });
         }
 
         public ActionResult NewRow()
