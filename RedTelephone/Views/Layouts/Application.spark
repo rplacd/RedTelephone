@@ -1,4 +1,28 @@
 ﻿<!DOCTYPE html>
+
+<!-- several macros that help do things serverside that the CRUDtilities do clientside - dropboxes, for one. -->
+<macro name="optionList" collection="IEnumerable[[dynamic]]" target="String" accessor="Func[[dynamic, String]]" display="Func[[dynamic, String]]">
+    <for each="var x in collection">
+        <if condition="accessor(x) == target">
+            <option selected="selected" value="${accessor(x)}">${display(x)}</option>
+        </if>
+        <else>
+            <option value="${accessor(x)}">${display(x)}</option>
+        </else>
+    </for>
+</macro>
+<!-- this hardcodes STR_NOT_INSTANTIATED -->
+<macro name="emptyOption" target="String" required="bool">
+    <if condition='target == ""'>
+        <if condition="!required">
+            <option selected="selected" value="">-</option>
+        </if>
+        <else>
+            <option selected="selected" value="">- (required!)</option>
+        </else>
+    </if>
+</macro>
+
 <html>
     <head>
         <title>RedTelephone</title>
