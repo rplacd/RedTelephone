@@ -103,13 +103,17 @@ namespace RedTelephone.Controllers
 
         private bool userHasPerms_p(String username, String[] perms)
         {
-            return (new ModelsDataContext().UserPermissionPairs)
-                                .Where(up => up.userName == username)
-                                .Where(up => perms.Contains(up.permission)).Count()
-                   > 0;
+            if (perms.Count() < 1) {
+                return true;
+            } else {
+                return (new ModelsDataContext().UserPermissionPairs)
+                                    .Where(up => up.userName == username)
+                                    .Where(up => perms.Contains(up.permission)).Count()
+                       > 0;
+            }
         }
 
-        private bool userAuthed_p(String[] perms)
+        public bool userAuthed_p(String[] perms)
         {
             logger.Debug("RedTelephoneController.userAuthed_p called.");
             HttpCookie cookie = Request.Cookies["Authentication"];
