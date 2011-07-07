@@ -84,6 +84,8 @@ namespace RedTelephone.Controllers
         public ActionResult Index()
         {
             return authenticatedAction(new String[] { "UT" }, () => {
+                logger.Debug("TicketController.Index accessed");
+
                 var username = Request.Cookies["Authentication"]["username"];
                 var allActiveTickets = db.Tickets.Where(t => t.respondingTime.Equals("              ") || t.respondingTime.Equals(STR_NOT_INSTANTIATED));
                 //not as straightforward as you might think - Created is allActiveTickets.filter for username - (Assigned U Responding)
@@ -102,6 +104,7 @@ namespace RedTelephone.Controllers
         //fill out the seed data values in the ViewData.
         //I chose Error to explicitly return an ActionValue - I'm paying the price here.
         {
+            logger.Debug("TicketController.seedViewData accessed");
             ActionResult ret = null;
             //shadow the above so we have only one exit point.
             Action<IEnumerable<dynamic>, String, String> checkAndAddList = (IEnumerable<dynamic> list, String pluralForm, String keyForm) => {
@@ -158,6 +161,7 @@ namespace RedTelephone.Controllers
         //fill a ticket out with default values and show it.
         {
             return authenticatedAction(new String[] { "UT" }, () => {
+                logger.Debug("TicketController.New accessed");
                 //fill out parent seed values
                 var seedingError_p = seedViewData();
                 if (seedingError_p != null)
@@ -232,6 +236,8 @@ namespace RedTelephone.Controllers
         public ActionResult Edit(string operand)
         {
             return authenticatedAction(new String[] { "UT" }, () => {
+                logger.Debug("TicketController.Edit accessed");
+
                 Ticket ticket = db.Tickets.FirstOrDefault(t => t.code == operand);
                 if (ticket == null) {
                     logger.WarnFormat("Can't find a ticket with the the code {0} to edit.", operand);
@@ -264,6 +270,8 @@ namespace RedTelephone.Controllers
         //Commits ticket to disk - reads some data from form values, and autogenerates some of its own like updatingTime and respondingTime.
         {
             return authenticatedAction(new String[] { "UT" }, () => {
+                logger.DebugFormat("TicketController.Index updated");
+
                 //first create the ticket...
                 bool newTicket_p = collection["code"] == STR_INSTANTIATE_ME;
                 Ticket target = null;
@@ -272,6 +280,7 @@ namespace RedTelephone.Controllers
                     //STUB
                     target.code = getFreshIdVal<String>(Str8Gen, db.Tickets.Select(t => t.code).ToArray());
                     target.version = 0;
+                    logger.DebugFormat("TicketController.Index creating new ticket {0}", target.code);
                 } else {
                     var code = collection["code"];
                     target = db.Tickets.First(t => t.code == code);
@@ -283,6 +292,7 @@ namespace RedTelephone.Controllers
                     } else {
                         target.version++;
                     }
+                    logger.DebugFormat("TicketController.Index updating existing ticket ticket {0}", target.code);
                 }
                 target.version++;
 

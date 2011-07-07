@@ -102,6 +102,7 @@ namespace RedTelephone.Controllers
                     w.WriteEndArray();
                     result.Content = w.ToString();
                 }
+                logger.Debug("TreesController.Contracts accessed.");
                 return result;
             });
         }
@@ -132,6 +133,7 @@ namespace RedTelephone.Controllers
                     w.WriteEndArray();
                     result.Content = w.ToString();
                 }
+                logger.Debug("TreesController.Sources accessed.");
                 return result;
             });
         }
