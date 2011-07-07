@@ -271,9 +271,18 @@ namespace RedTelephone.Controllers
                     target = new Ticket();
                     //STUB
                     target.code = getFreshIdVal<String>(Str8Gen, db.Tickets.Select(t => t.code).ToArray());
+                    target.version = 0;
                 } else {
                     var code = collection["code"];
                     target = db.Tickets.First(t => t.code == code);
+                    var versionAsInt = Convert.ToInt32(collection["version"]);
+                    if (versionAsInt < target.version) {
+                        logger.WarnFormat("TicketController.Index - client's ticket version {0} is older than db version {1} for ticket {2}, rolling back.",
+                            versionAsInt, target.version, target.code);
+                        return Error("The ticket you've been working on has been changed while you were editing it - your changes have not been saved. Sorry");
+                    } else {
+                        target.version++;
+                    }
                 }
                 target.version++;
 
