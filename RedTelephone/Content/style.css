@@ -10,6 +10,10 @@ body {
     font-family: sans-serif;
     padding-bottom: 5px;
 }
+a, a:visited {
+    color: #220E0B;
+}
+
 h1, h2{
     color: white;
     text-align: center;
