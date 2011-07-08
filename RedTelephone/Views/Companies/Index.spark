@@ -24,6 +24,9 @@
                                 <input type="checkbox" name="active?${item.code}" value="N" />                               
                             </else>
                         </td>
+                        <td>
+                            <input type="text" name="description?${item.code}" value="${item.description}" class="required" maxlength="32" />
+                        </td>
                     </tr>
                 </for>
                 </tbody>
