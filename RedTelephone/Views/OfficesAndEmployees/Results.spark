@@ -1,0 +1,50 @@
+﻿<viewdata OfficeResults="List[[RedTelephone.Controllers.OfficesAndEmployeesController.UpdateResult]]"
+          EmployeeResults="List[[RedTelephone.Controllers.OfficesAndEmployeesController.UpdateResult]]" />
+
+<macro name="resultRow" result="RedTelephone.Controllers.OfficesAndEmployeesController.UpdateResult">
+    <tr>
+        <td>${result.tag.ToString()}</td>
+        <td>${result.code}</td>
+        <td>${result.description}</td>
+    </tr>
+</macro>
+
+<div>
+    <header>
+        <h1>Batch update offices and employees</h1>
+    </header>
+
+    <section>
+        <h2>Results of your batch update:</h2>
+        <if condition="OfficeResults.Count > 1">
+            <h2>Offices</h2>
+            <table>
+                <tbody>
+                    <for each="var result in OfficeResults">
+                        <%=resultRow(result)%>
+                    </for>
+                </tbody>
+            </table>
+        </if>
+        <if condition="EmployeeResults.Count > 1">
+            <h2>Employees</h2>
+            <table>
+                <tbody>
+                    <for each="var result in EmployeeResults">
+                        <%=resultRow(result)%>
+                    </for>
+                </tbody>
+            </table>
+        </if>
+    </section>
+
+    <nav>
+        <div id="centering-hack">
+            <ul>
+                <li>
+                    <a href="/referencedata">Go back</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>

@@ -94,6 +94,7 @@
     <Compile Include="Controllers\IssueSourceLvl3sController.cs" />
     <Compile Include="Controllers\IssueSourceLvl2sController.cs" />
     <Compile Include="Controllers\IssueSourceLvl1sController.cs" />
+    <Compile Include="Controllers\OfficesAndEmployeesController.cs" />
     <Compile Include="Controllers\RequestedResponses.cs" />
     <Compile Include="Controllers\EvilRedTelephoneController.cs">
       <SubType>Code</SubType>
@@ -210,6 +211,8 @@
     <None Include="Views\IssueSourceLvl1s\NewRow.spark">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Views\OfficesAndEmployees\Results.spark" />
+    <None Include="Views\OfficesAndEmployees\Index.spark" />
     <None Include="Views\RequestedResponses\Index.spark">
       <SubType>Designer</SubType>
     </None>

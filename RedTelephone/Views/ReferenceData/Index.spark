@@ -45,7 +45,12 @@
             </tr>
             <tr>
                 <td>
-                    <a href="/referencedata/contracts">Contracts, companies, offices, and employees</a>
+                    <a href="/referencedata/contracts">Contracts and companies</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a href="/referencedata/officesandemployees">Batch update offices, and employees</a>
                 </td>
             </tr>
         </table>

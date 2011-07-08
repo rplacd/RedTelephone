@@ -17,7 +17,7 @@ namespace RedTelephone.Models {
         public IEnumerable<Office> newestOffices()
         {
             var officesByName = Offices.GroupBy(o => o.code).ToList();
-            Dictionary<String, int> highestOfficeVersions = new Dictionary<string, int>();
+            Dictionary<String, decimal> highestOfficeVersions = new Dictionary<string, decimal>();
             foreach (IGrouping<String, Office> group in officesByName) {
                 highestOfficeVersions.Add(group.Key, group.Max(o => o.version));
             }
@@ -29,7 +29,7 @@ namespace RedTelephone.Models {
         public IEnumerable<Employee> newestEmployees()
         {
             var employeesByName = Employees.GroupBy(o => o.code).ToList();
-            Dictionary<String, int> highestEmployeeVersions = new Dictionary<string, int>();
+            Dictionary<String, decimal> highestEmployeeVersions = new Dictionary<string, decimal>();
             foreach (IGrouping<String, Employee> group in employeesByName) {
                 highestEmployeeVersions.Add(group.Key, group.Max(o => o.version));
             }

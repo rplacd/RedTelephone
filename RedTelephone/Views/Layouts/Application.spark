@@ -26,6 +26,7 @@
 <html>
     <head>
         <title>RedTelephone</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <link rel="stylesheet" href="~/Content/style.css" type="text/css" media="screen" />
 		<script src="/Scripts/jquery-1.4.1.js"></script>
 		<script src="/Scripts/jquery.validate.js"></script>

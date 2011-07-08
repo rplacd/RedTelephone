@@ -1,0 +1,55 @@
+﻿<script type="text/javascript">
+    var contractTree = undefined;
+    $.getJSON("/referencedata/trees/contracts", function(data) {
+    contractTree = data;
+    });
+</script>
+
+<viewdata Contracts="IEnumerable[[Contract]]" FirstContractCode="Decimal" InitCompanies="IEnumerable[[Company]]"/>
+
+<div>
+    <header>
+        <h1>Batch update offices and employees</h1>
+    </header>
+
+
+    <form action="/referencedata/officesandemployees" enctype="multipart/form-data" method="post" id="form">
+
+    <section>
+        <div class="form">
+            <div class="form-row">
+                <p class="form-cell">Contract</p>
+                <select id="contract" name="contract"
+                    onclick="updateDependentDropdowns([$('#contract')], contractTree, $('#company'), [], true)">
+                    <%=optionList(Contracts, FirstContractCode.ToString(), (c)=>c.code.ToString(), (c)=>c.description)%>
+                </select>
+            </div>
+            <div class="form-row">
+                <p class="form-cell">Company</p>
+                <select id="company" name="company" class="required">
+                    <%=optionList(InitCompanies, "", (c)=>c.code.ToString(), (c)=>c.description)%>
+                </select>
+            </div>
+            <div class="form-row">
+                <p class="form-cell">Offices</p>
+                <input type="file" name="officesdelta" size="40"> 
+            </div>
+            <div class="form-row">
+                <p class="form-cell">Employees</p>
+                <input type="file" name="employeesdelta" size="40">
+            </div>
+        </div>
+    </section>
+
+        <nav>
+        <div id="centering-hack">
+            <ul>
+                <li>
+                    <input type="submit" class="submit" value="Submit changes" />
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    </form>
+</div>

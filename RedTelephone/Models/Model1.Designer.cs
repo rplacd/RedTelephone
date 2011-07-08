@@ -1119,7 +1119,7 @@ namespace RedTelephone.Models
         /// <param name="lastName">Initial value of the lastName property.</param>
         /// <param name="sortIndex">Initial value of the sortIndex property.</param>
         /// <param name="active_p">Initial value of the active_p property.</param>
-        public static Employee CreateEmployee(global::System.Decimal contractCode, global::System.Decimal companyCode, global::System.String code, global::System.Int32 version, global::System.String firstName, global::System.String lastName, global::System.Int16 sortIndex, global::System.String active_p)
+        public static Employee CreateEmployee(global::System.Decimal contractCode, global::System.Decimal companyCode, global::System.String code, global::System.Decimal version, global::System.String firstName, global::System.String lastName, global::System.Int16 sortIndex, global::System.String active_p)
         {
             Employee employee = new Employee();
             employee.contractCode = contractCode;
@@ -1222,7 +1222,7 @@ namespace RedTelephone.Models
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int32 version
+        public global::System.Decimal version
         {
             get
             {
@@ -1240,8 +1240,8 @@ namespace RedTelephone.Models
                 }
             }
         }
-        private global::System.Int32 _version;
-        partial void OnversionChanging(global::System.Int32 value);
+        private global::System.Decimal _version;
+        partial void OnversionChanging(global::System.Decimal value);
         partial void OnversionChanged();
     
         /// <summary>
@@ -1850,7 +1850,7 @@ namespace RedTelephone.Models
         /// <param name="description">Initial value of the description property.</param>
         /// <param name="sortIndex">Initial value of the sortIndex property.</param>
         /// <param name="active_p">Initial value of the active_p property.</param>
-        public static Office CreateOffice(global::System.Decimal contractCode, global::System.Decimal companyCode, global::System.String code, global::System.Int32 version, global::System.String description, global::System.Decimal sortIndex, global::System.String active_p)
+        public static Office CreateOffice(global::System.Decimal contractCode, global::System.Decimal companyCode, global::System.String code, global::System.Decimal version, global::System.String description, global::System.Int16 sortIndex, global::System.String active_p)
         {
             Office office = new Office();
             office.contractCode = contractCode;
@@ -1952,7 +1952,7 @@ namespace RedTelephone.Models
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int32 version
+        public global::System.Decimal version
         {
             get
             {
@@ -1970,8 +1970,8 @@ namespace RedTelephone.Models
                 }
             }
         }
-        private global::System.Int32 _version;
-        partial void OnversionChanging(global::System.Int32 value);
+        private global::System.Decimal _version;
+        partial void OnversionChanging(global::System.Decimal value);
         partial void OnversionChanged();
     
         /// <summary>
@@ -2003,7 +2003,7 @@ namespace RedTelephone.Models
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Decimal sortIndex
+        public global::System.Int16 sortIndex
         {
             get
             {
@@ -2018,8 +2018,8 @@ namespace RedTelephone.Models
                 OnsortIndexChanged();
             }
         }
-        private global::System.Decimal _sortIndex;
-        partial void OnsortIndexChanging(global::System.Decimal value);
+        private global::System.Int16 _sortIndex;
+        partial void OnsortIndexChanging(global::System.Int16 value);
         partial void OnsortIndexChanged();
     
         /// <summary>
