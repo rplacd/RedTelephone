@@ -73,8 +73,12 @@ namespace RedTelephone.Controllers
                                                                 o.contractCode == contractCode);
                 IQueryable<Employee> eligibleEmployees = db.Employees.Where(e => e.contractCode == contractCode &&
                                                                 e.companyCode == companyCode);
-                Int16 officeMaxSortIndex = eligibleOffices.Max(o => o.sortIndex);
-                Int16 employeeMaxSortIndex = eligibleEmployees.Max(e => e.sortIndex);
+                short officeMaxSortIndex = 0;
+                if (eligibleOffices.Count() > 0)
+                    officeMaxSortIndex = eligibleOffices.Max(o => o.sortIndex);
+                short employeeMaxSortIndex = 0;
+                if(eligibleEmployees.Count() > 0)
+                    employeeMaxSortIndex = eligibleEmployees.Max(e => e.sortIndex);
                 List<UpdateResult> officeResults = new List<UpdateResult>();
                 List<UpdateResult> employeeResults = new List<UpdateResult>();
 

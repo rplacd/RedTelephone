@@ -19,14 +19,16 @@
         <div class="form">
             <div class="form-row">
                 <p class="form-cell">Contract</p>
-                <select id="contract" name="contract"
+                <select id="contract" name="contract" class="required"
                     onclick="updateDependentDropdowns([$('#contract')], contractTree, $('#company'), [], true)">
+                    <%=emptyOption("", true)%>
                     <%=optionList(Contracts, FirstContractCode.ToString(), (c)=>c.code.ToString(), (c)=>c.description)%>
                 </select>
             </div>
             <div class="form-row">
                 <p class="form-cell">Company</p>
                 <select id="company" name="company" class="required">
+                    <%=emptyOption("", true)%>
                     <%=optionList(InitCompanies, "", (c)=>c.code.ToString(), (c)=>c.description)%>
                 </select>
             </div>
