@@ -1,0 +1,51 @@
+﻿<script type="text/javascript">
+    	$(function() {
+		var dates = $( "#from, #to" ).datepicker({
+			changeMonth: true,
+            changeYear: true,
+            dateFormat: "dd/mm/yy",
+			onSelect: function( selectedDate ) {
+				var option = this.id == "from" ? "minDate" : "maxDate",
+					instance = $( this ).data( "datepicker" ),
+					date = $.datepicker.parseDate(
+						instance.settings.dateFormat ||
+						$.datepicker._defaults.dateFormat,
+						selectedDate, instance.settings );
+				dates.not( this ).datepicker( "option", option, date );
+			}
+		});
+	});
+</script>
+
+<div>
+    <header>
+        <h1>Generate a report</h1>
+    </header>
+
+    <form action="/referencedata/reports" method="post" id="form">
+
+    <section>
+        <div class="form">
+            <div class="form-row">
+                <p class="form-cell">From</p>
+                <input class="form-cell" type="text" id="from" name="from"/>
+            </div>
+            <div class="form-row">
+                <p class="form-cell">to</p>
+                <input class="form-cell" type="text" id="to" name="to"/>
+            </div>
+        </div>
+    </section>
+
+        <nav>
+        <div id="centering-hack">
+            <ul>
+                <li>
+                    <input type="submit" class="submit" value=Generate report" />
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    </form>
+</div>

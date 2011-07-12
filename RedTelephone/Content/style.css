@@ -40,6 +40,9 @@ th {
 	text-align: left;
 	min-width: 100px;
 }
+.ui-datepicker th {
+    min-width: 10px;
+}
 th, td {
 	padding-left: 5px;
 	padding-right: 5px;

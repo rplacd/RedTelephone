@@ -257,6 +257,29 @@ namespace RedTelephone.Controllers
             return DateTime.Now.ToString("yyyyMMddHHmmss", new CultureInfo("en-US"));
         }
 
+        public DateTime parseChar14Timestamp(String timestamp)
+        {            
+            var string_year = timestamp.Substring(0, 4);
+            var string_month = timestamp.Substring(4, 2);
+            var string_day = timestamp.Substring(6, 2);
+            var string_hour = timestamp.Substring(8, 2);
+            var string_minute = timestamp.Substring(10, 2);
+            var string_second = timestamp.Substring(12, 2);
+            try {
+                var year = Convert.ToInt32(string_year);
+                var month = Convert.ToInt32(string_month);
+                var day = Convert.ToInt32(string_day);
+                var hour = Convert.ToInt32(string_hour);
+                var minute = Convert.ToInt32(string_minute);
+                var second = Convert.ToInt32(string_second);
+                return new DateTime(year, month, day, hour, minute, second);
+            } catch (FormatException e) {
+                throw new FormatException("Illegal characters that don't exist in timestamps were passed in.", e);
+            } catch (OverflowException e) {
+                throw new FormatException("Invalid dates - although properly formatted - were passed.", e);
+            }
+        }
+
         //now format that 14-char timestamp.
         public string presentChar14Timestamp(String timestamp)
         {
