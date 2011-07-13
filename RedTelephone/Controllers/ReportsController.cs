@@ -10,9 +10,37 @@ using RedTelephone.Extensions;
 
 namespace RedTelephone.Extensions {
     public static partial class Extensions {
+        private static Dictionary<TextWriter, int> indentLevels = new Dictionary<TextWriter, int>();
+        public static void indent(this TextWriter subject)
+        {
+            int dictValue;
+            indentLevels.TryGetValue(subject, out dictValue);
+            indentLevels[subject] = ++dictValue;
+        }
+        public static void dedent(this TextWriter subject)
+        {
+            int dictValue;
+            indentLevels.TryGetValue(subject, out dictValue);
+            indentLevels[subject] = --dictValue;
+        }
+        //REFACTOR: fixing up < 0 indent levels here is crude but workable.
+        public static int getIndentLevel(this TextWriter subject)
+        {
+            int rawVal;
+            indentLevels.TryGetValue(subject, out rawVal);
+            if (rawVal < 0)
+                return 0;
+            else
+                return rawVal;
+        }
+
         //print a row in our repor'.
         public static void printRow(this TextWriter subject, params object[] contents)
         {
+            for (int _ = 0; _ < subject.getIndentLevel(); ++_) {
+                subject.Write("\t");
+            }
+            
             var idx = 0;
             foreach (object e in contents) {
                 idx++;
@@ -138,48 +166,52 @@ namespace RedTelephone.Controllers
 
                 //now print the damn report. 6 columns wide.
                 output.printRow("Statistics", "", "From", startDate.ToString(), "To", startDate.ToString());
-                output.printRow("", "", "", "Tickets created", "Tickets outstanding", "Tickets responded to");
-                output.printRow();
+                output.printRow("Company", "Contract", "", "Tickets created", "Tickets outstanding", "Tickets responded to");
 
                 //contract-company, unlike the rest of the categories, requires us to keep track of both contract and company
                 //when printing. so we haven't abstracted this out.
                 {
-                    output.printRow("Company", "Contract");
                     Extensions.Extensions.TicketCount count = new Extensions.Extensions.TicketCount();
                     foreach (Contract con in db.Contracts.OrderBy(c => c.code)) {
+                        output.printRow(con.description);
+                        output.indent();
                         foreach (Company com in db.Companies.OrderBy(c => c.code)) {
-                            var ct = createdTickets.Where(t => t.contractCode == con.code && t.companyCode == com.code).Count();
-                            var ot = outstandingTickets.Where(t => t.contractCode == con.code && t.companyCode == com.code).Count();
-                            var rt = resolvedTickets.Where(t => t.contractCode == con.code && t.companyCode == com.code).Count();
-                            output.printRow(con.description, com.description, "", "", ct, ot, rt);
-                            count.createdTickets += ct;
-                            count.outstandingTickets += ot;
-                            count.resolvedTickets += rt;
+                            output.printRow();
+                            output.printRow(com.description);
+                            output.indent();
+
+                            var cmpTktCats = new Extensions.Extensions.TicketCategories {
+                                createdTickets = createdTickets.Where(t => t.contractCode == con.code && t.companyCode == com.code),
+                                outstandingTickets = outstandingTickets.Where(t => t.contractCode == con.code && t.companyCode == com.code),
+                                resolvedTickets = resolvedTickets.Where(t => t.contractCode == con.code && t.companyCode == com.code),
+                            };
+
+                            output.printRow("Source");
+                            output.printEnumeration(cmpTktCats, db.TicketSources, (src) => src.description, (src) => (tkt) => tkt.ticketSourceCode == src.code);
+
+                            output.printRow();
+                            output.printRow("Priority");
+                            output.printEnumeration(cmpTktCats, db.Priorities, (p) => p.description, (p) => (tkt) => tkt.priorityCode == p.code);
+
+                            output.printRow();
+                            output.printRow("Requested response");
+                            output.printEnumeration(cmpTktCats, db.RequestedResponses, (r) => r.description, (r) => (tkt) => tkt.requestedResponseCode == r.code);
+
+                            output.printRow();
+                            output.printRow("Actual response");
+                            output.printEnumeration(cmpTktCats, db.ActualResponses, (r) => r.description, (r) => (tkt) => tkt.actualResponseCode == r.code);
+
+
+                            output.printRow();
+                            output.printRow("Cause");
+                            output.printEnumeration(cmpTktCats, db.Causes, (c) => c.description, (c) => (tkt) => tkt.causeCode == c.code);
+                            output.dedent();
                         }
+                        output.dedent();
                     }
-                    output.printTicketCount(count);
+                    //output.printTicketCount(count);
                 }
 
-                output.printRow();
-                output.printRow("Source");
-                output.printEnumeration(tktCats, db.TicketSources, (src) => src.description, (src) => (tkt) => tkt.ticketSourceCode == src.code);
-
-                output.printRow();
-                output.printRow("Priority");
-                output.printEnumeration(tktCats, db.Priorities, (p) => p.description, (p) => (tkt) => tkt.priorityCode == p.code);
-
-                output.printRow();
-                output.printRow("Requested response");
-                output.printEnumeration(tktCats, db.RequestedResponses, (r) => r.description, (r) => (tkt) => tkt.requestedResponseCode == r.code);
-
-                output.printRow();
-                output.printRow("Actual response");
-                output.printEnumeration(tktCats, db.ActualResponses, (r) => r.description, (r) => (tkt) => tkt.actualResponseCode == r.code);
-
-
-                output.printRow();
-                output.printRow("Cause");
-                output.printEnumeration(tktCats, db.Causes, (c) => c.description, (c) => (tkt) => tkt.causeCode == c.code);
 
 
                 var ret = new ContentResult { ContentType = "text/plain", Content = output.GetStringBuilder().ToString() };
