@@ -4,25 +4,18 @@
         function swapSelected(jSelectSrc, jSelectTgt) {
         var selectSrc = jSelectSrc.get()[0];
         var selectTgt = jSelectTgt.get()[0];
-
-        //confusing, but so is .add() - apparently it removes from the old element, messing everything up.
-        //so we can't do any adding or removing in the actual iteration loop...
-        //we also have to remove before we add so there is no dependency left.
-        //strange but true.
         var addElems = new Array();
-        var removeIdxs = new Array();
-
+        
             for(var i = 0; i < selectSrc.options.length; i++) {
 				if(selectSrc.options[i].selected) {
-					addElems.push(selectSrc.options[i]);
-					removeIdxs.push(i);
+                    addElems.push(selectSrc.options[i]);
 				}
 			}
 			
-			for(var i = 0; i < removeIdxs.length; i++) {
-				selectSrc.remove(removeIdxs[i]);
-				selectTgt.add(addElems[i]);
-			}
+			for(var i = 0; i < addElems.length; i++) {
+                selectTgt.add(new Option(addElems[i].text, addElems[i].value), null);
+            }
+            jSelectSrc.children('option:selected').remove()
 		}
         
         //selects all elements in the selected perms field so all the selected terms are sent.
