@@ -1,5 +1,6 @@
 ﻿<viewdata Users="IEnumerable[[User]]" RequestedResponses="IEnumerable[[RequestedResponse]]" ActualResponses="IEnumerable[[ActualResponse]]" 
-          Causes="IEnumerable[[Cause]]"  Priorities="IEnumerable[[Priority]]" 
+          Causes="IEnumerable[[Cause]]"  Priorities="IEnumerable[[Priority]]"
+          Contracts="IEnumerable[[Contract]]" InitCompanies="IEnumerable[[Company]]" InitOffices="IEnumerable[[Office]]" InitEmployees="IEnumerable[[Employee]]"
           IssueSourceLvl1s="IEnumerable[[IssueSourceLvl1]]" InitIssueSourceLvl2s="IEnumerable[[IssueSourceLvl2]]" InitIssueSourceLvl3s="IEnumerable[[IssueSourceLvl3]]"/>
 
 <script type="text/javascript">
@@ -61,6 +62,34 @@
             </div>
 
             <h2>By source</h2>
+            <div class="form">
+                <div class="form-row">
+                    <p class="form-cell">Contract</p>
+                    <select id="contract" name="contract"
+                            onclick="updateDependentDropdowns([$('#contract')], contractTree, $('#company'), [$('#office'), $('#employee')], false)">
+                        <%=emptyOption("", false)%>
+                        <%=optionList(Contracts, "", (c)=>c.code.ToString(), (c)=>c.description)%>
+                    </select>
+                    <p class="form-cell">Company</p>
+                    <select id="company" name="company"
+                            onclick="updateDependentDropdownsCustom([$('#contract'), $('#company')], contractTree, [['offices', $('#office')], ['employees', $('#employee')]], [], false)">
+                        <%=emptyOption("", false)%>
+                        <%=optionList(InitCompanies, "", (c)=>c.code.ToString(), (c)=>c.description)%>
+                    </select>
+                </div>
+                <div class="form-row">
+                    <p class="form-cell">Office</p>
+                    <select id="office" name="office" >
+                        <%=emptyOption("", false)%>
+                        <%=optionList(InitOffices, "", (c)=>(c.code.ToString() + "?" + c.version.ToString()), (c)=>c.description)%>
+                    </select>
+                    <p class="form-cell">Employee</p>
+                    <select id="employee" name="employee">
+                        <%=emptyOption("", false)%>
+                        <%=optionList(InitEmployees, "", (c)=>(c.code.ToString() + "?" + c.version.ToString()), (e)=>(e.firstName + " " + e.lastName))%>
+                    </select>
+                </div>
+            </div>
 
             <h2>By cause</h2>
             <div class="form">

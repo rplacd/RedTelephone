@@ -404,6 +404,9 @@ namespace RedTelephone.Controllers
                 seedViewData();
                 ViewData["InitIssueSourceLvl2s"] = new List<IssueSourceLvl2>();
                 ViewData["InitIssueSourceLvl3s"] = new List<IssueSourceLvl3>();
+                ViewData["InitCompanies"] = new List<Company>();
+                ViewData["InitOffices"] = new List<Office>();
+                ViewData["InitEmployees"] = new List<Employee>();
                 return View();
             });
         }
@@ -426,7 +429,26 @@ namespace RedTelephone.Controllers
                 paramAndFilter(collection["assignedUserName"], t => t.enteringUserName == collection["assignedUserName"]);
                 paramAndFilter(collection["respondingUserName"], t => t.enteringUserName == collection["respondingUserName"]);
 
-                paramAndFilter(collection["cause"], t => t.causeCode == collection["cause"]);
+                paramAndFilter(collection["issueSourceLvl1"], t => t.issueSourceLvl1Code == collection["issueSourceLvl1"]);
+                paramAndFilter(collection["issueSourceLvl2"], t => t.issueSourceLvl2Code == collection["issueSourceLvl2"]);
+                paramAndFilter(collection["issueSourceLvl3"], t => t.issueSourceLvl3Code == collection["issueSourceLvl3"]);
+
+                if (collection["contract"] != STR_NOT_INSTANTIATED && collection["contract"] != null) {
+                    var contractAsDecimal = Convert.ToDecimal(collection["contract"]);
+                    filteredTickets = filteredTickets.Where(t => t.contractCode == contractAsDecimal);
+                }
+                if (collection["company"] != STR_NOT_INSTANTIATED && collection["company"] != null) {
+                    var companyAsDecimal = Convert.ToDecimal(collection["company"]);
+                    filteredTickets = filteredTickets.Where(t => t.companyCode == companyAsDecimal);
+                }
+                if (collection["office"] != STR_NOT_INSTANTIATED && collection["office"] != null) {
+                    var officeCode = extractQMarkParams(collection["office"])[0];
+                    filteredTickets = filteredTickets.Where(t => t.officeCode == officeCode);
+                }
+                if (collection["employee"] != STR_NOT_INSTANTIATED && collection["employee"] != null) {
+                    var employeeCode = extractQMarkParams(collection["employee"])[0];
+                    filteredTickets = filteredTickets.Where(t => t.employeeCode == employeeCode);
+                }
 
                 paramAndFilter(collection["requestedResponse"], t => t.requestedResponseCode == collection["requestedResponse"]);
                 paramAndFilter(collection["actualResponse"], t => t.actualResponseCode == collection["actualResponse"]);
