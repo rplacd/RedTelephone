@@ -181,7 +181,7 @@ namespace RedTelephone.Controllers
                 ticket.enteringTime = char14Timestamp();                                 //is only specific
                 ticket.updatingUserName = Request.Cookies["Authentication"]["username"];     //to creation.
                 ticket.updatingTime = char14Timestamp();                                 //existing tickets will have the "last" values.
-                ticket.assignedUserName = STR_NOT_INSTANTIATED;
+                ticket.assignedUserName = Request.Cookies["Authentication"]["username"];
                 ticket.solvedTime = STR_NOT_INSTANTIATED;
                 ticket.respondingUserName = STR_NOT_INSTANTIATED;
                 ticket.respondingTime = STR_NOT_INSTANTIATED;
@@ -352,7 +352,8 @@ namespace RedTelephone.Controllers
                 var noteParams = extractRowParams(collection);
                 foreach (KeyValuePair<String, Dictionary<String, String>> note in noteParams) {
                     var noteValues = note.Value;
-                    TicketNote possibleNote = db.TicketNotes.FirstOrDefault(n => n.sortIndex == Convert.ToInt16(note.Key));
+                    var noteId = Convert.ToInt16(note.Key);
+                    TicketNote possibleNote = db.TicketNotes.FirstOrDefault(n => n.sortIndex == noteId);
                     if (possibleNote != default(TicketNote)) {
                         possibleNote.content = noteValues["noteContent"];
                     } else {
