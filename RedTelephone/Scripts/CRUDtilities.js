@@ -59,7 +59,7 @@ function addDropdownEmpty(elem, required_p) {
         elem.removeClass("required");
         option.text = "-";
     }
-    elem[0].add(option);
+    elem[0].add(option, null);
 }
 function setDropdownInvalid(elem, required_p) {
     elem.empty();
@@ -76,7 +76,7 @@ function setDropdownArray(elem, arr, required_p) {
         var option = new Option();
         option.value = d["code"];
         option.text = d["description"];
-        elem[0].add(option);
+        elem[0].add(option, null);
     });
 }
 //first invalidate all dep + rest dropdowns.
