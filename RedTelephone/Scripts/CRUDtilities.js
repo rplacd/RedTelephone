@@ -19,7 +19,7 @@ $(document).ready(function () {
     StabilizeState();
 });
 function AddRow(prefix) {
-    table = $("#table");
+    var table = $("#table");
     var failure = function () { table.children("tbody").children("tr:last").remove(); }
     table.children("tbody").append('<tr class="fresh nodrop nodrag"><td>Attempting to load a new row.</td></tr>');
     var foo = $.ajax({
