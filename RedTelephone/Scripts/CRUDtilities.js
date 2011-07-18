@@ -92,7 +92,7 @@ function updateDependentDropdowns(src, topLvlTree, dep, rest, required_p) {
     var traverseState = topLvlTree;
     $.each(src, function (i, srcLevel) {
         //find the object with the code we need
-        var curr = traverseState.filter(function (child, i, a) {
+        var curr = $.grep(traverseState, function (child, i, a) {
             return child["code"] == srcLevel.attr("value");
         });
         //then set traverseState to its child member - because we start with an array as well.
