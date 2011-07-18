@@ -89,6 +89,13 @@ namespace RedTelephone.Controllers
                 return false;
             }
 
+            //is the user enabled?
+            if (users.First().active_p != "A") {
+                logger.DebugFormat("RedTelephoneController.hashComboExists_p falling out because user {0} is disabled",
+                    username);
+                return false;
+            }
+
             //does the hash-combo match?
             Func<IEnumerator<User>, User> lambda = (enm) => { enm.MoveNext(); return enm.Current; };
             User user = lambda(users.GetEnumerator());
