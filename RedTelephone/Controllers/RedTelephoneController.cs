@@ -165,6 +165,32 @@ namespace RedTelephone.Controllers
                 return action();
         }
 
+        //Sends along user auth info to the main layout so we can have menu items enable and disable themselves.
+        //REFACTOR: can we have authenticatedAction feed off this instead? too much duplication here.
+        protected override void OnActionExecuted(ActionExecutedContext _)
+        {
+
+            List<String> perms = new List<String>();        
+            bool fail = false;
+            do {
+                if (userAuthed_p(new String[0])) {
+                    HttpCookie cookie = Request.Cookies["Authentication"];
+                    if (cookie == null)
+                       break;
+                    //does it contains the subkeys we need?
+                    if (cookie["username"] == null)
+                       break;
+                    var userName = cookie["username"];
+                    perms = (new ModelsDataContext()).UserPermissionPairs.Where(pp => pp.userName == userName).Select(pp => pp.permission).ToList();
+                }
+            } while(false);
+            if (fail)
+                perms = new List<String>();               
+
+            ViewData["UserPermissions"] = perms;
+            base.OnActionExecuted(_);
+        }
+
         //A combinator for controllers that only need to side-effect - SQL updates, cookie jiggery - and then
         //goes straight back to referer.
         protected ActionResult sideEffectingAction(Action action)

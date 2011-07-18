@@ -36,20 +36,28 @@
 		<script src="/Scripts/CRUDtilities.js" type="text/javascript"></script>
     </head>
 
+	<viewdata UserPermissions="List[[String]]" />
+	# Func<String, bool> hasPerm = (perm) => {
+	#	return UserPermissions.Find(p => p == perm) != default(String);
+	# };
+
     <body>
         <nav>
             <div id="centering-hack">
                 <ul>
-                    <li>
+					<li>
+						RedTelephone
+					</li>
+                    <li if='hasPerm("UT")'>
                         <a href="/ticket">Tickets</a>
                     </li>
-                    <li>
+                    <li if='hasPerm("VR")'>
                         <a href="/reports">Reporting</a>
                     </li>
-					<li>
+					<li if='hasPerm("UR")'>
                         <a href="/referencedata">Reference Data</a>
                     </li>
-                    <li>
+                    <li if='hasPerm("UU")'>
                         <a href="/users">Users</a>
                     </li>
 					<if condition="(ViewContext.Controller as RedTelephoneController).userAuthed_p(new String[0])">
