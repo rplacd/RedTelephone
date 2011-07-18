@@ -97,20 +97,19 @@ namespace RedTelephone.Controllers
 
         public ActionResult PasswordReset(String operand)
         {
-            return authenticatedAction(new String[] { "UU" }, () => {
+            return authenticatedAction(new String[] { "UU" }, () => formAction(
+            () => {
                 logger.Debug("UsersController.PasswordReset accessed.");
                 ViewData["Username"] = operand;
                 return View();
-            });
-        }
-        [HttpPost]
-        public ActionResult PasswordReset(String operand, String password, String verifyPassword)
-        {
-            return authenticatedAction(new String[] { "UU" }, () => {
+            },
+            () => {
+                var password = Request.Form["password"];
+                var verifyPassword = Request.Form["verifyPassword"];
 
                 //VALIDATION START
                 validationLogPrefix = "UsersController.PasswordReset";
-                ValidateAssertion(operand == password, "Password and verification do not match.");
+                ValidateAssertion(verifyPassword == password, "Password and verification do not match.");
                 //END
 
                 var db = new ModelsDataContext();
@@ -123,7 +122,7 @@ namespace RedTelephone.Controllers
                 logger.DebugFormat("UsersController.PasswordReset resetting for {0} to {1}", operand, user.hashCombo);
 
                 return Redirect("/users");
-            });
+            }));
         }
 
         public ActionResult Permissions(String operand)

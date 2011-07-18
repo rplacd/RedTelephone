@@ -195,13 +195,11 @@ namespace RedTelephone.Controllers
                 ticket.statusCode = status.description;
 
                 //a user will give a requested response on the actual call - the actual response, however, will wait.
-                RequestedResponse response = ((IEnumerable<RequestedResponse>)ViewData["RequestedResponses"]).First();
-                ticket.requestedResponseCode = response.code;
+                ticket.requestedResponseCode = STR_NOT_INSTANTIATED;
                 ticket.actualResponseCode = STR_NOT_INSTANTIATED;
-                Cause cause = ((IEnumerable<Cause>)ViewData["Causes"]).First();
-                ticket.causeCode = cause.code;
+                ticket.causeCode = STR_NOT_INSTANTIATED;
 
-                ticket.ticketSourceCode = ((IEnumerable<TicketSource>)ViewData["TicketSources"]).First().code;
+                ticket.ticketSourceCode = STR_NOT_INSTANTIATED;
                 ticket.ticketSourceAlt = STR_NOT_INSTANTIATED;
 
                 ticket.issueSourceLvl1Code = STR_NOT_INSTANTIATED;

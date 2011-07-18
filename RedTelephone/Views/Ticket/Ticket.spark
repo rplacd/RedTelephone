@@ -171,7 +171,8 @@
             <div class="form">
                 <div class="form-row">
                     <p class="form-cell">Source</p>
-                    <select name="ticketSource">
+                    <select name="ticketSource" class="required">
+                        <%=emptyOption(Ticket.ticketSourceCode, true)%>
                         <%=optionList(TicketSources, Ticket.ticketSourceCode, (c)=>c.code, (c)=>c.description)%>
                     </select>
                     <p class="form-cell">Details</p>
@@ -209,7 +210,8 @@
             <div class="form">
                 <div class="form-row">
                     <p class="form-cell">I have a</p>
-                    <select name="cause">
+                    <select name="cause" class="required">
+                        <%=emptyOption(Ticket.causeCode, true)%>
                         <%=optionList(Causes, Ticket.causeCode, (c)=>c.code, (c)=>c.description)%>
                     </select>
                 </div>
@@ -243,6 +245,7 @@
                 <div class="form-row">
                     <p class="form-cell">Requested response</p>
                     <select name="requestedResponse">
+                        <%=emptyOption(Ticket.requestedResponseCode, false)%>
                         <%=optionList(RequestedResponses, Ticket.requestedResponseCode, (r)=>r.code, (r)=>r.description)%>
                     </select>
                 </div>
