@@ -47,6 +47,9 @@
         <div id="centering-hack">
             <ul>
                 <li>
+                    <a href="/referencedata">Cancel</a>
+                </li>
+                <li>
                     <input type="submit" class="submit" value="Submit changes" />
                 </li>
             </ul>

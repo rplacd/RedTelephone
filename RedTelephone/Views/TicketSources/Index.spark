@@ -36,6 +36,9 @@
             <div id="centering-hack">
                 <ul>
                     <li>
+                        <a href="/referencedata">Cancel</a>
+                    </li>
+                    <li>
                         <input type="button" onclick="AddRow('ticketsources')" value="Add a new code"/>
                     </li>
                     <li>

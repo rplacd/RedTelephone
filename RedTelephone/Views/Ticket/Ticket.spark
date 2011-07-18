@@ -268,7 +268,7 @@
             <div id="centering-hack">
                 <ul>
                     <li>
-                        <a href="/users">Cancel</a>
+                        <a href="/ticket">Cancel</a>
                     </li>
                     <li>
                         <input type="submit" class="submit" value="Save" />

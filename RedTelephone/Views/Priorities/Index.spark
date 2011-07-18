@@ -42,6 +42,9 @@
             <div id="centering-hack">
                 <ul>
                     <li>
+                        <a href="/referencedata">Cancel</a>
+                    </li>
+                    <li>
                         <input type="button" onclick="AddRow('priorities')" value="Add a new code"/>
                     </li>
                     <li>
