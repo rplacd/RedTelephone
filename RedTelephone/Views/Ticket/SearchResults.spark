@@ -1,0 +1,19 @@
+﻿<viewdata Results="IEnumerable[[Ticket]]"/>
+
+<div>
+    <header>
+        <h1>Search results</h1>
+    </header>
+    <section>
+        <%=ticketDetails(Results)%>
+    </section>
+    <nav>
+        <div id="centering-hack">
+            <ul>
+                <li>
+                    <a href="/ticket">Cancel</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>

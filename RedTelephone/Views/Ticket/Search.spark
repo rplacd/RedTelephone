@@ -1,0 +1,127 @@
+﻿<viewdata Users="IEnumerable[[User]]" RequestedResponses="IEnumerable[[RequestedResponse]]" ActualResponses="IEnumerable[[ActualResponse]]" 
+          Causes="IEnumerable[[Cause]]"  Priorities="IEnumerable[[Priority]]" 
+          IssueSourceLvl1s="IEnumerable[[IssueSourceLvl1]]" InitIssueSourceLvl2s="IEnumerable[[IssueSourceLvl2]]" InitIssueSourceLvl3s="IEnumerable[[IssueSourceLvl3]]"/>
+
+<script type="text/javascript">
+    var sourceTree = undefined;
+    var contractTree = undefined;
+    $.getJSON("/referencedata/trees/sources", function(data) {
+    sourceTree = data;
+    });
+    $.getJSON("/referencedata/trees/contracts", function(data) {
+    contractTree = data;
+    });
+</script>
+
+<div>
+    <header>
+        <h1>Search for tickets</h1>
+    </header>
+    <form id="form" action="/ticket/search" method="post">
+        <section>
+            <div class="form">
+                <div class="form-row">
+                    <p class="form-cell">Priority</p>
+                    <select name="priority">
+                        <%=emptyOption("", false)%>
+                        <%=optionList(Priorities, "", (p)=>p.code, (p)=>p.description)%>
+                    </select>
+                </div>
+            </div>
+            <h2>By user</h2>
+            <div class="form">
+                <div class="form-row">
+                    <p class="form-cell">Entering user</p>
+                    <select name="enteringUserName">
+                        <%=emptyOption("", false)%>
+                        <%=optionList(Users, "", (u)=>u.userName, (u)=>u.userName)%>
+                    </select>
+                </div>
+                <div class="form-row">
+                    <p class="form-cell">Last user to update</p>
+                    <select name="updatingUserName">
+                        <%=emptyOption("", false)%>
+                        <%=optionList(Users, "", (u)=>u.userName, (u)=>u.userName)%>
+                    </select>
+                </div>
+                <div class="form-row">
+                    <p class="form-cell">Assigned user</p>
+                    <select name="assignedUserName">
+                        <%=emptyOption("", false)%>
+                        <%=optionList(Users, "", (u)=>u.userName, (u)=>u.userName)%>
+                    </select>
+                </div>
+                <div class="form-row">
+                    <p class="form-cell">Responding user</p>
+                    <select name="respondingUserName">
+                        <%=emptyOption("", false)%>
+                        <%=optionList(Users, "", (u)=>u.userName, (u)=>u.userName)%>
+                    </select>
+                </div>
+            </div>
+
+            <h2>By source</h2>
+
+            <h2>By cause</h2>
+            <div class="form">
+                <div class="form-row">
+                    <p class="form-cell">Visible problem</p>
+                    <select name="cause">
+                        <%=emptyOption("", false)%>
+                        <%=optionList(Causes, "", (c)=>c.code, (c)=>c.description)%>
+                    </select>
+                </div>
+            </div>
+            <div class="form">
+                <div class="form-row">
+                    <p class="form-cell">Cause</p>
+                    <select id="issueSourceLvl1" name="issueSourceLvl1"
+                            onchange="updateDependentDropdowns([$('#issueSourceLvl1')], sourceTree, $('#issueSourceLvl2'), [$('#issueSourceLvl3')], false)">
+                        <%=emptyOption("", false)%>
+                        <%=optionList(IssueSourceLvl1s, "", (c)=>c.code, (c)=>c.description)%>
+                    </select>
+                    <select id="issueSourceLvl2" name="issueSourceLvl2"
+                            onchange="updateDependentDropdowns([$('#issueSourceLvl1'), $('#issueSourceLvl2')], sourceTree, $('#issueSourceLvl3'), [], false)">
+                        <%=emptyOption("", false)%>
+                        <%=optionList(InitIssueSourceLvl2s, "", (c)=>c.code, (c)=>c.description)%>
+                    </select>
+                    <select id="issueSourceLvl3" name="issueSourceLvl3">
+                        <%=emptyOption("", false)%>
+                        <%=optionList(InitIssueSourceLvl3s, "", (c)=>c.code, (c)=>c.description)%>
+                    </select>
+                </div>
+            </div>
+            
+            <h2>By response methods</h2>
+            <div class="form">
+                <div class="form-row">
+                    <p class="form-cell">Requested response</p>
+                    <select name="requestedResponse">
+                        <%=emptyOption("", false)%>
+                        <%=optionList(RequestedResponses, "", (u)=>u.code, (u)=>u.description)%>
+                    </select>
+                </div>
+                <div class="form-row">
+                    <p class="form-cell">Actual response</p>
+                    <select name="actualResponse">
+                        <%=emptyOption("", false)%>
+                        <%=optionList(ActualResponses, "", (u)=>u.code, (u)=>u.description)%>
+                    </select>
+                </div>
+            </div>
+        </section>
+
+        <nav>
+            <div id="centering-hack">
+                <ul>
+                    <li>
+                        <a href="/ticket">Cancel</a>
+                    </li>
+                    <li>
+                        <input class="submit" type="submit" onclick="StabilizeState()" value="Search" />
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </form>
+</div>

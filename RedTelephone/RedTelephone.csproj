@@ -23,6 +23,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <FilesToIncludeForPublish>AllFilesInTheProject</FilesToIncludeForPublish>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -264,6 +265,12 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Views\Statuses\NewRow.spark">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Views\Ticket\SearchResults.spark">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Views\Ticket\Search.spark">
       <SubType>Designer</SubType>
     </None>
     <None Include="Views\TicketSources\Index.spark">

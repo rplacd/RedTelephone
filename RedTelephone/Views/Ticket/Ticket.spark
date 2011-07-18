@@ -94,10 +94,11 @@
 
             <div class="form">
                 <div class="form-row">
-                    <p class="form-cell">Status</p>
+                    <!-- <p class="form-cell">Status</p>
                     <select name="status">
                         <%=optionList(Statuses, Ticket.statusCode, (s)=>s.code, (s)=>s.description)%>
                     </select>
+                    -->
                     <p class="form-cell">Priority</p>
                     <select name="priority">
                         <%=optionList(Priorities, Ticket.priorityCode, (p)=>p.code, (p)=>p.description)%>

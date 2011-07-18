@@ -305,7 +305,8 @@ namespace RedTelephone.Controllers
                 target.officeCode = oCode_version[0];
                 target.officeVersion = Convert.ToInt32(oCode_version[1]);
 
-                target.statusCode = collection["status"];
+                //target.statusCode = collection["status"];
+                target.statusCode = "R";
                 target.priorityCode = collection["priority"];
 
                 target.ticketSourceCode = collection["ticketSource"];
@@ -395,6 +396,44 @@ namespace RedTelephone.Controllers
                     ViewData["id"] = nId;
                     return View();
                 }
+            });
+        }
+
+        public ActionResult Search()
+        {
+            return authenticatedAction(new String[] { "UT" }, () => {
+                seedViewData();
+                ViewData["InitIssueSourceLvl2s"] = new List<IssueSourceLvl2>();
+                ViewData["InitIssueSourceLvl3s"] = new List<IssueSourceLvl3>();
+                return View();
+            });
+        }
+
+        [HttpPost]
+        public ActionResult Search(FormCollection collection)
+        {
+            return authenticatedAction(new String[] { "UT" }, () => {
+                IEnumerable<Ticket> filteredTickets = db.Tickets;
+                //searching happens here
+                Action<String, Func<Ticket, Boolean>> paramAndFilter = (param, filter) => {
+                    if (param != STR_NOT_INSTANTIATED && param != null) {
+                        filteredTickets = filteredTickets.Where(filter);
+                    }
+                };
+                paramAndFilter(collection["priority"], t => t.priorityCode == collection["priority"]);
+
+                paramAndFilter(collection["enteringUserName"], t => t.enteringUserName == collection["enteringUserName"]);
+                paramAndFilter(collection["updatingUserName"], t => t.enteringUserName == collection["updatingUserName"]);
+                paramAndFilter(collection["assignedUserName"], t => t.enteringUserName == collection["assignedUserName"]);
+                paramAndFilter(collection["respondingUserName"], t => t.enteringUserName == collection["respondingUserName"]);
+
+                paramAndFilter(collection["cause"], t => t.causeCode == collection["cause"]);
+
+                paramAndFilter(collection["requestedResponse"], t => t.requestedResponseCode == collection["requestedResponse"]);
+                paramAndFilter(collection["actualResponse"], t => t.actualResponseCode == collection["actualResponse"]);
+                //and ends here
+                ViewData["Results"] = filteredTickets;
+                return View("SearchResults");
             });
         }
     }

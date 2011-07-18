@@ -1,22 +1,4 @@
 ﻿<viewdata Created="IEnumerable[[Ticket]]" Assigned="IEnumerable[[Ticket]]" Responding="IEnumerable[[Ticket]]"/>
-<macro name="ticketDetails" tickets="IEnumerable[[Ticket]]">
-    <div class="form">
-        <for each="var ticket in tickets">
-            <div class="form-row">
-                <a class="form-cell" href="/ticket/edit/${ticket.code}">${ticket.code}</a>
-                <p class="form-cell">${((RedTelephoneController)ViewContext.Controller).presentChar14Timestamp(ticket.updatingTime)}</p>
-            </div>
-            <div class="form-row">
-                <span class="form-cell"></span>
-                <p class="form-cell">${ticket.formatSource()}</p>
-            </div>
-            <div class="form-row">
-                <span class="form-cell"></span>
-                <p class="form-cell">${ticket.formatCause()}</p>
-            </div>
-        </for>
-    </div>
-</macro>
 
 <div>
     <header>
@@ -27,6 +9,9 @@
             <tr>
                 <td>
                     <a href="/ticket/new">Create a ticket</a>
+                </td>
+                <td>
+                    <a href="/ticket/search">Search for tickets</a>
                 </td>
             </tr>
         </table>
