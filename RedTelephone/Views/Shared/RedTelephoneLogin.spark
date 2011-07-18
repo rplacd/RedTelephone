@@ -1,4 +1,9 @@
-﻿<div>
+﻿<script type="text/javascript">
+    $(document).ready(function() {
+        $("#username")[0].focus();
+    });
+</script>
+<div>
     <header>
         <h1>Please login.</h1>
     </header>
@@ -13,7 +18,7 @@
             <div class="form">
                 <div class="form-row">
                     <p class="form-cell">Username</p>
-                    <input class="form-cell" type="text" name="username"/>
+                    <input class="form-cell" type="text" id="username" name="username"/>
                 </div>
                 <div class="form-row">
                     <p class="form-cell">Password</p>
