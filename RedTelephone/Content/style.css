@@ -115,7 +115,7 @@ footer p {
 {
     background-color: #FF9E9E;
 }
-input[readonly]
+input[readonly], input[readonly="readonly"]
 {
     background-color: #E0E0E0;
 }
