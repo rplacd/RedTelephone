@@ -19,7 +19,5 @@
         <%=ticketDetails(Created)%>
         <h2>Tickets assigned to me</h2>
         <%=ticketDetails(Assigned)%>
-        <h2>Tickets I am to respond to</h2>
-        <%=ticketDetails(Responding)%>
     </section>
 </div>
