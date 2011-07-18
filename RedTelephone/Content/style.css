@@ -109,3 +109,13 @@ footer p {
 .fresh {
     color: gray;
 }
+
+
+.required 
+{
+    background-color: #FF9E9E;
+}
+input[readonly]
+{
+    background-color: #E0E0E0;
+}
