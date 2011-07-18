@@ -148,19 +148,15 @@
                 </div>
                 
                 <div class="form-row">
-                    <p class="form-cell">User to respond</p>
-                    <select name="respondingUserName">
-                        <%=emptyOption(Ticket.assignedUserName, false)%>
-                        <%=optionList(Users, Ticket.assignedUserName, (u)=>u.userName, (u)=>u.userName)%>
-                    </select>
                     <if condition="Ticket.respondingTime.Equals(Controller.STR_NOT_INSTANTIATED) || Ticket.respondingTime.Equals('              ')">
-                        <p class="form-cell">and has not been responded to yet.</p>
-                        <if condition="ViewData['CurrentUser'].Equals(Ticket.respondingUserName)">
-                            <input class="form-cell" type="checkbox" name="responded_p" value="Fix that." /> Fix that
-                        </if>
+                        <p class="form-cell">And has not been responded to yet.</p>
+                        <input class="form-cell" type="checkbox" name="responded_p" value="Fix that." /> Fix that
+                        <input class="form-cell" readonly="readonly" type="hidden" name="respondingUserName" value="${Controller.STR_NOT_INSTANTIATED}" />
                     </if>
                     <else>
-                        <p class="form-cell">and was marked responded to at</p>
+                        <p class="form-cell">Responding user:</p>
+                        <input class="form-cell" readonly="readonly" type="text" name="respondingUserName" value="${Ticket.respondingUserName}" />
+                        <p class="form-cell">And was marked responded to at</p>
                         <input class="form-cell" readonly="readonly" type="text" value="${((RedTelephoneController)ViewContext.Controller).presentChar14Timestamp(Ticket.respondingTime)}" />
                         <input class="form-cell" readonly="readonly" type="hidden" name="respondingTime" value="${Ticket.respondingTime}" />
                     </else>

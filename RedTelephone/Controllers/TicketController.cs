@@ -337,6 +337,7 @@ namespace RedTelephone.Controllers
                     if (collection["responded_p"] == null) {
                         target.respondingTime = STR_NOT_INSTANTIATED;
                     } else {
+                        target.respondingUserName = target.updatingUserName;
                         target.respondingTime = char14Timestamp();
                     }
                 } else {
