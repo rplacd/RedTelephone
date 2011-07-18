@@ -6,7 +6,7 @@
         <section>
             <table>
                 <tr>
-                    <th></th>
+                    <th>Enabled?</th>
                     <th>Username</th>
                     <th>First name</th>
                     <th>Last name</th>
@@ -16,10 +16,10 @@
                     <tr>
                         <td>
                             <if condition='user.active_p == "A"'>
-                                <a href="/users/disable/${user.userName}">Disable</a>
+                                <input type="checkbox" name="active?${user.userName}" value="A" checked="" />
                             </if>
                             <else>
-                                <a href="/users/enable/${user.userName}">Enable</a>
+                                <input type="checkbox" name="active?${user.userName}" value="N" />
                             </else>
                         </td>
                         <td>${user.userName}</td>

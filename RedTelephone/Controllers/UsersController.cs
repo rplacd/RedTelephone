@@ -39,6 +39,11 @@ namespace RedTelephone.Controllers
 
                                 possibleUser.firstName = user.Value["firstname"];
                                 possibleUser.lastName = user.Value["lastname"];
+                                if(user.Value.ContainsKey("active")) {
+                                    possibleUser.active_p = "A";
+                                } else {
+                                    possibleUser.active_p = "N";
+                                }
                                 logger.DebugFormat("UsersController.Index updating {0}", possibleUser.ToString());
                             } else {
                                 logger.ErrorFormat("UsersController.Index couldn't update for {0}", user.Key);
@@ -208,18 +213,6 @@ namespace RedTelephone.Controllers
 
                 return Redirect("/users");
             }));
-        }
-
-        public ActionResult Disable(string operand)
-        {
-            logger.DebugFormat("UsersController.Disable accessed for {0}", operand);
-            return disableRowAction<User>(new String[] { "UU" }, (new ModelsDataContext()).Users, u => u.userName == operand);
-        }
-
-        public ActionResult Enable(string operand)
-        {
-            logger.DebugFormat("UsersController.Enable accessed for {0}", operand);
-            return enableRowAction<User>(new String[] { "UU" }, (new ModelsDataContext()).Users, u => u.userName == operand);
         }
     }
 }
