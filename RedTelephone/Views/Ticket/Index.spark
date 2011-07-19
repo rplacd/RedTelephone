@@ -15,8 +15,10 @@
                 </td>
             </tr>
         </table>
+        <!--
         <h2>Active tickets I've created</h2>
         <%=ticketDetails(Created)%>
+        -->
         <h2>Tickets assigned to me</h2>
         <%=ticketDetails(Assigned)%>
     </section>

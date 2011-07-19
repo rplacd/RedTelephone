@@ -79,6 +79,7 @@ function setDropdownArray(elem, arr, required_p) {
         elem[0].add(option, null);
     });
 }
+//HARDCODES STR_NOT_INSTANTIATED.
 //first invalidate all dep + rest dropdowns.
 //traverse down topLvltree given the code values of src, update the dep with the child element of the last "parent"
 function updateDependentDropdowns(src, topLvlTree, dep, rest, required_p) {
@@ -89,8 +90,13 @@ function updateDependentDropdowns(src, topLvlTree, dep, rest, required_p) {
         setDropdownInvalid(d, required_p);
     });
 
+    var fail = false;
     var traverseState = topLvlTree;
     $.each(src, function (i, srcLevel) {
+        if (srcLevel.attr("value") == "") {
+            fail = true;
+            return;
+        }
         //find the object with the code we need
         var curr = $.grep(traverseState, function (child, i, a) {
             return child["code"] == srcLevel.attr("value");
@@ -98,6 +104,8 @@ function updateDependentDropdowns(src, topLvlTree, dep, rest, required_p) {
         //then set traverseState to its child member - because we start with an array as well.
         traverseState = curr[0]["children"];
     });
+    if (fail)
+        return;
 
     //now set the dependent dropdown.
     setDropdownArray(dep, traverseState, required_p);
@@ -116,9 +124,14 @@ function updateDependentDropdownsCustom(src, topLvlTree, key_target_s, rest, req
         setDropdownInvalid(d, required_p);
     });
 
+    var fail = false;
     var traverseState = topLvlTree;
     var backTrack = undefined;
     $.each(src, function (i, srcLevel) {
+        if (srcLevel.attr("value") == "") {
+            fail = true;
+            return;
+        }
         //find the object with the code we need
         var curr = traverseState.filter(function (child, i, a) {
             return child["code"] == srcLevel.attr("value");
@@ -128,6 +141,8 @@ function updateDependentDropdownsCustom(src, topLvlTree, key_target_s, rest, req
         backTrack = curr[0];
         traverseState = curr[0]["children"];
     });
+    if (fail)
+        return;
 
     //now set the dependent dropdown.
     $.each(key_target_s, function (i, key_target_pair) {
