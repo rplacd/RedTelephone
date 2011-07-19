@@ -9,11 +9,15 @@
 <style type="text/css">
     .notes {
         background-color: #ff9e9e;
+        width: 50%;
+    }
+    .notes-container {
+        width: 100%;
     }
 </style>
 
 <macro name="notesList" title="String" prefix="String" notes="IEnumerable[[TicketNote]]">
-    <div class="notes">
+    <div class="notes form-cell">
         <div class="form">
             <div class="form-row">
                 <p class="form-cell">${title}</p>
@@ -26,15 +30,12 @@
                         <tr id="${note.sortIndex}">
                             <td>
                                 <input type="hidden" name="noteType?${note.sortIndex}" value="${note.type}" />
-                                ${note.enteringUserName}
                                 <input type="hidden" name="noteEnteringUser?${note.sortIndex}" value="${note.enteringUserName}" />
-                            </td>
-                            <td>
-                                ${note.enteringTime}
                                 <input type="hidden" name="noteEnteringTime?${note.sortIndex}" value="${note.enteringTime}" />
+                                ${note.enteringUserName}<br/>${note.enteringTime}
                             </td>
                             <td>
-                                <textarea cols="40" rows="4" readonly="readonly" name="noteContent?${note.sortIndex}">${note.content}</textarea>
+                                <textarea cols="20" rows="4" readonly="readonly" name="noteContent?${note.sortIndex}">${note.content}</textarea>
                             </td>
                         </tr>
                     </if>
@@ -50,6 +51,7 @@
 </macro>
 
 <script type="text/javascript">
+    //"trees" XHR.
     var sourceTree = undefined;
     var contractTree = undefined;
     $.getJSON("/referencedata/trees/sources", function(data) {
@@ -59,6 +61,7 @@
         contractTree = data;
     });
     
+    //notes interactivity.
     function AddNote(prefix) {
         var table = $("#notes\\?" + prefix);
         var allNotes = $.map($(".notesData").children("tbody").children(), function(elem, i) {
@@ -71,7 +74,7 @@
     
     function RemoveNote(id) {
         $(id).remove();
-    }
+    }    
 </script>
 
 <div>
@@ -89,8 +92,6 @@
                 </else>
                 is at revision ${Ticket.version}
             </h2>
-            
-            <h2>Administrative</h2>
 
             <div class="form">
                 <div class="form-row">
@@ -166,8 +167,6 @@
             
             <h2>Source</h2>
             
-            <%=notesList("Describe the problem", "D", Notes)%>
-            <%=notesList("Additional information", "A", Notes)%>
             <div class="form">
                 <div class="form-row">
                     <p class="form-cell">Source</p>
@@ -204,9 +203,13 @@
                 </div>
             </div>
 
+            <div class="form notes-container">
+                <%=notesList("Describe the problem", "D", Notes)%>
+                <%=notesList("Additional information", "A", Notes)%>
+            </div>
+            
             <hr/>
 
-            <%=notesList("Reproducing the problem", "P", Notes)%> 
             <div class="form">
                 <div class="form-row">
                     <p class="form-cell">I have a</p>
@@ -237,7 +240,11 @@
                     <input type="text" name="issueSourceAlt" value="${Ticket.issueSourceAlt}" />
                 </div>
             </div>
-            <%=notesList("Solutions", "S", Notes)%>
+
+            <div class="form notes-container">
+                <%=notesList("Reproducing the problem", "P", Notes)%>
+                <%=notesList("Solutions", "S", Notes)%>
+            </div>
 
             <h2>Response</h2>
 
@@ -248,11 +255,6 @@
                         <%=emptyOption(Ticket.requestedResponseCode, false)%>
                         <%=optionList(RequestedResponses, Ticket.requestedResponseCode, (r)=>r.code, (r)=>r.description)%>
                     </select>
-                </div>
-            </div>  
-            <%=notesList("Details on the requested response method", "Q", Notes)%>
-            <div class="form">
-                <div class="form-row">
                     <p class="form-cell">Actual response</p>
                     <select name="actualResponse">
                         <%=emptyOption(Ticket.actualResponseCode, false)%>
@@ -260,7 +262,10 @@
                     </select>
                 </div>
             </div>
-            <%=notesList("Details on the actual response", "R", Notes)%>
+            <div class="form notes-container">
+                <%=notesList("Details on the requested response method", "Q", Notes)%>
+                <%=notesList("Details on the actual response", "R", Notes)%>   
+            </div>
 
             </section>
 
