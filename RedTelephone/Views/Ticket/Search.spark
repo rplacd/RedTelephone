@@ -37,8 +37,6 @@
                         <%=emptyOption("", false)%>
                         <%=optionList(Users, "", (u)=>u.userName, (u)=>u.userName)%>
                     </select>
-                </div>
-                <div class="form-row">
                     <p class="form-cell">Last user to update</p>
                     <select name="updatingUserName">
                         <%=emptyOption("", false)%>
@@ -51,8 +49,6 @@
                         <%=emptyOption("", false)%>
                         <%=optionList(Users, "", (u)=>u.userName, (u)=>u.userName)%>
                     </select>
-                </div>
-                <div class="form-row">
                     <p class="form-cell">Responding user</p>
                     <select name="respondingUserName">
                         <%=emptyOption("", false)%>
@@ -129,8 +125,6 @@
                         <%=emptyOption("", false)%>
                         <%=optionList(RequestedResponses, "", (u)=>u.code, (u)=>u.description)%>
                     </select>
-                </div>
-                <div class="form-row">
                     <p class="form-cell">Actual response</p>
                     <select name="actualResponse">
                         <%=emptyOption("", false)%>
