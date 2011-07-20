@@ -290,6 +290,7 @@ namespace RedTelephone.Controllers
             return DateTime.Now.ToString("yyyyMMddHHmmss", new CultureInfo("en-US"));
         }
 
+        //parse a char14timestamp into a datetime.
         public DateTime parseChar14Timestamp(String timestamp)
         {            
             var string_year = timestamp.Substring(0, 4);
@@ -364,6 +365,8 @@ namespace RedTelephone.Controllers
             return split.Select(s => HttpUtility.UrlDecode(s)).ToArray();
         }
 
+
+        //Generating rows loaded in dynamically via AJAX, and their IDs. This is used in the CRUD pages.
         //generating fresh IDs.
         private static String[] str1strs = new String[] { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" };
         protected static Func<String[], String> Str1Gen = (e) => {
@@ -386,7 +389,6 @@ namespace RedTelephone.Controllers
             }
             return builder.ToString();
         }
-
         //REFACTOR: if you're going to write one more of these, just make a generic combinator that factors out
         //the existing-objects limit and the generator...
         protected static Func<String[], String> Str8Gen = (e) => {
@@ -423,7 +425,6 @@ namespace RedTelephone.Controllers
                 return temp;
             }
         };
-
         protected T getFreshIdVal<T>(Func<String[], T> generator, String[] existing)
         {
             return generator(existing);
