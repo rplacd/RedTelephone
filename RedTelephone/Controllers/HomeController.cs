@@ -11,8 +11,10 @@ namespace RedTelephone.Controllers
     {
         public ActionResult Index()
         {
-            logger.Debug("HomeController.Index - accessed");
-            return View();
+            return authenticatedAction(new String[] { "UR", "UT", "UU", "VR" }, () => {
+                logger.Debug("HomeController.Index - accessed");
+                return View();
+            });
         }
     }
 }
