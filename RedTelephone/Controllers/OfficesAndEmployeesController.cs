@@ -133,6 +133,8 @@ namespace RedTelephone.Controllers
                     });
                 }
 
+                db.SaveChanges();
+
                 if (Request.Files["employeesdelta"] != null) {
                     doBody(Request.Files["employeesdelta"].InputStream, 3, (line) => {
                         String code = line[0]; String firstName = line[1]; String lastName = line[2];
