@@ -61,6 +61,7 @@ namespace RedTelephone.Controllers
 
         //constants used when creating new Tickets that shout - "instantiate me when I'm saving!"
         public readonly int INT_INSTANTIATE_ME = -1;
+        public readonly decimal DECIMAL_INSTANTIATE_ME = new Decimal(-1.1);
         public readonly string STR_INSTANTIATE_ME = "";
 
         //constants used when *not* instantiated - things like source which have alternative fields, or users, dates and times...
@@ -69,6 +70,7 @@ namespace RedTelephone.Controllers
         //use this when it's alright for something to not be filled in just-yet.
         //thankfully this won't be in the CRUD pages.
         public readonly int INT_NOT_INSTANTIATED = -1;
+        public readonly decimal DECIMAL_NOT_INSTANTIATED = new Decimal(-1.1);
         public readonly string STR_NOT_INSTANTIATED = "";
         
         private ActionResult checkAndAddList(IEnumerable<dynamic> list, String pluralForm, String keyForm) {
@@ -210,12 +212,9 @@ namespace RedTelephone.Controllers
 
                 //select the first contract and compan that comes to mind - everything else is not instantiated
                 //(although the page load shouldn't fail even then - we'll have a javascript doodad that *does* fail verification)
-                Contract contract = ((IEnumerable<Contract>)ViewData["Contracts"]).First();
-                ticket.contractCode = contract.code;
-                IEnumerable<Company> companies = (IEnumerable<Company>)db.Companies.Where(c => c.active_p == "A").Where(c => c.active_p == "A").OrderBy(c => c.sortIndex).ToList();
-                ActionResult act = checkAndAddList(companies, "companies", "InitCompanies");
-                if (act != null) return act;
-                ticket.companyCode = companies.First().code;
+                ticket.contractCode = DECIMAL_NOT_INSTANTIATED;
+                ViewData["InitCompanies"] = new List<Company>();
+                ticket.companyCode = DECIMAL_NOT_INSTANTIATED;
                 ticket.officeCode = STR_NOT_INSTANTIATED;
                 ticket.officeVersion = INT_NOT_INSTANTIATED;
                 ViewData["InitOffices"] = new List<Office>();

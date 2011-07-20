@@ -180,13 +180,19 @@
                 </div>
                 <div class="form-row">
                     <p class="form-cell">Contract</p>
-                    <select id="contract" name="contract"
+                    <select id="contract" name="contract" class="required"
                             onchange="updateDependentDropdowns([$('#contract')], contractTree, $('#company'), [$('#office'), $('#employee')], true)">
+                        <if condition='Ticket.contractCode == Controller.DECIMAL_NOT_INSTANTIATED'>
+                            <option selected="selected" value="">- (required!)</option>
+                        </if>
                         <%=optionList(Contracts, Ticket.contractCode.ToString(), (c)=>c.code.ToString(), (c)=>c.description)%>
                     </select>
                     <p class="form-cell">Company</p>
-                    <select id="company" name="company"
+                    <select id="company" name="company" class="required"
                             onchange="updateDependentDropdownsCustom([$('#contract'), $('#company')], contractTree, [['offices', $('#office')], ['employees', $('#employee')]], [], true)">
+                        <if condition='Ticket.companyCode == Controller.DECIMAL_NOT_INSTANTIATED'>
+                            <option selected="selected" value="">- (required!)</option>
+                        </if>
                         <%=optionList(InitCompanies, Ticket.companyCode.ToString(), (c)=>c.code.ToString(), (c)=>c.description)%>
                     </select>
                 </div>
