@@ -323,7 +323,7 @@ namespace RedTelephone.Controllers
             var hour = timestamp.Substring(8, 2);
             var minute = timestamp.Substring(10, 2);
             var second = timestamp.Substring(12, 2);
-            return String.Format("{0}:{1}:{2} {3}/{4}/{5}", hour, minute, second, year, month, day);
+            return String.Format("{0}:{1} {2}/{3}/{4}", hour, minute, year, month, day);
         }
 
         //refresh the timestamp for a particular table.
