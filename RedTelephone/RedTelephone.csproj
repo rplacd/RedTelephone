@@ -156,7 +156,7 @@
     <Content Include="Global.asax" />
     <Content Include="Content\style.css" />
     <Content Include="README.txt" />
-    <Content Include="Scripts\CRUDtilities.js" />
+    <Content Include="Scripts\CRUDtilitiess.js" />
     <Content Include="Scripts\jquery-ui-1.8.14.custom.js" />
     <Content Include="Scripts\jquery.tablednd_0_5.js" />
     <Content Include="Scripts\paging.js" />
