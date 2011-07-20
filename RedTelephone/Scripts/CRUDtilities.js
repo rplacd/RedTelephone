@@ -131,21 +131,23 @@ function updateDependentDropdownsCustom(src, topLvlTree, key_target_s, rest, req
     var traverseState = topLvlTree;
     var backTrack = undefined;
     $.each(src, function (i, srcLevel) {
+        var IELocal = traverseState;
         if (srcLevel.attr("value") == "") {
             fail = true;
             return;
         }
         //find the object with the code we need
-        var curr = traverseState.filter(function (child, i, a) {
+        var curr = $.grep(traverseState, (function (child) {
             return child["code"] == srcLevel.attr("value");
-        });
+        }));
         //while we still need traverseState as a temporary thing, backTrack will link the parent of traverseState - the thing we'd
         //normally call "children" upon.
         backTrack = curr[0];
         traverseState = curr[0]["children"];
     });
-    if (fail)
+    if (fail) {
         return;
+    }
 
     //now set the dependent dropdown.
     $.each(key_target_s, function (i, key_target_pair) {
