@@ -5,7 +5,7 @@
         <input type="hidden" name="code?${ViewData['id']}" value="${ViewData['id']}" />
     </td>
     <td>
-        <input type="text" name="description?${ViewData['id']}" value="${ViewData['id']}" class="required" maxlength="32" />
+        <input type="text" name="description?${ViewData['id']}" value="" class="required" maxlength="32" />
     </td>
     <td>
         <a href="#" onclick="RemoveRow('#${ViewData['id']}')">Cancel</a>
