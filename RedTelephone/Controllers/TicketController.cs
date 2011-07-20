@@ -89,13 +89,13 @@ namespace RedTelephone.Controllers
                 logger.Debug("TicketController.Index accessed");
 
                 var username = Request.Cookies["Authentication"]["username"];
-                var allActiveTickets = db.Tickets.Where(t => t.respondingTime.Equals("              ") || t.respondingTime.Equals(STR_NOT_INSTANTIATED));
+                var allActiveTickets = db.Tickets.Where(t => t.respondingTime.Equals("              ") || t.respondingTime.Equals(STR_NOT_INSTANTIATED)).OrderByDescending(t => t.updatingTime);
                 //not as straightforward as you might think - Created is allActiveTickets.filter for username - (Assigned U Responding)
                 //so things don't pop up in Created and elsewhere.
                 var responding = allActiveTickets.Where(t => t.respondingUserName == username);
                 var assigned = allActiveTickets.Where(t => t.assignedUserName == username).Except(responding);
                 ViewData["Created"] = allActiveTickets.Where(t => t.enteringUserName == username).Except(assigned).Except(responding);
-                ViewData["Assigned"] = assigned;
+                ViewData["Assigned"] = assigned.OrderByDescending(t => t.updatingTime);
                 ViewData["Responding"] = responding;
                 return View();
             });
@@ -317,8 +317,8 @@ namespace RedTelephone.Controllers
 
                 target.enteringUserName = collection["enteringUser"];
                 target.enteringTime = collection["enteringTime"];
-                target.updatingUserName = collection["updatingUser"];
-                target.updatingTime = collection["updatingTime"];
+                target.updatingUserName = Request.Cookies["Authentication"]["username"];
+                target.updatingTime = char14Timestamp();
                 target.assignedUserName = collection["assignedUserName"];
                 target.respondingUserName = collection["respondingUserName"];
                 if (collection["solvedTime"] == null) {

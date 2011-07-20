@@ -13,7 +13,7 @@
 </macro>
 <!-- this hardcodes STR_NOT_INSTANTIATED -->
 <macro name="emptyOption" target="String" required="bool">
-    <if condition='target == ""'>
+    <if condition='target.TrimEnd(new char[]{Convert.ToChar(" ")}) == ""'>
         <if condition="!required">
             <option selected="selected" value="">-</option>
         </if>
