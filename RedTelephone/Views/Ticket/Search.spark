@@ -62,13 +62,13 @@
                 <div class="form-row">
                     <p class="form-cell">Contract</p>
                     <select id="contract" name="contract"
-                            onclick="updateDependentDropdowns([$('#contract')], contractTree, $('#company'), [$('#office'), $('#employee')], false)">
+                            onchange="updateDependentDropdowns([$('#contract')], contractTree, $('#company'), [$('#office'), $('#employee')], false)">
                         <%=emptyOption("", false)%>
                         <%=optionList(Contracts, "", (c)=>c.code.ToString(), (c)=>c.description)%>
                     </select>
                     <p class="form-cell">Company</p>
                     <select id="company" name="company"
-                            onclick="updateDependentDropdownsCustom([$('#contract'), $('#company')], contractTree, [['offices', $('#office')], ['employees', $('#employee')]], [], false)">
+                            onchange="updateDependentDropdownsCustom([$('#contract'), $('#company')], contractTree, [['offices', $('#office')], ['employees', $('#employee')]], [], false)">
                         <%=emptyOption("", false)%>
                         <%=optionList(InitCompanies, "", (c)=>c.code.ToString(), (c)=>c.description)%>
                     </select>

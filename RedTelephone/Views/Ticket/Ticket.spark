@@ -181,12 +181,12 @@
                 <div class="form-row">
                     <p class="form-cell">Contract</p>
                     <select id="contract" name="contract"
-                            onclick="updateDependentDropdowns([$('#contract')], contractTree, $('#company'), [$('#office'), $('#employee')], true)">
+                            onchange="updateDependentDropdowns([$('#contract')], contractTree, $('#company'), [$('#office'), $('#employee')], true)">
                         <%=optionList(Contracts, Ticket.contractCode.ToString(), (c)=>c.code.ToString(), (c)=>c.description)%>
                     </select>
                     <p class="form-cell">Company</p>
                     <select id="company" name="company"
-                            onclick="updateDependentDropdownsCustom([$('#contract'), $('#company')], contractTree, [['offices', $('#office')], ['employees', $('#employee')]], [], true)">
+                            onchange="updateDependentDropdownsCustom([$('#contract'), $('#company')], contractTree, [['offices', $('#office')], ['employees', $('#employee')]], [], true)">
                         <%=optionList(InitCompanies, Ticket.companyCode.ToString(), (c)=>c.code.ToString(), (c)=>c.description)%>
                     </select>
                 </div>
