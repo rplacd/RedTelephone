@@ -170,7 +170,8 @@ namespace RedTelephone.Controllers
         protected override void OnActionExecuted(ActionExecutedContext _)
         {
 
-            List<String> perms = new List<String>();        
+            List<String> perms = new List<String>();
+            String username = null;
             bool fail = false;
             do {
                 if (userAuthed_p(new String[0])) {
@@ -181,13 +182,15 @@ namespace RedTelephone.Controllers
                     if (cookie["username"] == null)
                        break;
                     var userName = cookie["username"];
+                    username = userName;
                     perms = (new ModelsDataContext()).UserPermissionPairs.Where(pp => pp.userName == userName).Select(pp => pp.permission).ToList();
                 }
             } while(false);
             if (fail)
                 perms = new List<String>();               
 
-            ViewData["UserPermissions"] = perms;
+            ViewData["SessionUserPermissions"] = perms;
+            ViewData["SessionUserName"] = username;
             base.OnActionExecuted(_);
         }
 
