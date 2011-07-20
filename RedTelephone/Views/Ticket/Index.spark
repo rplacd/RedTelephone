@@ -1,4 +1,14 @@
-﻿<viewdata Created="IEnumerable[[Ticket]]" Assigned="IEnumerable[[Ticket]]" Responding="IEnumerable[[Ticket]]"/>
+﻿<script src="/Scripts/paging.js" type="text/javascript"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+    pager = new Pager('results', 10 * 3); //it's important that this is *3 - one ticket = 3 rows.
+    pager.init();
+    pager.showPageNav('pager', 'pageNavPosition');
+    pager.showPage(1);
+    });
+</script>
+
+<viewdata Created="IEnumerable[[Ticket]]" Assigned="IEnumerable[[Ticket]]" Responding="IEnumerable[[Ticket]]"/>
 
 <div>
     <header>
