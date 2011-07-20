@@ -1,11 +1,12 @@
 ﻿<use master="" />
+<var Controller="(RedTelephone.Controllers.TicketController)ViewContext.Controller" type="RedTelephone.Controllers.TicketController" />
 <var id="Convert.ToInt16(ViewData['id'])" type="short" />
 <tr class="fresh" id="${id}">
     <td>
         <input type="hidden" name="noteType?${id}" value="${ViewData['Type']}" />
         <input type="hidden" name="noteEnteringUser?${id}" value="${ViewData['User']}" />
         <input type="hidden" name="noteEnteringTime?${id}" value="${ViewData['Time']}" />
-        ${ViewData['User']}<br/>${ViewData['Time']}<br/><a href="#" onclick="RemoveNote('#${id}')">Cancel</a>
+        ${ViewData['User']}<br/>${Controller.presentChar14Timestamp(ViewData['Time'].ToString())}<br/><a href="#" onclick="RemoveNote('#${id}')">Cancel</a>
     </td>
     <td>
         <textarea cols="20" rows="4" name="noteContent?${id}"></textarea>

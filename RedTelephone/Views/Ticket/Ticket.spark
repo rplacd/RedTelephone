@@ -32,7 +32,7 @@
                                 <input type="hidden" name="noteType?${note.sortIndex}" value="${note.type}" />
                                 <input type="hidden" name="noteEnteringUser?${note.sortIndex}" value="${note.enteringUserName}" />
                                 <input type="hidden" name="noteEnteringTime?${note.sortIndex}" value="${note.enteringTime}" />
-                                ${note.enteringUserName}<br/>${note.enteringTime}
+                                ${note.enteringUserName}<br/>${((RedTelephoneController)ViewContext.Controller).presentChar14Timestamp(note.enteringTime)}
                             </td>
                             <td>
                                 <textarea cols="20" rows="4" readonly="readonly" name="noteContent?${note.sortIndex}">${note.content}</textarea>
@@ -51,6 +51,11 @@
 </macro>
 
 <script type="text/javascript">
+    //focus on Priority dropdown first thing.
+    $(document).ready(function() {
+        $("#priority")[0].focus();
+    });
+    
     //"trees" XHR.
     var sourceTree = undefined;
     var contractTree = undefined;
@@ -101,7 +106,7 @@
                     </select>
                     -->
                     <p class="form-cell">Priority</p>
-                    <select name="priority" class="required">
+                    <select id="priority" name="priority" class="required">
                         <%=emptyOption(Ticket.priorityCode, true)%>
                         <%=optionList(Priorities, Ticket.priorityCode, (p)=>p.code, (p)=>p.description)%>
                     </select>
@@ -139,9 +144,6 @@
                     </select>
                     <if condition="Ticket.solvedTime.Equals(Controller.STR_NOT_INSTANTIATED) || Ticket.solvedTime.Equals('              ')">
                         <p class="form-cell">and has not been resolved yet.</p>
-                        <if condition="ViewData['CurrentUser'].Equals(Ticket.assignedUserName)">
-                            <input class="form-cell" type="checkbox" name="solved_p" value="Fix that." /> Fix that
-                        </if>
                     </if>
                     <else>
                         <p class="form-cell">and was marked resolved at</p>
@@ -153,8 +155,6 @@
                 <div class="form-row">
                     <if condition="Ticket.respondingTime.Equals(Controller.STR_NOT_INSTANTIATED) || Ticket.respondingTime.Equals('              ')">
                         <p class="form-cell">And has not been responded to yet.</p>
-                        <input class="form-cell" type="checkbox" name="responded_p" value="Fix that." /> Fix that
-                        <input class="form-cell" readonly="readonly" type="hidden" name="respondingUserName" value="${Controller.STR_NOT_INSTANTIATED}" />
                     </if>
                     <else>
                         <p class="form-cell">Responding user:</p>

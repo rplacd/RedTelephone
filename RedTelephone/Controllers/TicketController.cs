@@ -254,7 +254,7 @@ namespace RedTelephone.Controllers
                 ViewData["InitOffices"] = db.newestOffices().Where(o => o.contractCode == ticket.contractCode && o.companyCode == ticket.companyCode).Where(o => o.active_p == "A").OrderBy(o => o.sortIndex).ToList();
                 ViewData["InitEmployees"] = db.newestEmployees().Where(e => e.contractCode == ticket.contractCode && e.companyCode == ticket.companyCode).Where(o => o.active_p == "A").OrderBy(o => o.sortIndex).ToList();
 
-                ViewData["Notes"] = db.TicketNotes.Where(n => n.ticketCode == ticket.code).OrderBy(n => n.sortIndex).ToList();
+                ViewData["Notes"] = db.TicketNotes.Where(n => n.ticketCode == ticket.code).OrderBy(n => n.enteringTime).ToList();
 
                 ViewData["Ticket"] = ticket;
                 return View("Ticket");
@@ -290,7 +290,6 @@ namespace RedTelephone.Controllers
                     }
                     logger.DebugFormat("TicketController.Index updating existing ticket ticket {0}", target.code);
                 }
-                target.version++;
 
                 target.contractCode = Convert.ToInt32(collection["contract"]);
                 target.companyCode = Convert.ToInt32(collection["company"]);
@@ -319,10 +318,12 @@ namespace RedTelephone.Controllers
                 target.enteringTime = collection["enteringTime"];
                 target.updatingUserName = Request.Cookies["Authentication"]["username"];
                 target.updatingTime = char14Timestamp();
+
+                //if the solvedtime's's already been set, simply update from the form.
+                //or else check to see if actualresponse has been set - if it is, set time, otherwise set null.
                 target.assignedUserName = collection["assignedUserName"];
-                target.respondingUserName = collection["respondingUserName"];
                 if (collection["solvedTime"] == null) {
-                    if (collection["solved_p"] == null) {
+                    if (collection["issueSourceLvl1"] == STR_NOT_INSTANTIATED) {
                         target.solvedTime = STR_NOT_INSTANTIATED;
                     } else {
                         target.solvedTime = char14Timestamp();
@@ -330,14 +331,18 @@ namespace RedTelephone.Controllers
                 } else {
                     target.solvedTime = collection["solvedTime"];
                 }
+                //if the respondingtime's already been set, simply update from the form.
+                //or else check to see if actualresponse has been set - if it is, set time and username, otherwise set null.
                 if (collection["respondingTime"] == null) {
-                    if (collection["responded_p"] == null) {
+                    if (collection["actualResponse"] == STR_NOT_INSTANTIATED) {
+                        target.respondingUserName = STR_NOT_INSTANTIATED;
                         target.respondingTime = STR_NOT_INSTANTIATED;
                     } else {
                         target.respondingUserName = target.updatingUserName;
                         target.respondingTime = char14Timestamp();
                     }
                 } else {
+                    target.respondingUserName = collection["respondingUserName"];
                     target.respondingTime = collection["respondingTime"];
                 }
 
@@ -355,6 +360,8 @@ namespace RedTelephone.Controllers
                     if (possibleNote != default(TicketNote)) {
                         possibleNote.content = noteValues["noteContent"];
                     } else {
+                        if (noteValues["noteContent"] == "")
+                            continue;
                         possibleNote = new TicketNote();
                         possibleNote.ticketCode = target.code;
                         possibleNote.sortIndex = Convert.ToInt16(note.Key);
