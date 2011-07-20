@@ -334,8 +334,8 @@
           <Property Name="type" Type="String" Nullable="false" MaxLength="1" Unicode="false" FixedLength="true" />
           <Property Name="sortIndex" Type="Decimal" Nullable="false" Precision="3" Scale="0" />
           <Property Name="content" Type="String" Nullable="false" MaxLength="Max" Unicode="false" FixedLength="false" />
-          <Property Name="enteringUserName" Type="String" Nullable="false" MaxLength="14" Unicode="false" FixedLength="true" />
-          <Property Name="enteringTime" Type="String" Nullable="false" MaxLength="8" Unicode="false" FixedLength="false" />
+          <Property Name="enteringTime" Type="String" Nullable="false" MaxLength="14" Unicode="false" FixedLength="true" />
+          <Property Name="enteringUserName" Type="String" Nullable="false" MaxLength="8" Unicode="false" FixedLength="false" />
         </EntityType>
         <EntityType Name="Office">
           <Key>
@@ -552,8 +552,8 @@
             <ScalarProperty Name="type" ColumnName="E_NOTNTPC" />
             <ScalarProperty Name="sortIndex" ColumnName="E_NOTSEQC" />
             <ScalarProperty Name="content" ColumnName="E_NOTTXTE" />
-            <ScalarProperty Name="enteringUserName" ColumnName="E_NOTDTEE" />
-            <ScalarProperty Name="enteringTime" ColumnName="E_NOTUIEC" />
+            <ScalarProperty Name="enteringTime" ColumnName="E_NOTDTEE" />
+            <ScalarProperty Name="enteringUserName" ColumnName="E_NOTUIEC" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="Offices"><EntityTypeMapping TypeName="RedTelephone.Office"><MappingFragment StoreEntitySet="T_CDFOFF">
             <ScalarProperty Name="contractCode" ColumnName="E_OFFCIDC" />

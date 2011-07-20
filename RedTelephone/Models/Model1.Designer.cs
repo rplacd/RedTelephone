@@ -3385,17 +3385,17 @@ namespace RedTelephone.Models
         /// <param name="type">Initial value of the type property.</param>
         /// <param name="sortIndex">Initial value of the sortIndex property.</param>
         /// <param name="content">Initial value of the content property.</param>
-        /// <param name="enteringUserName">Initial value of the enteringUserName property.</param>
         /// <param name="enteringTime">Initial value of the enteringTime property.</param>
-        public static TicketNote CreateTicketNote(global::System.String ticketCode, global::System.String type, global::System.Decimal sortIndex, global::System.String content, global::System.String enteringUserName, global::System.String enteringTime)
+        /// <param name="enteringUserName">Initial value of the enteringUserName property.</param>
+        public static TicketNote CreateTicketNote(global::System.String ticketCode, global::System.String type, global::System.Decimal sortIndex, global::System.String content, global::System.String enteringTime, global::System.String enteringUserName)
         {
             TicketNote ticketNote = new TicketNote();
             ticketNote.ticketCode = ticketCode;
             ticketNote.type = type;
             ticketNote.sortIndex = sortIndex;
             ticketNote.content = content;
-            ticketNote.enteringUserName = enteringUserName;
             ticketNote.enteringTime = enteringTime;
+            ticketNote.enteringUserName = enteringUserName;
             return ticketNote;
         }
 
@@ -3512,30 +3512,6 @@ namespace RedTelephone.Models
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.String enteringUserName
-        {
-            get
-            {
-                return _enteringUserName;
-            }
-            set
-            {
-                OnenteringUserNameChanging(value);
-                ReportPropertyChanging("enteringUserName");
-                _enteringUserName = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("enteringUserName");
-                OnenteringUserNameChanged();
-            }
-        }
-        private global::System.String _enteringUserName;
-        partial void OnenteringUserNameChanging(global::System.String value);
-        partial void OnenteringUserNameChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
         public global::System.String enteringTime
         {
             get
@@ -3554,6 +3530,30 @@ namespace RedTelephone.Models
         private global::System.String _enteringTime;
         partial void OnenteringTimeChanging(global::System.String value);
         partial void OnenteringTimeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String enteringUserName
+        {
+            get
+            {
+                return _enteringUserName;
+            }
+            set
+            {
+                OnenteringUserNameChanging(value);
+                ReportPropertyChanging("enteringUserName");
+                _enteringUserName = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("enteringUserName");
+                OnenteringUserNameChanged();
+            }
+        }
+        private global::System.String _enteringUserName;
+        partial void OnenteringUserNameChanging(global::System.String value);
+        partial void OnenteringUserNameChanged();
 
         #endregion
     

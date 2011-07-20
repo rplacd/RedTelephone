@@ -344,6 +344,8 @@ namespace RedTelephone.Controllers
                 if(newTicket_p)
                     db.Tickets.AddObject(target);
 
+                db.SaveChanges();
+
                 //now deal with the notes.
                 var noteParams = extractRowParams(collection);
                 foreach (KeyValuePair<String, Dictionary<String, String>> note in noteParams) {
