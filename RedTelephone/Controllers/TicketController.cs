@@ -189,8 +189,7 @@ namespace RedTelephone.Controllers
                 //the real exceptions are the items that use descriptions - but that's because we don't want to
                 //be doing SQL queries in the view. 
                 //viewdata lists are guaranteed to have members at this point.
-                Priority priority = ((IEnumerable<Priority>)ViewData["Priorities"]).First();
-                ticket.priorityCode = priority.code;
+                ticket.priorityCode = STR_NOT_INSTANTIATED;
                 Status status = ((IEnumerable<Status>)ViewData["Statuses"]).First();
                 ticket.statusCode = status.description;
 

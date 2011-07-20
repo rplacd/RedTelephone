@@ -101,7 +101,8 @@
                     </select>
                     -->
                     <p class="form-cell">Priority</p>
-                    <select name="priority">
+                    <select name="priority" class="required">
+                        <%=emptyOption(Ticket.priorityCode, true)%>
                         <%=optionList(Priorities, Ticket.priorityCode, (p)=>p.code, (p)=>p.description)%>
                     </select>
                 </div>
