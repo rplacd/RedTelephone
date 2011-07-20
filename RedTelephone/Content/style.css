@@ -114,7 +114,7 @@ footer p {
     color: gray;
 }
 
-
+/*required and readonly field coloring*/
 .required 
 {
     background-color: #FF9E9E;
@@ -123,3 +123,10 @@ input[readonly], input[readonly="readonly"]
 {
     background-color: #E0E0E0;
 }
+
+/*pager styling - to indicate interactivity, really...*/
+.pg-normal, .pg-selected {
+    cursor: pointer;
+}
+.pg-selected {
+    font-weight: bold;
