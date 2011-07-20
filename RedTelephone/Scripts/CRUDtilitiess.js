@@ -1,4 +1,4 @@
-//The CLIENTSIDE version of generating "fresh" rows in tables - CRUD pages, ticket ntoes - and adding them in.
+//Hacking JQuery validation's ShowLabel.
 
 //Setups drag-and-drop editing on a #table, automatically serializing to an #ordering, and a generic add-new-row function.
 //It does help in doing CRUD pages.
@@ -15,6 +15,9 @@ function StabilizeState() {
 function EncodeTableMembers() {
     return $("#table").tableDnDSerialize()
 }
+
+//The CLIENTSIDE version of generating "fresh" rows in tables - CRUD pages, ticket ntoes - and adding them in.
+
 //encodes the members of the table into JSON array format for shipping over to newrow.
 //dealing with state here beats dealing with the DB.
 $(document).ready(function () {

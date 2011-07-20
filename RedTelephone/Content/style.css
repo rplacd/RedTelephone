@@ -130,3 +130,11 @@ input[readonly], input[readonly="readonly"]
 }
 .pg-selected {
     font-weight: bold;
+}
+
+/*CSS sprite fun.*/
+.error-icon 
+{
+    text-indent: -99999px; overflow: hidden; background-repeat: no-repeat;
+	width: 16px; height: 16px; background-image: url(ui-icon-alert.png);
+}
