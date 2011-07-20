@@ -1,3 +1,5 @@
+//The CLIENTSIDE version of generating "fresh" rows in tables - CRUD pages, ticket ntoes - and adding them in.
+
 //Setups drag-and-drop editing on a #table, automatically serializing to an #ordering, and a generic add-new-row function.
 //It does help in doing CRUD pages.
 //implied: a table with id=table, an input with id=ordering (and name=ordering, if that helps)      
@@ -46,6 +48,7 @@ function RemoveRow(sel) {
     $("#table").find(sel).remove();
 }
 
+//The CLIENTSIDE version of drop-down box creation.
 
 //Several utility functions to setup dropdown boxes from JSON.
 function addDropdownEmpty(elem, required_p) {

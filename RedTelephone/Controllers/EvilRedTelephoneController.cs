@@ -36,7 +36,7 @@ namespace RedTelephone.EvilLinq {
             else
                 return results.First();
         }
-        //can you keep track of all the types? I f**king can't - no thanks for forcing me to cast to (dynamic, dynamic -> dynamic).
+        //can you keep track of all the types? I can't - no thanks for forcing me to cast to (dynamic, dynamic -> dynamic).
         public static IEnumerable<dynamic> OrderByDescending(this object src, Func<dynamic, dynamic> accessor)
         {
             ((dynamic)src).Sort((Comparison<dynamic>)((x, y) => (accessor(x).CompareTo(accessor(y)))));

@@ -1,6 +1,6 @@
 ﻿<!DOCTYPE html>
 
-<!-- several macros that help do things serverside that the CRUDtilities do clientside - dropboxes, for one. -->
+<!-- Serverside dropdown box generation. OptionList enumerates and generates, emptyOption handles the case of STR_NOT_INSTANTIATED.-->
 <macro name="optionList" collection="IEnumerable[[dynamic]]" target="String" accessor="Func[[dynamic, String]]" display="Func[[dynamic, String]]">
     <for each="var x in collection">
         <if condition="accessor(x) == target">
@@ -23,10 +23,11 @@
     </if>
 </macro>
 
+<!-- Generate a list view of tickets - this coordinates with the paging code below. -->
 <macro name="ticketDetails" tickets="IEnumerable[[Ticket]]">
     <table id="results">
 	<tbody>
-		<tr/>
+		<tr/> <!--one extra row because the pager wants a header.-->
         <for each="var ticket in tickets">
             <tr>
                 <td><a class="form-cell" href="/ticket/edit/${ticket.code}">${ticket.code}</a></td>
@@ -46,27 +47,6 @@
 	<div style="text-align: center;" id="pageNavPosition" /> 
 </macro>
 
-<!--
-<macro name="ticketDetails" tickets="IEnumerable[[Ticket]]">
-    <div class="form">
-        <for each="var ticket in tickets">
-            <div class="form-row">
-                <a class="form-cell" href="/ticket/edit/${ticket.code}">${ticket.code}</a>
-                <p class="form-cell">${((RedTelephoneController)ViewContext.Controller).presentChar14Timestamp(ticket.updatingTime)}</p>
-            </div>
-            <div class="form-row">
-                <span class="form-cell"></span>
-                <p class="form-cell">${ticket.formatSource()}</p>
-            </div>
-            <div class="form-row">
-                <span class="form-cell"></span>
-                <p class="form-cell">${ticket.formatCause()}</p>
-            </div>
-        </for>
-    </div>
-</macro>
--->
-
 <html>
     <head>
         <title>RedTelephone</title>
@@ -82,7 +62,7 @@
 		<script src="/Scripts/paging.js" type="text/javascript"></script>
 		<script type="text/javascript"/>
 		$(document).ready(function () {
-		    pager = new Pager('results', 10 * 3); 
+		    pager = new Pager('results', 10 * 3); //it's important that this is *3 - one ticket = 3 rows.
 			pager.init(); 
 			pager.showPageNav('pager', 'pageNavPosition'); 
 			pager.showPage(1);
