@@ -423,7 +423,29 @@ namespace RedTelephone.Controllers
         {
             return authenticatedAction(new String[] { "UT" }, () => {
                 IEnumerable<Ticket> filteredTickets = db.Tickets;
-                //searching happens here
+
+                //filter by date ranges.
+                Action<String, String, Func<Ticket, String>> dateRangeAndFilter = (startStr, endStr, accessor) => {
+                    DateTime startDate;
+                    DateTime endDate;
+                    if (startStr == "") {
+                        startDate = DateTime.MinValue;
+                    } else {
+                        startDate = parseDatePickerDate(startStr);
+                    }
+                    if (endStr == "") {
+                        endDate = DateTime.MaxValue;
+                    } else {
+                        endDate = parseDatePickerDate(endStr);
+                    }
+                    filteredTickets = filteredTickets.ToList().Where(t => startDate < parseChar14Timestamp(accessor(t)) && parseChar14Timestamp(accessor(t)) < endDate);
+                };
+                dateRangeAndFilter(collection["createdStart"], collection["createdEnd"], t => t.enteringTime);
+                dateRangeAndFilter(collection["updatedStart"], collection["updatedEnd"], t => t.updatingTime);
+                dateRangeAndFilter(collection["resolvedStart"], collection["resolvedEnd"], t => t.updatingTime);
+                dateRangeAndFilter(collection["respondedStart"], collection["respondedEnd"], t => t.updatingTime);
+
+                //now do simple equals filters
                 Action<String, Func<Ticket, Boolean>> paramAndFilter = (param, filter) => {
                     if (param != STR_NOT_INSTANTIATED && param != null) {
                         filteredTickets = filteredTickets.Where(filter);

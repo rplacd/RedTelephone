@@ -4,6 +4,7 @@
           IssueSourceLvl1s="IEnumerable[[IssueSourceLvl1]]" InitIssueSourceLvl2s="IEnumerable[[IssueSourceLvl2]]" InitIssueSourceLvl3s="IEnumerable[[IssueSourceLvl3]]"/>
 
 <script type="text/javascript">
+    //setting up the interactively updating dropdowns
     var sourceTree = undefined;
     var contractTree = undefined;
     $.getJSON("/referencedata/trees/sources", function(data) {
@@ -11,6 +12,33 @@
     });
     $.getJSON("/referencedata/trees/contracts", function(data) {
     contractTree = data;
+    });
+    
+    function setupRangePair (date1, date2) {
+		var dates = $( "#" + date1 + ", #" + date2 ).datepicker({
+			changeMonth: true,
+            changeYear: true,
+            dateFormat: "dd/mm/yy",
+			onSelect: function( selectedDate ) {
+				var option = this.id == date1 ? "minDate" : "maxDate",
+					instance = $( this ).data( "datepicker" ),
+					date = $.datepicker.parseDate(
+						instance.settings.dateFormat ||
+						$.datepicker._defaults.dateFormat,
+						selectedDate, instance.settings );
+				dates.not( this ).datepicker( "option", option, date );
+			}
+        });
+    }
+    
+    
+    //setting up the date pickers    	
+    $(document).ready(function () {
+        setupRangePair("createdStart", "createdEnd");
+        setupRangePair("updatedStart", "updatedEnd");
+        setupRangePair("resolvedStart", "resolvedEnd");
+        setupRangePair("respondedStart", "respondedEnd");
+
     });
 </script>
 
@@ -27,6 +55,29 @@
                         <%=emptyOption("", false)%>
                         <%=optionList(Priorities, "", (p)=>p.code, (p)=>p.description)%>
                     </select>
+                </div>
+            </div>
+            <h2>By date</h2>
+            <div class="form">
+                <div class="form-row">
+                    <p class="form-cell">Created during</p>
+                    <input class="form-cell" type="text" id="createdStart" name="createdStart"/>
+                    <input class="form-cell" type="text" id="createdEnd" name="createdEnd"/>
+                </div>
+                <div class="form-row">
+                    <p class="form-cell">Last updated during</p>
+                    <input class="form-cell" type="text" id="updatedStart" name="updatedStart"/>
+                    <input class="form-cell" type="text" id="updatedEnd" name="updatedEnd"/>
+                </div>
+                <div class="form-row">
+                    <p class="form-cell">Marked solved during</p>
+                    <input class="form-cell" type="text" id="resolvedStart" name="resolvedStart"/>
+                    <input class="form-cell" type="text" id="resolvedEnd" name="resolvedEnd"/>
+                </div>
+                <div class="form-row">
+                    <p class="form-cell">Responded to during</p>
+                    <input class="form-cell" type="text" id="respondedStart" name="respondedStart"/>
+                    <input class="form-cell" type="text" id="respondedEnd" name="respondedEnd"/>
                 </div>
             </div>
             <h2>By user</h2>

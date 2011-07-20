@@ -113,22 +113,8 @@ namespace RedTelephone.Controllers
                 validationLogPrefix = "ReportsController.Index";
                 StringWriter output = new StringWriter();
 
-                //set up the date
-                Func<String, DateTime> parse = (str) => {
-                    String[] dateMonthYear = str.Split(new char[] { '/' });
-                    ValidateAssertion(dateMonthYear.Count() == 3, "A date parameter was formatted incorrectly ({0}) - this is a programmer's issue.", str);
-                    try {
-                        Int32 day = Convert.ToInt32(dateMonthYear[0]);
-                        Int32 month = Convert.ToInt32(dateMonthYear[1]);
-                        Int32 year = Convert.ToInt32(dateMonthYear[2]);
-                        return new DateTime(year, month, day);
-                    } catch (FormatException e) {
-                        ValidateAssertion(false, "A date parameter was formatted incorrectly ({0}) - this is a programmer's issue.", str);
-                        return new DateTime(1, 1, 1); //this will never be reached.
-                    }
-                };
-                var startDate = parse(collection["from"]);
-                var endDate = parse(collection["to"]);
+                var startDate = parseDatePickerDate(collection["from"]);
+                var endDate = parseDatePickerDate(collection["to"]);
                 //jquery helps keep the startDate < endDate constraint, so no worries.
 
 
