@@ -261,6 +261,26 @@ namespace RedTelephone.Controllers
             });
         }
 
+        private String ticketCode8Gen()
+        //returns a new ticket code - the reason this is in here is because we actually have to access the DB.
+        //upside: this function is *deterministic*
+        {
+            if (db.Tickets.Count() > 9999999) {
+                ValidateAssertion(false, "We've run out of codes to assign to your ticket - has anyone added a ticket while you were doing so?");
+                return "nonce";
+            } else {
+                Ticket lastTicket = db.Tickets.AsEnumerable().OrderByDescending(t => Convert.ToInt32(t.code)).FirstOrDefault();
+                int newCode;
+                if (lastTicket == null) {
+                    newCode = 0;
+                } else {
+                    var lastCode = Convert.ToInt32(lastTicket.code);
+                    newCode = ++lastCode;
+                }
+                return Convert.ToString(newCode).PadLeft(8, '0');
+            }
+        }
+
         [HttpPost]
         public ActionResult Index(FormCollection collection)
         //Commits ticket to disk - reads some data from form values, and autogenerates some of its own like updatingTime and respondingTime.
@@ -274,7 +294,7 @@ namespace RedTelephone.Controllers
                 if (newTicket_p) {
                     target = new Ticket();
                     //STUB
-                    target.code = getFreshIdVal<String>(Str8Gen, db.Tickets.Select(t => t.code).ToArray());
+                    target.code = ticketCode8Gen();
                     target.version = 0;
                     logger.DebugFormat("TicketController.Index creating new ticket {0}", target.code);
                 } else {
