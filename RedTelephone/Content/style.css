@@ -135,6 +135,9 @@ input[readonly], input[readonly="readonly"], textarea[readonly]
 /*CSS sprite fun.*/
 .error-icon 
 {
-    text-indent: -99999px; overflow: hidden; background-repeat: no-repeat;
+    font-size: 0px; vertical-align: middle;
+    padding: 0px; margin-top: 4px;
+    text-indent: -99999px; overflow: hidden; background-repeat: no-repeat; white-space: nowrap; 
 	width: 16px; height: 16px; background-image: url(ui-icon-alert.png);
+	z-index: 5; position: absolute;
 }

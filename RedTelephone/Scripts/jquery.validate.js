@@ -650,13 +650,13 @@
                     customizeLabel(label);
 
                     // check if we have a generated label, replace the message then
-                    label.attr("generated") && label.html(message);
+                    label.attr("generated") && label.html(message); 
                 } else {
                     // create label
                     label = $("<" + this.settings.errorElement + "/>")
 					.attr({ "for": this.idOrName(element), generated: true })
 					.addClass(this.settings.errorClass)
-					.html(message || "");
+                    .html(message || "");
 
                     //add our accoutrements
                     customizeLabel(label);
