@@ -13,7 +13,7 @@
     </header>
 
 
-    <form action="/referencedata/officesandemployees" enctype="multipart/form-data" method="post" id="form">
+    <form action="/referencedata/officesandemployees" accept-charset="utf-8" enctype="multipart/form-data" method="post" id="form">
 
     <section>
         <div class="form">
