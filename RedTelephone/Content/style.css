@@ -126,6 +126,7 @@ input[readonly], input[readonly="readonly"], textarea[readonly]
 
 /*pager styling - to indicate interactivity, really...*/
 .pg-normal, .pg-selected {
+    cursor: hand;
     cursor: pointer;
 }
 .pg-selected {

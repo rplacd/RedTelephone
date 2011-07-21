@@ -3,7 +3,7 @@
     $(document).ready(function () {
     pager = new Pager('results', 10 * 3); //it's important that this is *3 - one ticket = 3 rows.
     pager.init();
-    pager.showPageNav('pager', 'pageNavPosition');
+    pager.showPageNav("pager", 'pageNavPosition');
     pager.showPage(1);
     });
 </script>
@@ -16,6 +16,8 @@
     </header>
     <section>
         <%=ticketDetails(Results)%>
+        <br/>
+        <div style="text-align: center;" id="pageNavPosition"></div>
     </section>
     <nav>
         <div id="centering-hack">

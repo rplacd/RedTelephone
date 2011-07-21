@@ -31,5 +31,7 @@
         -->
         <h2>Tickets assigned to me</h2>
         <%=ticketDetails(Assigned)%>
+        <br/>
+        <div style="text-align: center;" id="pageNavPosition"></div>
     </section>
 </div>

@@ -64,9 +64,9 @@ function Pager(tableName, itemsPerPage) {
     	var pagerHtml = '<span onclick="' + pagerName + '.prev();" class="pg-normal">&#171</span> | ';
         for (var page = 1; page <= this.pages; page++) 
             pagerHtml += '<span id="pg' + page + '" class="pg-normal" onclick="' + pagerName + '.showPage(' + page + ');">' + page + '</span> | ';
-        pagerHtml += '<span onclick="'+pagerName+'.next();" class="pg-normal">&#187;</span>';            
+        pagerHtml += '<span onclick="'+pagerName+'.next();" class="pg-normal">&#187;</span>';
         
-        element.innerHTML = pagerHtml;
+        $("#"+positionId).html(pagerHtml);
     }
 }
 
