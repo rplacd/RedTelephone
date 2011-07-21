@@ -96,6 +96,28 @@ namespace RedTelephone.Controllers
                 if (Request.Files["officesdelta"] != null) {
                     doBody(Request.Files["officesdelta"].InputStream, 2, (line) => {
                         String code = line[0]; String description = line[1];
+
+                        //validation
+                        if (code.Length > 50) {
+                            officeResults.Add(new UpdateResult() {
+                                tag = UpdateResult.t_tag.Error,
+                                description = description,
+                                code = code,
+                                error_message = "Office code is longer than 50 chars"
+                            });
+                            goto skipRest;
+                        }
+                        if (description.Length > 250) {
+                            officeResults.Add(new UpdateResult() {
+                                tag = UpdateResult.t_tag.Error,
+                                description = description,
+                                code = code,
+                                error_message = "Office description is longer than 250 chars"
+                            });
+                            goto skipRest;
+                        }
+
+                        //actual DB editing.
                         Office possibleOffice = eligibleOffices.Where(o => o.code == code)
                                                                 .OrderByDescending(o => o.version)
                                                                 .FirstOrDefault();
@@ -130,6 +152,7 @@ namespace RedTelephone.Controllers
                             db.Offices.AddObject(newOffice);
                         }
                         officeResults.Add(new UpdateResult { tag = result, code = code, description = description });
+                        skipRest:;
                     });
                 }
 
@@ -138,6 +161,37 @@ namespace RedTelephone.Controllers
                 if (Request.Files["employeesdelta"] != null) {
                     doBody(Request.Files["employeesdelta"].InputStream, 3, (line) => {
                         String code = line[0]; String firstName = line[1]; String lastName = line[2];
+
+                        //validation.
+                        if (code.Length > 50) {
+                            employeeResults.Add(new UpdateResult() {
+                                tag = UpdateResult.t_tag.Error,
+                                description = firstName + " " + lastName,
+                                code = code,
+                                error_message = "Employee code is longer than 50 chars"
+                            });
+                            goto skipRest;
+                        }
+                        if (firstName.Length > 250) {
+                            employeeResults.Add(new UpdateResult() {
+                                tag = UpdateResult.t_tag.Error,
+                                description = firstName + " " + lastName,
+                                code = code,
+                                error_message = "Employee's first name is longer than 250 chars"
+                            });
+                            goto skipRest;
+                        }
+                        if (lastName.Length > 250) {
+                            employeeResults.Add(new UpdateResult() {
+                                tag = UpdateResult.t_tag.Error,
+                                description = firstName + " " + lastName,
+                                code = code,
+                                error_message = "Employee's last name is longer than 250 chars"
+                            });
+                            goto skipRest;
+                        }
+
+                        //actual DB modification
                         Employee possibleEmployee = eligibleEmployees.Where(e => e.code == code)
                                                                 .OrderByDescending(e => e.version)
                                                                 .FirstOrDefault();
@@ -173,6 +227,7 @@ namespace RedTelephone.Controllers
                             };
                         }
                         employeeResults.Add(new UpdateResult { tag = result, code = code, description = firstName + " " + lastName });
+                        skipRest: ;
                     });
                 }
 

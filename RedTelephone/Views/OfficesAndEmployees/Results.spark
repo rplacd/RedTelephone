@@ -6,6 +6,9 @@
         <td>${result.tag.ToString()}</td>
         <td>${result.code}</td>
         <td>${result.description}</td>
+        <if condition="result.tag == RedTelephone.Controllers.OfficesAndEmployeesController.UpdateResult.t_tag.Error && result.error_message != null">
+            <td>${result.error_message}</td>
+        </if>
     </tr>
 </macro>
 
@@ -16,7 +19,7 @@
 
     <section>
         <h2>Results of your batch update:</h2>
-        <if condition="OfficeResults.Count > 1">
+        <if condition="OfficeResults.Count > 0">
             <h2>Offices</h2>
             <table>
                 <tbody>
@@ -26,7 +29,7 @@
                 </tbody>
             </table>
         </if>
-        <if condition="EmployeeResults.Count > 1">
+        <if condition="EmployeeResults.Count > 0">
             <h2>Employees</h2>
             <table>
                 <tbody>
