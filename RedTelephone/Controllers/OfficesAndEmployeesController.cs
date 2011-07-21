@@ -17,7 +17,7 @@ namespace RedTelephone.Controllers
         public ActionResult Index()
         {
             return authenticatedAction( new String[]{ "UR" }, () =>  {
-                var contracts = db.Contracts;
+                var contracts = db.Contracts.OrderBy(c => c.sortIndex);
                 ViewData["Contracts"] = contracts;
                 {
                     var temp_firstCt = contracts.FirstOrDefault();
@@ -26,7 +26,7 @@ namespace RedTelephone.Controllers
                         ViewData["InitCompanies"] = new List<Company>();
                     } else {
                         ViewData["FirstContractCode"] = temp_firstCt.code;
-                        ViewData["InitCompanies"] = db.Companies.Where(c => c.contractCode == temp_firstCt.code);
+                        ViewData["InitCompanies"] = db.Companies.Where(c => c.contractCode == temp_firstCt.code).OrderBy(c => c.sortIndex);
                     }
                 }
                 return View();
