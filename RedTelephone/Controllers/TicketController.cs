@@ -482,7 +482,7 @@ namespace RedTelephone.Controllers
                 paramAndFilter(collection["requestedResponse"], t => t.requestedResponseCode == collection["requestedResponse"]);
                 paramAndFilter(collection["actualResponse"], t => t.actualResponseCode == collection["actualResponse"]);
                 //and ends here
-                ViewData["Results"] = filteredTickets;
+                ViewData["Results"] = filteredTickets.OrderByDescending(t => t.updatingTime);
                 return View("SearchResults");
             });
         }
