@@ -5,6 +5,7 @@
           Contracts="IEnumerable[[Contract]]" InitCompanies="IEnumerable[[Company]]" InitOffices="IEnumerable[[Office]]" InitEmployees="IEnumerable[[Employee]]"
           Notes="IEnumerable[[TicketNote]]"/>
 <var Controller="(RedTelephone.Controllers.TicketController)ViewContext.Controller" type="RedTelephone.Controllers.TicketController" />
+<var Referer='((RedTelephone.Controllers.TicketController)ViewContext.Controller).Request.ServerVariables["http_referer"]' type="String" />
 
 <style type="text/css">
     .notes {
@@ -280,7 +281,7 @@
             <div id="centering-hack">
                 <ul>
                     <li>
-                        <a href="/ticket">Cancel</a>
+                        <a href="${Referer}">Cancel</a>
                     </li>
                     <li>
                         <input type="submit" class="submit" value="Save" />
