@@ -51,8 +51,8 @@ namespace RedTelephone.Controllers
         public ActionResult Contracts()
         {
             //get a list with the newest employees/offices for each employee/office code.
-            var newestOffices = db.newestOffices();
-            var newestEmployees = db.newestEmployees();
+            var newestOffices = db.Offices;
+            var newestEmployees = db.Employees;
             
             return authenticatedAction(new String[] { "UT", "UR" }, () => {
                 content:
@@ -83,8 +83,8 @@ namespace RedTelephone.Controllers
                             w.WriteMember("employees");
                             w.WriteStartArray();
                             foreach (Employee e in newestEmployees
+                                .Where(e => e.companyCode == co.code)
                                 .Where(e => e.contractCode == c.code)
-                                .Where(e => e.companyCode == c.code)
                                 .WAOBTL()) {
                                 w.WriteStartObject();
                                 //LOOK AT THIS! WE'RE NOT JUST SENDING OVER THE CODE, BUT THE VERSION AS WELL!

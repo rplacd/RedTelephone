@@ -251,8 +251,8 @@ namespace RedTelephone.Controllers
 
                 var companies = db.Companies.Where(c => c.contractCode == ticket.contractCode);
                 checkAndAddList(companies, "companies matching the contract of the ticket", "InitCompanies");
-                ViewData["InitOffices"] = db.newestOffices().Where(o => o.contractCode == ticket.contractCode && o.companyCode == ticket.companyCode).Where(o => o.active_p == "A").OrderBy(o => o.sortIndex).ToList();
-                ViewData["InitEmployees"] = db.newestEmployees().Where(e => e.contractCode == ticket.contractCode && e.companyCode == ticket.companyCode).Where(o => o.active_p == "A").OrderBy(o => o.sortIndex).ToList();
+                ViewData["InitOffices"] = db.Offices.Where(o => o.contractCode == ticket.contractCode && o.companyCode == ticket.companyCode).Where(o => o.active_p == "A").OrderBy(o => o.sortIndex).ToList();
+                ViewData["InitEmployees"] = db.Employees.Where(e => e.contractCode == ticket.contractCode && e.companyCode == ticket.companyCode).Where(o => o.active_p == "A").OrderBy(o => o.sortIndex).ToList();
 
                 ViewData["Notes"] = db.TicketNotes.Where(n => n.ticketCode == ticket.code).OrderBy(n => n.enteringTime).ToList();
 
