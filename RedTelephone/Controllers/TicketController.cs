@@ -251,8 +251,43 @@ namespace RedTelephone.Controllers
 
                 var companies = db.Companies.Where(c => c.contractCode == ticket.contractCode);
                 checkAndAddList(companies, "companies matching the contract of the ticket", "InitCompanies");
-                ViewData["InitOffices"] = db.Offices.Where(o => o.contractCode == ticket.contractCode && o.companyCode == ticket.companyCode).Where(o => o.active_p == "A").OrderBy(o => o.sortIndex).ToList();
-                ViewData["InitEmployees"] = db.Employees.Where(e => e.contractCode == ticket.contractCode && e.companyCode == ticket.companyCode).Where(o => o.active_p == "A").OrderBy(o => o.sortIndex).ToList();
+
+                var initOffices = db.newestOffices().Where(o => o.contractCode == ticket.contractCode && o.companyCode == ticket.companyCode).Where(o => o.active_p == "A").OrderBy(o => o.sortIndex).ToList();
+                var initEmployees = db.newestEmployees().Where(e => e.contractCode == ticket.contractCode && e.companyCode == ticket.companyCode).Where(o => o.active_p == "A").OrderBy(o => o.sortIndex).ToList();
+                //create a synthetic office and employee that matches the current ticket's one (expect the version to change, for example) if there's any deviation from the DB
+                //praise jeebus we can't remove tickets - this doesn't handle the case where newestOffices + etc. don't have our ticket because it gets pulled out.
+                if (initEmployees.Where(e => e.code == ticket.employeeCode).FirstOrDefault().version != ticket.employeeVersion) {
+                    Employee dbVersion = db.Employees.Where(e => e.contractCode == ticket.contractCode && e.companyCode == ticket.companyCode)
+                                                .Where(e => e.code == ticket.employeeCode && e.version == ticket.employeeVersion)
+                                                .FirstOrDefault();
+                    var synEmployee = new Employee() {
+                        contractCode = ticket.contractCode,
+                        companyCode = ticket.companyCode,
+                        code = ticket.employeeCode,
+                        version = ticket.employeeVersion,
+                        firstName = dbVersion.firstName,
+                        lastName = dbVersion.lastName + " (ticket version)",
+                        sortIndex = 0
+                    };
+                    initEmployees.Add(synEmployee);
+                } 
+                if (initOffices.Where(e => e.code == ticket.officeCode).FirstOrDefault().version != ticket.officeVersion) {
+                    Office dbVersion = db.Offices.Where(e => e.contractCode == ticket.contractCode && e.companyCode == ticket.companyCode)
+                                                .Where(e => e.code == ticket.officeCode && e.version == ticket.officeVersion)
+                                                .FirstOrDefault();
+                    var synOffice = new Office() {
+                        contractCode = ticket.contractCode,
+                        companyCode = ticket.companyCode,
+                        code = ticket.officeCode,
+                        version = ticket.officeVersion,
+                        description = dbVersion.description + " (ticket version)",
+                        sortIndex = 0
+                    };
+                    initOffices.Add(synOffice);
+                }
+
+                ViewData["InitOffices"] = initOffices;
+                ViewData["InitEmployees"] = initEmployees;
 
                 ViewData["Notes"] = db.TicketNotes.Where(n => n.ticketCode == ticket.code).OrderBy(n => n.enteringTime).ToList();
 

@@ -51,8 +51,8 @@ namespace RedTelephone.Controllers
         public ActionResult Contracts()
         {
             //get a list with the newest employees/offices for each employee/office code.
-            var newestOffices = db.Offices;
-            var newestEmployees = db.Employees;
+            var newestOffices = db.newestOffices();
+            var newestEmployees = db.newestEmployees();
             
             return authenticatedAction(new String[] { "UT", "UR" }, () => {
                 content:

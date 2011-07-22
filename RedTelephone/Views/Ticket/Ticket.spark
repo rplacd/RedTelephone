@@ -201,12 +201,12 @@
                     <p class="form-cell">Office</p>
                     <select id="office" name="office" class="required">
                         <%=emptyOption(Ticket.officeCode.ToString(), true)%>
-                        <%=optionList(InitOffices, Ticket.officeCode.ToString(), (c)=>(c.code.ToString() + "?" + c.version.ToString()), (c)=>c.description)%>
+                        <%=optionList(InitOffices, Ticket.officeCode.ToString() + "?" + Ticket.officeVersion.ToString(), (c)=>(c.code.ToString() + "?" + c.version.ToString()), (c)=>c.description)%>
                     </select>
                     <p class="form-cell">Employee</p>
                     <select id="employee" name="employee" class="required">
                         <%=emptyOption(Ticket.employeeCode.ToString(), true)%>
-                        <%=optionList(InitEmployees, Ticket.employeeCode.ToString(), (c)=>(c.code.ToString() + "?" + c.version.ToString()), (e)=>(e.firstName + " " + e.lastName))%>
+                        <%=optionList(InitEmployees, Ticket.employeeCode.ToString() + "?" + Ticket.employeeVersion.ToString(), (c)=>(c.code.ToString() + "?" + c.version.ToString()), (e)=>(e.firstName + " " + e.lastName))%>
                         </select>
                 </div>
             </div>
