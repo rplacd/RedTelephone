@@ -179,9 +179,8 @@ namespace RedTelephone.Controllers
                             output.printRow("Actual response");
                             output.printEnumeration(cmpTktCats, db.ActualResponses, (r) => r.description, (r) => (tkt) => tkt.actualResponseCode == r.code);
 
-
                             output.printRow();
-                            output.printRow("Cause");
+                            output.printRow("Report cause");
                             output.printEnumeration(cmpTktCats, db.Causes, (c) => c.description, (c) => (tkt) => tkt.causeCode == c.code);
                             output.dedent();
                         }
