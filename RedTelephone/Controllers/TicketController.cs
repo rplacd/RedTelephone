@@ -373,7 +373,7 @@ namespace RedTelephone.Controllers
                 target.updatingUserName = Request.Cookies["Authentication"]["username"];
                 target.updatingTime = char14Timestamp();
 
-                //if the solvedtime's's already been set, simply update from the form.
+                //if the solvedtime's's already been set, update or reset.
                 //or else check to see if actualresponse has been set - if it is, set time, otherwise set null.
                 target.assignedUserName = collection["assignedUserName"];
                 if (collection["solvedTime"] == null) {
@@ -383,9 +383,13 @@ namespace RedTelephone.Controllers
                         target.solvedTime = char14Timestamp();
                     }
                 } else {
-                    target.solvedTime = collection["solvedTime"];
+                    if (collection["issueSourceLvl1"] == STR_NOT_INSTANTIATED) {
+                        target.solvedTime = STR_NOT_INSTANTIATED;
+                    } else {
+                        target.solvedTime = collection["solvedTime"];
+                    }
                 }
-                //if the respondingtime's already been set, simply update from the form.
+                //if the respondingtime's already been set, update or reset.
                 //or else check to see if actualresponse has been set - if it is, set time and username, otherwise set null.
                 if (collection["respondingTime"] == null) {
                     if (collection["actualResponse"] == STR_NOT_INSTANTIATED) {
@@ -396,8 +400,13 @@ namespace RedTelephone.Controllers
                         target.respondingTime = char14Timestamp();
                     }
                 } else {
-                    target.respondingUserName = collection["respondingUserName"];
-                    target.respondingTime = collection["respondingTime"];
+                    if (collection["actualResponse"] == STR_NOT_INSTANTIATED) {
+                        target.respondingUserName = STR_NOT_INSTANTIATED;
+                        target.respondingTime = STR_NOT_INSTANTIATED;
+                    } else {
+                        target.respondingUserName = collection["respondingUserName"];
+                        target.respondingTime = collection["respondingTime"];
+                    }
                 }
 
                 if(newTicket_p)

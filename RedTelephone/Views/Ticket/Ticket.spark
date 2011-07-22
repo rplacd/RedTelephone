@@ -51,6 +51,26 @@
     </div>
 </macro>
 
+<!-- this hardcodes STR_NOT_INSTANTIATED -->
+<macro name="emptyOptionResettable" target="String" required="bool">
+    <if condition='target.TrimEnd(new char[]{Convert.ToChar(" ")}) == ""'>
+        <if condition="!required">
+            <option selected="selected" value="">-</option>
+        </if>
+        <else>
+            <option selected="selected" value="">- (required!)</option>
+        </else>
+    </if>
+    <else>
+        <if condition="!required">
+            <option value="">-</option>
+        </if>
+        <else>
+            <option value="">- (required!)</option>
+        </else>    
+    </else>
+</macro>
+
 <script type="text/javascript">
     //focus on Priority dropdown first thing.
     $(document).ready(function() {
@@ -232,7 +252,7 @@
                     <p class="form-cell">Cause</p>
                     <select id="issueSourceLvl1" name="issueSourceLvl1" 
                             onchange="updateDependentDropdowns([$('#issueSourceLvl1')], sourceTree, $('#issueSourceLvl2'), [$('#issueSourceLvl3')], false)">
-                        <%=emptyOption(Ticket.issueSourceLvl1Code, false)%>
+                        <%=emptyOptionResettable(Ticket.issueSourceLvl1Code, false)%>
                         <%=optionList(IssueSourceLvl1s, Ticket.issueSourceLvl1Code, (c)=>c.code, (c)=>c.description)%>
                     </select>
                     <select id="issueSourceLvl2" name="issueSourceLvl2"
@@ -260,12 +280,12 @@
                 <div class="form-row">
                     <p class="form-cell">Requested response</p>
                     <select name="requestedResponse">
-                        <%=emptyOption(Ticket.requestedResponseCode, false)%>
+                        <%=emptyOptionResettable(Ticket.requestedResponseCode, false)%>
                         <%=optionList(RequestedResponses, Ticket.requestedResponseCode, (r)=>r.code, (r)=>r.description)%>
                     </select>
                     <p class="form-cell">Actual response</p>
                     <select name="actualResponse">
-                        <%=emptyOption(Ticket.actualResponseCode, false)%>
+                        <%=emptyOptionResettable(Ticket.actualResponseCode, false)%>
                         <%=optionList(ActualResponses, Ticket.actualResponseCode, (r)=>r.code, (r)=>r.description)%>
                     </select>
                 </div>
