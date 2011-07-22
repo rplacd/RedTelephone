@@ -225,6 +225,7 @@ namespace RedTelephone.Controllers
                                 sortIndex = possibleEmployee.sortIndex,
                                 active_p = possibleEmployee.active_p
                             };
+                            db.Employees.AddObject(newEmployee);
                         }
                         employeeResults.Add(new UpdateResult { tag = result, code = code, description = firstName + " " + lastName });
                         skipRest: ;

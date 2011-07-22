@@ -22,7 +22,7 @@
                 <select id="contract" name="contract" class="required"
                     onchange="updateDependentDropdowns([$('#contract')], contractTree, $('#company'), [], true)">
                     <%=emptyOption("", true)%>
-                    <%=optionList(Contracts, FirstContractCode.ToString(), (c)=>c.code.ToString(), (c)=>c.description)%>
+                    <%=optionList(Contracts, "", (c)=>c.code.ToString(), (c)=>c.description)%>
                 </select>
             </div>
             <div class="form-row">
