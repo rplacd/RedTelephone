@@ -68,24 +68,26 @@ namespace RedTelephone.Extensions {
         //I don't expect ticketPredicate to change.
         public static void printEnumeration<Category>(this TextWriter writer, TicketCategories tickets, IEnumerable<Category> subjects, Func<Category, String> descriptor, Func<Category, Func<Ticket, Boolean>> makePredicate)
         {
+            writer.indent();
             var count = new TicketCount();
             foreach (var subject in subjects) {
                 var pred = makePredicate(subject);
                 var ct = tickets.createdTickets.Where(pred).Count();
                 var ot = tickets.outstandingTickets.Where(pred).Count();
                 var rt = tickets.resolvedTickets.Where(pred).Count();
-                writer.printRow(descriptor(subject), "", "", ct, ot, rt);
+                writer.printRow(descriptor(subject), ct, ot, rt);
                 count.createdTickets += ct;
                 count.outstandingTickets += ot;
                 count.resolvedTickets += rt;
             }
             writer.printTicketCount(count);
+            writer.dedent();
         }
 
         public static void printTicketCount(this TextWriter writer, TicketCount count)
         {
             writer.printRow("-");
-            writer.printRow("Totals", "", "", count.createdTickets, count.outstandingTickets, count.resolvedTickets);
+            writer.printRow("Totals", count.createdTickets, count.outstandingTickets, count.resolvedTickets);
         }
     }
 }
@@ -123,26 +125,17 @@ namespace RedTelephone.Controllers
                 IEnumerable<Ticket> createdTickets = db.Tickets.ToList()
                     .Where(t => { var et = parseChar14Timestamp(t.enteringTime); return et > startDate && et < endDate; });
                 IEnumerable<Ticket> outstandingTickets = db.Tickets.ToList()
-                    .Where(t => t.respondingTime != "              ")
+                    .Where(t => t.respondingTime == "              ")
                     .Where(t => {
-                        if (t.respondingTime == "") {
-                            return true;
-                        } else {
-                            var et = parseChar14Timestamp(t.enteringTime);
-                            var rt = parseChar14Timestamp(t.respondingTime);
-                            return et > startDate && rt > endDate;
-                        }
+                        var et = parseChar14Timestamp(t.enteringTime);
+                        return et > startDate;
                     });
                 IEnumerable<Ticket> resolvedTickets = db.Tickets.ToList()
                     .Where(t => t.respondingTime != "              ")
                     .Where(t => {
-                        if (t.respondingTime == "") {
-                            return true;
-                        } else {
-                            var et = parseChar14Timestamp(t.enteringTime);
-                            var rt = parseChar14Timestamp(t.respondingTime);
-                            return et > startDate && rt < endDate;
-                        }
+                        var et = parseChar14Timestamp(t.enteringTime);
+                        var rt = parseChar14Timestamp(t.respondingTime);
+                        return et > startDate && rt < endDate;
                     });
                 var tktCats = new Extensions.Extensions.TicketCategories {
                     createdTickets = createdTickets,
@@ -151,8 +144,8 @@ namespace RedTelephone.Controllers
                 };
 
                 //now print the damn report. 6 columns wide.
-                output.printRow("Statistics", "", "From", startDate.ToString(), "To", startDate.ToString());
-                output.printRow("Company", "Contract", "", "Tickets created", "Tickets outstanding", "Tickets responded to");
+                output.printRow("Statistics", "", "From", startDate.ToString("d"), "To", endDate.ToString("d"));
+                output.printRow("Contract", "Company", "", "", "Tickets created", "Tickets outstanding", "Tickets responded to");
 
                 //contract-company, unlike the rest of the categories, requires us to keep track of both contract and company
                 //when printing. so we haven't abstracted this out.
@@ -161,8 +154,7 @@ namespace RedTelephone.Controllers
                     foreach (Contract con in db.Contracts.OrderBy(c => c.code)) {
                         output.printRow(con.description);
                         output.indent();
-                        foreach (Company com in db.Companies.OrderBy(c => c.code)) {
-                            output.printRow();
+                        foreach (Company com in db.Companies.Where(c => c.contractCode == con.code).OrderBy(c => c.code)) {
                             output.printRow(com.description);
                             output.indent();
 
@@ -195,15 +187,13 @@ namespace RedTelephone.Controllers
                         }
                         output.dedent();
                     }
-                    //output.printTicketCount(count);
+                    output.printRow();
                 }
 
 
 
                 var ret = new ContentResult { ContentType = "text/plain", Content = output.GetStringBuilder().ToString() };
                 output.printRow();
-
-                //now do single-level enumerations and print.
 
                 return ret;
             });
