@@ -151,10 +151,10 @@ namespace RedTelephone.Controllers
                 //when printing. so we haven't abstracted this out.
                 {
                     Extensions.Extensions.TicketCount count = new Extensions.Extensions.TicketCount();
-                    foreach (Contract con in db.Contracts.OrderBy(c => c.code)) {
+                    foreach (Contract con in db.Contracts.OrderBy(c => c.sortIndex)) {
                         output.printRow(con.description);
                         output.indent();
-                        foreach (Company com in db.Companies.Where(c => c.contractCode == con.code).OrderBy(c => c.code)) {
+                        foreach (Company com in db.Companies.Where(c => c.contractCode == con.code).OrderBy(c => c.sortIndex)) {
                             output.printRow(com.description);
                             output.indent();
 
@@ -165,23 +165,23 @@ namespace RedTelephone.Controllers
                             };
 
                             output.printRow("Source");
-                            output.printEnumeration(cmpTktCats, db.TicketSources, (src) => src.description, (src) => (tkt) => tkt.ticketSourceCode == src.code);
+                            output.printEnumeration(cmpTktCats, db.TicketSources.OrderBy(x => x.sortIndex), (src) => src.description, (src) => (tkt) => tkt.ticketSourceCode == src.code);
 
                             output.printRow();
                             output.printRow("Priority");
-                            output.printEnumeration(cmpTktCats, db.Priorities, (p) => p.description, (p) => (tkt) => tkt.priorityCode == p.code);
+                            output.printEnumeration(cmpTktCats, db.Priorities.OrderBy(x => x.sortIndex), (p) => p.description, (p) => (tkt) => tkt.priorityCode == p.code);
 
                             output.printRow();
                             output.printRow("Requested response");
-                            output.printEnumeration(cmpTktCats, db.RequestedResponses, (r) => r.description, (r) => (tkt) => tkt.requestedResponseCode == r.code);
+                            output.printEnumeration(cmpTktCats, db.RequestedResponses.OrderBy(x => x.sortIndex), (r) => r.description, (r) => (tkt) => tkt.requestedResponseCode == r.code);
 
                             output.printRow();
                             output.printRow("Actual response");
-                            output.printEnumeration(cmpTktCats, db.ActualResponses, (r) => r.description, (r) => (tkt) => tkt.actualResponseCode == r.code);
+                            output.printEnumeration(cmpTktCats, db.ActualResponses.OrderBy(x => x.sortIndex), (r) => r.description, (r) => (tkt) => tkt.actualResponseCode == r.code);
 
                             output.printRow();
                             output.printRow("Report cause");
-                            output.printEnumeration(cmpTktCats, db.Causes, (c) => c.description, (c) => (tkt) => tkt.causeCode == c.code);
+                            output.printEnumeration(cmpTktCats, db.Causes.OrderBy(x => x.sortIndex), (c) => c.description, (c) => (tkt) => tkt.causeCode == c.code);
                             output.dedent();
                         }
                         output.dedent();
