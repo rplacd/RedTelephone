@@ -15,6 +15,17 @@
 			}
 		});
 	});
+    
+    function popupIntervention() {
+        $("#form").validate();
+        if($("#form").valid()) {
+            window.open('', 'report');
+            form.target = 'report';
+            return true;
+        } else {
+            return false;
+        }
+    }
 </script>
 
 <div>
@@ -22,17 +33,17 @@
         <h1>Generate a report</h1>
     </header>
 
-    <form action="/referencedata/reports" method="post" id="form">
+    <form action="/referencedata/reports" onSubmit="return popupIntervention();" method="post" id="form">
 
     <section>
         <div class="form">
             <div class="form-row">
                 <p class="form-cell">From</p>
-                <input class="form-cell" type="text" id="from" name="from"/>
+                <input class="form-cell required" type="text" id="from" name="from"/>
             </div>
             <div class="form-row">
                 <p class="form-cell">to</p>
-                <input class="form-cell" type="text" id="to" name="to"/>
+                <input class="form-cell required" type="text" id="to" name="to"/>
             </div>
         </div>
     </section>
@@ -41,7 +52,7 @@
         <div id="centering-hack">
             <ul>
                 <li>
-                    <input type="submit" class="submit" value=Generate report" />
+                    <input type="submit" class="submit" value="Generate report" />
                 </li>
             </ul>
         </div>
