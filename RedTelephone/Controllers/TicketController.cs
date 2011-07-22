@@ -21,11 +21,10 @@ namespace RedTelephone.Models
             str.Append(" > ");
             str.Append(db.Companies.FirstOrDefault(c => c.code == companyCode).description);
             str.Append(" > ");
-            str.Append(db.Offices.Where(o => o.code == officeCode).OrderByDescending(o => o.version).First().description);
+            str.Append(db.Offices.Where(o => o.code == officeCode && o.version == officeVersion).OrderByDescending(o => o.version).First().description);
             str.Append(" > ");
-            var firstname = db.Employees.Where(e => e.code == employeeCode).OrderByDescending(e => e.version).First().firstName;
-            var lastname = db.Employees.Where(e => e.code == employeeCode).OrderByDescending(e => e.version).First().lastName;
-            str.Append(firstname + " " + lastname);
+            var memo_employee = db.Employees.Where(e => e.code == employeeCode && e.version == employeeVersion).OrderByDescending(e => e.version).First();
+            str.Append(memo_employee.firstName + " " + memo_employee.lastName);
 
             return str.ToString();
         }
