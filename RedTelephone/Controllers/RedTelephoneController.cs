@@ -169,7 +169,14 @@ namespace RedTelephone.Controllers
         //REFACTOR: can we have authenticatedAction feed off this instead? too much duplication here.
         protected override void OnActionExecuted(ActionExecutedContext _)
         {
+            //disable caching!
+            HttpContext.Response.Cache.SetExpires(DateTime.UtcNow.AddDays(-1));
+            HttpContext.Response.Cache.SetValidUntilExpires(false);
+            HttpContext.Response.Cache.SetRevalidation(HttpCacheRevalidation.AllCaches);
+            HttpContext.Response.Cache.SetCacheability(HttpCacheability.NoCache);
+            HttpContext.Response.Cache.SetNoStore();
 
+            //set up some main menu state
             List<String> perms = new List<String>();
             String username = null;
             bool fail = false;
